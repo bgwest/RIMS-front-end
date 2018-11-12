@@ -23,9 +23,6 @@ class Landing extends React.Component {
         this.props.history.push(routes.DASHBOARD);
         return response;
       })
-      .then(() => {
-        return this.props.pGetStatus();
-      })
       .catch(console.error);
   };
 

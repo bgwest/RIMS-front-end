@@ -85,3 +85,6 @@
   background: $buttonHoverBackground;
   color:#fff;
 }
+button:focus {
+  outline: none;
+}

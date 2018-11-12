@@ -1,0 +1,23 @@
+@import "variables";
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+body {
+  background-color: $color-accent;
+  font-family: $roboto;
+  color: $color-secondary;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+h1 {
+  font-family: $roboto;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 3%;
+}
+
+html {
+  overflow-y: scroll;
+}

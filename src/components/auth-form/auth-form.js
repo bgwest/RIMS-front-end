@@ -89,7 +89,14 @@ class AuthForm extends React.Component {
           type='email'
           value={this.state.email}
           onChange={this.handleChange}
-        />;
+        />
+        <input
+            name='securityquestion'
+            placeholder='securityquestion'
+            type='text'
+            value={this.state.securityQuestion}
+            onChange={this.handleChange}
+        />
     { this.state.emailPristine ? undefined : <p>{this.state.emailError}</p> }
       </div>;
     return(
@@ -103,13 +110,6 @@ class AuthForm extends React.Component {
           />
           { this.state.usernamePristine ? undefined : <p>{this.state.usernameError}</p> }
           { type !== 'login' ? signupJSX : undefined }
-          <input
-            name='securityquestion'
-            placeholder='securityquestion'
-            type='text'
-            value={this.state.securityQuestion}
-            onChange={this.handleChange}
-          />
           { this.state.securityQuestionPristine ? undefined : <p>{this.state.securityQuestionError}</p> }
           <input
               name='password'

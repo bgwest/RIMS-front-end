@@ -75,13 +75,13 @@
   background: $color-secondary;
   border: none;
   padding: 10px 20px 10px 20px;
-  border-bottom: 3px solid #ff6982;
+  border-bottom: 3px solid $buttonHoverBackground;
   border-radius: 3px;
   color: #D2E2FF;
 }
 
 .auth-form button[type="submit"]:hover,
 .auth-form button[type="button"]:hover{
-  background: #ff6982;
+  background: $buttonHoverBackground;
   color:#fff;
 }

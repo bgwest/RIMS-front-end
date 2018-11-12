@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import validator from 'validator';
+import './auth-form.scss';
 
 const emptyState = {
   username: '',
@@ -82,14 +83,20 @@ class AuthForm extends React.Component {
     type = type === 'login' ? 'login' : 'signup';
 
     const signupJSX =
-      <div>
+      <div className='auth-form signup'>
+        <li>
+        <label htmlFor='email'>Email</label>
         <input
           name='email'
-          placeholder='email'
+          placeholder='enter your email'
           type='email'
           value={this.state.email}
           onChange={this.handleChange}
         />
+        </li>
+        { this.state.emailPristine ? undefined : <p className='validation'>{this.state.emailError}</p> }
+        <li>
+        <label htmlFor='securityQuestion'>Security Question</label>
         <input
             name='securityQuestion'
             placeholder='security question'
@@ -97,30 +104,38 @@ class AuthForm extends React.Component {
             value={this.state.securityQuestion}
             onChange={this.handleChange}
         />
-    { this.state.emailPristine ? undefined : <p>{this.state.emailError}</p> }
+        </li>
       </div>;
     return(
+      <div className='auth-form'>
         <form onSubmit={this.handleSubmit}>
+          <li>
+          <label htmlFor='username'>User Name</label>
           <input
             name='username'
-            placeholder='username'
+            placeholder='enter a username'
             type='text'
             value={this.state.username}
             onChange={this.handleChange}
           />
-          { this.state.usernamePristine ? undefined : <p>{this.state.usernameError}</p> }
+          </li>
+          { this.state.usernamePristine ? undefined : <p className='validation'>{this.state.usernameError}</p> }
           { type !== 'login' ? signupJSX : undefined }
-          { this.state.securityQuestionPristine ? undefined : <p>{this.state.securityQuestionError}</p> }
+          { this.state.securityQuestionPristine ? undefined : <p className='validation'>{this.state.securityQuestionError}</p> }
+          <li>
+          <label htmlFor='password'>Password</label>
           <input
               name='password'
-              placeholder='password'
+              placeholder='please enter a password'
               type='password'
               value={this.state.password}
               onChange={this.handleChange}
           />
-          { this.state.passwordPristine ? undefined : <p>{this.state.passwordError}</p> }
+          </li>
+          { this.state.passwordPristine ? undefined : <p className='validation'>{this.state.passwordError}</p> }
           <button type='submit'>{ type }</button>
         </form>
+      </div>
     );
   }
 };

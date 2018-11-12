@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import flySorterLogo from '../../../assets/flysorter-logo.png';
 
 import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../routes';
@@ -29,11 +30,13 @@ class Landing extends React.Component {
   render() {
     const rootJSX = <div>
       <h2>Welcome to FlySorter IMP</h2>
+      <img src={flySorterLogo} className='logo'/>
       <Link to='/signup'>Create an account</Link>
       <Link to='/login'>Login</Link>
     </div>;
 
     const signUpJSX = <div>
+      <img src={flySorterLogo} className='logo'/>
       <h2>FlySorter Signup</h2>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
       <p>Already have an account?</p>
@@ -41,6 +44,7 @@ class Landing extends React.Component {
     </div>;
 
     const loginJSX = <div>
+      <img src={flySorterLogo} className='logo'/>
       <h2>Login to FlySorter</h2>
       <AuthForm type='login' onComplete={this.handleLogin}/>
       <p>No account?</p>

@@ -91,8 +91,8 @@ class AuthForm extends React.Component {
           onChange={this.handleChange}
         />
         <input
-            name='securityquestion'
-            placeholder='securityquestion'
+            name='securityQuestion'
+            placeholder='security question'
             type='text'
             value={this.state.securityQuestion}
             onChange={this.handleChange}

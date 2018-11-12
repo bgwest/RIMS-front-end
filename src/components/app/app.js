@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Dashboard from '../dashboard/dashboard';
 import Accounts from '../accounts/accounts';
-import Landing from '../landing/landing'
+import Landing from '../landing/landing';
 import AuthRedirect from '../auth-redirect/auth-redirect';
 import '../../../style/base.scss';
 

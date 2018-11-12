@@ -17,8 +17,7 @@ class AuthRedirect extends React.Component {
         destinationRoute = routes.DASHBOARD;
       }
     } else if (!token) {
-      // destinationRoute = routes.ROOT;
-      destinationRoute = routes.DASHBOARD;
+      destinationRoute = routes.ROOT;
     }
 
     return (

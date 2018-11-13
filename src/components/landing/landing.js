@@ -29,7 +29,7 @@ class Landing extends React.Component {
   };
 
   render() {
-    const rootJSX = <div>
+    const rootJSX = <div className='centered'>
       <img src={flySorterLogo} className='logo'/>
       <Link to='/signup' className='centered'>Create an account</Link>
       <br/>
@@ -39,14 +39,14 @@ class Landing extends React.Component {
     const signUpJSX = <div className='centered'>
       <img src={flySorterLogo} className='logo'/>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
-      <p>Already have an account?</p>
+      <p className='base'>Already have an account?</p>
       <Link to='/login'>Login to FlySorter</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
       <img src={flySorterLogo} className='logo'/>
       <AuthForm type='login' onComplete={this.handleLogin}/>
-      <p>No account?</p>
+      <p className='base'>No account?</p>
       <Link to='/signup'>Create an account</Link>
     </div>;
 

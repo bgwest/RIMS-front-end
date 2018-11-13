@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Fuse from 'fuse.js';
 import './dashboard.scss';
+import flySorterLogo from '../../../assets/flysorter-logo.png';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -99,9 +100,20 @@ class Dashboard extends React.Component {
     const result = fuse.search('old');
 
     return (
-      <div className='centered'>
-        <p>You are logged in to FlySorter</p>
-        <p>SEARCH FUNCTIONALITY HERE</p>
+      <div className='auth-form centered'>
+        <img src={flySorterLogo} className='logo'/>
+          <form onSubmit={this.handleSubmit}>
+            <li>
+              <label htmlFor='search'>Search</label>
+              <input
+                name='username'
+                placeholder='enter a search term'
+                type='text'
+                onChange={this.handleSubmit}
+              />
+            </li>
+            <button type='submit'>Search</button>
+          </form>
         {testRender(result)}
       </div>
     );

@@ -22,3 +22,14 @@
   overflow: hidden;
   transition: height 0.4s ease-out;
 }
+option {
+  font-family: $proxima, sans-serif;
+  font-weight: normal;
+  display: block;
+  white-space: pre;
+  padding: 0px 2px 1px;
+}
+
+select {
+  color: $color-primary;
+}

@@ -22,6 +22,7 @@ class Landing extends React.Component {
   handleSignup = (user) => {
     return this.props.pDoSignUp(user)
       .then((response) => {
+        console.log(response);
         this.props.history.push(routes.DASHBOARD);
         return response;
       })

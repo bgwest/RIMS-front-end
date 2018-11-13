@@ -1,18 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validator from 'validator';
 import './auth-form.scss';
 
 const emptyState = {
   username: '',
   usernamePristine: true,
   usernameError: 'Username is required',
-  email: '',
-  emailPristine: true,
-  emailError: 'Email is required',
   password: '',
   passwordPristine: true,
   passwordError: 'A password is required',
+  recoveryQuestion: '',
   recoveryAnswer: '',
   recoveryAnswerPristine: true,
   recoveryAnswerError: 'A question is required',
@@ -34,10 +31,6 @@ class AuthForm extends React.Component {
           return `Your username must be a minimum of ${MIN_NAME_LENGTH} characters`;
         }
         return null;
-      case 'email':
-        if (!validator.isEmail(value)) {
-          return 'Please provide a valid email address';
-        }
       case 'password':
         if (value.length < MIN_PASSWORD_LENGTH) {
           return `Your password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
@@ -59,16 +52,15 @@ class AuthForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const {usernameError, emailError, passwordError, recoveryAnswerError} = this.state;
+    const {usernameError, passwordError, recoveryAnswerError} = this.state;
 
-    if (this.props.type === 'login' || (!usernameError && !passwordError && !emailError && !recoveryAnswerError)) {
+    if (this.props.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
       this.props.onComplete(this.state);
       this.setState(emptyState);
     }
     this.setState({
       usernamePristine: false,
       passwordPristine: false,
-      emailPristine: false,
       recoveryAnswerPristine: false,
     })
   };
@@ -80,24 +72,18 @@ class AuthForm extends React.Component {
     const signupJSX =
       <div className='auth-form signup'>
         <li>
-        <label htmlFor='email'>Email</label>
-        <input
-          name='email'
-          placeholder='enter your email'
-          type='email'
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        </li>
-        { this.state.emailPristine ? undefined : <p className='validation'>{this.state.emailError}</p> }
-        <li>
           <label htmlFor='recoveryQuestion'>Choose a Question</label>
-          <select>
-          <option value="pet">Name of your first pet?</option>
-          <option value="street">Street you grew up on</option>
-          <option value="car">Make of your first car</option>
-          <option value="team">Favorite Sports Team</option>
-        </select>
+          <select
+            name='recoveryQuestion'
+            placeholder='recovery question'
+            type='select'
+            value={this.state.recoveryQuestion}
+            onChange={this.handleChange}>
+          <option value="recoveryQuestion">Name of your first pet?</option>
+          <option value="recoveryQuestion">Street you grew up on</option>
+          <option value="recoveryQuestion">Make of your first car</option>
+          <option value="recoveryQuestion">Favorite Sports Team</option>
+          </select>
         </li>
         <li>
         <label htmlFor='recoveryAnswer'>Recovery Answer</label>

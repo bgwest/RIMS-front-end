@@ -31,9 +31,9 @@ class Landing extends React.Component {
   render() {
     const rootJSX = <div className='centered'>
       <img src={flySorterLogo} className='logo'/>
-      <Link to='/signup' className='centered'>Create an account</Link>
+      <Link to='/signup' className='centered button'>Create an account</Link>
       <br/>
-      <Link to='/login' className='centered'>Login</Link>
+      <Link to='/login' className='centered button'>Login</Link>
     </div>;
 
     const signUpJSX = <div className='centered'>

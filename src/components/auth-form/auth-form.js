@@ -13,9 +13,9 @@ const emptyState = {
   password: '',
   passwordPristine: true,
   passwordError: 'A password is required',
-  securityAnswer: '',
-  securityAnswerPristine: true,
-  securityAnswerError: 'A question is required',
+  recoveryAnswer: '',
+  recoveryAnswerPristine: true,
+  recoveryAnswerError: 'A question is required',
 };
 
 const MIN_NAME_LENGTH = 4;
@@ -59,9 +59,9 @@ class AuthForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const {usernameError, emailError, passwordError, securityAnswerError} = this.state;
+    const {usernameError, emailError, passwordError, recoveryAnswerError} = this.state;
 
-    if (this.props.type === 'login' || (!usernameError && !passwordError && !emailError && !securityAnswerError)) {
+    if (this.props.type === 'login' || (!usernameError && !passwordError && !emailError && !recoveryAnswerError)) {
       this.props.onComplete(this.state);
       this.setState(emptyState);
     }
@@ -69,7 +69,7 @@ class AuthForm extends React.Component {
       usernamePristine: false,
       passwordPristine: false,
       emailPristine: false,
-      securityAnswerPristine: false,
+      recoveryAnswerPristine: false,
     })
   };
 
@@ -91,7 +91,7 @@ class AuthForm extends React.Component {
         </li>
         { this.state.emailPristine ? undefined : <p className='validation'>{this.state.emailError}</p> }
         <li>
-          <label htmlFor='selectQuestion'>Choose a Question</label>
+          <label htmlFor='recoveryQuestion'>Choose a Question</label>
           <select>
           <option value="pet">Name of your first pet?</option>
           <option value="street">Street you grew up on</option>
@@ -100,12 +100,12 @@ class AuthForm extends React.Component {
         </select>
         </li>
         <li>
-        <label htmlFor='securityAnswer'>Security Answer</label>
+        <label htmlFor='recoveryAnswer'>Recovery Answer</label>
         <input
-            name='securityAnswer'
-            placeholder='security answer'
+            name='recoveryAnswer'
+            placeholder='recovery answer'
             type='text'
-            value={this.state.securityAnswer}
+            value={this.state.recoveryAnswer}
             onChange={this.handleChange}
         />
         </li>
@@ -125,7 +125,7 @@ class AuthForm extends React.Component {
           </li>
           { this.state.usernamePristine ? undefined : <p className='validation'>{this.state.usernameError}</p> }
           { type !== 'login' ? signupJSX : undefined }
-          { this.state.securityAnswerPristine ? undefined : <p className='validation'>{this.state.securityAnswerError}</p> }
+          { this.state.recoveryAnswerPristine ? undefined : <p className='validation'>{this.state.recoveryAnswerError}</p> }
           <li>
           <label htmlFor='password'>Password</label>
           <input

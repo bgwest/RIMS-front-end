@@ -6,6 +6,9 @@
   background:#fff;
   border-radius:2px;
   font-family: $proxima, sans-serif;
+    &.signup {
+      margin: 0px auto;
+    }
 }
 
 .auth-form h1{

@@ -8,51 +8,36 @@ import PropTypes from "prop-types";
 class Accounts extends React.Component {
   constructor(props) {
     super(props);
+    // NOTE:
+    //   called immediately to update store
+    //   this.props.getUsers() should eventually be moved to our
+    //   app.js or landing.js along with our future search query...
+    //   that will ensure this data is in store and ready to be used
+    //   on these components
     this.props.pGetUsers();
     this.state = {};
-    // this.state.userList = [];
     this.state.showList = false;
   }
-
-  // genUserList = () => {
-  //   // run pGetUsers and created user list out of the data
-  //   return this.props.pGetUsers()
-  //       .then((users) => {
-  //         console.log('returned users');
-  //         console.log(users.payload);
-  //         this.state.userList = users.payload;
-  //         this.state.showList = true;
-  //         this.setState(this.state);
-  //         return users.payload;
-  //       }).catch(console.errors)
-  // };
 
   handleShowList = () => {
     this.state.showList = true;
     this.setState(this.state);
   };
 
-  genPTags = () => {
+  genUserList = () => {
     const storedUsers = this.props.users;
-    console.log('storedUsers');
-    console.log(storedUsers);
     return storedUsers.map((eachUser) => {
-        console.log('eachUser:');
-        console.log(eachUser);
         return <p>{eachUser.username}</p>
       })
   };
 
-  // userList = this.genUserList();
-
   render() {
 
-    const { token, users } = this.props;
     return (
         <div>
           <button onClick={this.handleShowList}>Gen User List</button>
           <p>This will be the Accounts page.</p>
-          {this.state.showList === true ? this.genPTags() : null}
+          {this.state.showList === true ? this.genUserList() : null}
         </div>
     );
   }

@@ -8,14 +8,12 @@ export const set = users => ({
 });
 
 export const getUsers = users => (store) => {
-  console.log('before superagent');
-  console.log('users');
-  console.log(users);
   return superagent.get(`${API_URL}${routes.ACCOUNTS_BACKEND }`)
       .then((userData) => {
-        console.log('after super agent');
-        userData = JSON.parse(userData.text);
-        console.log(userData.dbQuery);
+        // uncomment for debugging
+        // console.log('after super agent');
+        // userData = JSON.parse(userData.text);
+        // console.log(userData.dbQuery);
         return userData.dbQuery.map((eachUser) => {
           if (eachUser.username !== 'admin') {
             return eachUser;

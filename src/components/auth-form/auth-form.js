@@ -70,7 +70,7 @@ class AuthForm extends React.Component {
     type = type === 'login' ? 'login' : 'signup';
 
     const signupJSX =
-      <div className='auth-form signup'>
+      <div className='create-form signup'>
         <li>
           <label htmlFor='recoveryQuestion'>Choose a Question</label>
           <select
@@ -97,7 +97,7 @@ class AuthForm extends React.Component {
         </li>
       </div>;
     return(
-      <div className='auth-form'>
+      <div className='create-form'>
         <form onSubmit={this.handleSubmit}>
           <li>
           <label htmlFor='username'>User Name</label>

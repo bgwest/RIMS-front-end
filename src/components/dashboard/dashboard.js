@@ -100,7 +100,7 @@ class Dashboard extends React.Component {
     const result = fuse.search('old');
 
     return (
-      <div className='auth-form centered'>
+      <div className='create-form centered'>
         <img src={flySorterLogo} className='logo'/>
           <form onSubmit={this.handleSubmit}>
             <li>

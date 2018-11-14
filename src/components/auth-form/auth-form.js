@@ -79,10 +79,10 @@ class AuthForm extends React.Component {
             type='select'
             value={this.state.recoveryQuestion}
             onChange={this.handleChange}>
-          <option value="recoveryQuestion">Name of your first pet?</option>
-          <option value="recoveryQuestion">Street you grew up on</option>
-          <option value="recoveryQuestion">Make of your first car</option>
-          <option value="recoveryQuestion">Favorite Sports Team</option>
+          <option value="pet">Name of your first pet?</option>
+          <option value="street">Street you grew up on</option>
+          <option value="car">Make of your first car</option>
+          <option value="team">Favorite Sports Team</option>
           </select>
         </li>
         <li>

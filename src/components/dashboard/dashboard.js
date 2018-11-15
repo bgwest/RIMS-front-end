@@ -9,6 +9,7 @@ import PropTypes from "prop-types";
 
 // actions
 import * as dataActions from "../../action/data";
+import PartTable from '../part-table/part-table';
 
 
 class Dashboard extends React.Component {
@@ -125,6 +126,7 @@ class Dashboard extends React.Component {
           { /* testRender(result) */ }
           <Link to='/accounts' className='centered'>Accounts</Link>
           <DataTable/>
+          <PartTable/>
         </div>
     );
   }

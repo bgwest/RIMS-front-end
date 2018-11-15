@@ -32,7 +32,6 @@ class CreateForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('click');
     if (this.props.type === 'create') {
       this.props.onComplete(this.state);
       this.setState(emptyState);

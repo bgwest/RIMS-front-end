@@ -4,6 +4,12 @@ import Fuse from 'fuse.js';
 import './dashboard.scss';
 import flySorterLogo from '../../../assets/flysorter-logo.png';
 import { Link } from 'react-router-dom';
+import DataTable from '../data-table/data-table';
+import PropTypes from "prop-types";
+
+// actions
+import * as dataActions from "../../action/data";
+
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -27,7 +33,7 @@ class Dashboard extends React.Component {
             console.log('0 level deep');
             buildOutput.push(`${key}: ${value}`);
           }
-        }); 
+        });
       }
       return buildOutput;
     };
@@ -101,29 +107,40 @@ class Dashboard extends React.Component {
     const result = fuse.search('old');
 
     return (
-      <div className='create-form centered'>
-        <img src={flySorterLogo} className='logo'/>
+        <div className='create-form centered'>
+          <img src={flySorterLogo} className='logo'/>
           <form onSubmit={this.handleSubmit}>
             <li>
               <label htmlFor='search'>Search</label>
               <input
-                name='username'
-                placeholder='enter a search term'
-                type='text'
-                onChange={this.handleSubmit}
+                  name='username'
+                  placeholder='enter a search term'
+                  type='text'
+                  onChange={this.handleSubmit}
               />
             </li>
             <button type='submit'>Search</button>
           </form>
-        {testRender(result)}
-        <Link to='/accounts' className='centered'>Accounts</Link>
-      </div>
+          {testRender(result)}
+          <Link to='/accounts' className='centered'>Accounts</Link>
+          <DataTable/>
+        </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
   token: state.token,
+  subAssy: state.subAssy,
 });
 
-export default connect(mapStateToProps, null)(Dashboard);
+const mapDispatchToProps = dispatch => ({
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+});
+
+Dashboard.propTypes = {
+  location: PropTypes.object,
+  pGetUsers: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

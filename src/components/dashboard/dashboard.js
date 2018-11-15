@@ -4,6 +4,7 @@ import Fuse from 'fuse.js';
 import './dashboard.scss';
 import flySorterLogo from '../../../assets/flysorter-logo.png';
 import { Link } from 'react-router-dom';
+import DataTable from '../data-table/data-table';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Dashboard extends React.Component {
             console.log('0 level deep');
             buildOutput.push(`${key}: ${value}`);
           }
-        }); 
+        });
       }
       return buildOutput;
     };
@@ -101,23 +102,24 @@ class Dashboard extends React.Component {
     const result = fuse.search('old');
 
     return (
-      <div className='create-form centered'>
-        <img src={flySorterLogo} className='logo'/>
+        <div className='create-form centered'>
+          <img src={flySorterLogo} className='logo'/>
           <form onSubmit={this.handleSubmit}>
             <li>
               <label htmlFor='search'>Search</label>
               <input
-                name='username'
-                placeholder='enter a search term'
-                type='text'
-                onChange={this.handleSubmit}
+                  name='username'
+                  placeholder='enter a search term'
+                  type='text'
+                  onChange={this.handleSubmit}
               />
             </li>
             <button type='submit'>Search</button>
           </form>
-        {testRender(result)}
-        <Link to='/accounts' className='centered'>Accounts</Link>
-      </div>
+          {testRender(result)}
+          <Link to='/accounts' className='centered'>Accounts</Link>
+          <DataTable/>
+        </div>
     );
   }
 }

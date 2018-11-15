@@ -1,17 +1,45 @@
 import React from 'react';
-import { render } from 'react-dom';
 import ReactTable from 'react-table';
-import { makeData } from './part-table-utils';
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
 
-// Import React Table
+// styles
 import 'react-table/react-table.css';
+import './part-table.scss';
+
+// actions
+import * as dataActions from "../../action/data";
 
 class PartTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      data: makeData(),
+      data: this.makeData(),
+      subLink: this.props.subLink,
     };
+    console.log(this.props.subLink);
+  }
+
+  range = (len) => {
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
+  newPerson = (inputData) => {
+    return inputData;
+  };
+
+  makeData(len = this.props.subLink.length) {
+    let lenCounter = -1;
+    return this.range(len).map((d) => {
+      return {
+        ...this.newPerson(this.props.subLink[lenCounter += 1]),
+        children: this.range(10).map(this.newPerson),
+      };
+    });
   }
 
   render() {
@@ -22,34 +50,66 @@ class PartTable extends React.Component {
           data={data}
           columns={[
             {
-              Header: 'Name',
+              Header: 'Parts',
               columns: [
                 {
-                  Header: 'Part ID',
+                  Header: 'ID',
                   accessor: 'partId',
                 },
                 {
-                  Header: 'Last Name',
-                  id: 'lastName',
-                  accessor: d => d.lastName,
+                  Header: 'Description',
+                  id: 'partDescription',
+                  accessor: d => d.partDescription,
                 },
-              ],
-            },
-            {
-              Header: 'Info',
-              columns: [
                 {
-                  Header: 'Age',
-                  accessor: 'age',
+                  Header: 'Sub',
+                  id: 'partSub',
+                  accessor: d => d.partSub,
                 },
-              ],
-            },
-            {
-              Header: 'Stats',
-              columns: [
                 {
-                  Header: 'Visits',
-                  accessor: 'visits',
+                  Header: 'Src',
+                  id: 'partSrc',
+                  accessor: d => d.partSrc,
+                },
+                {
+                  Header: 'MFG#',
+                  id: 'partMfgNum',
+                  accessor: d => d.partMfgNum,
+                },
+                {
+                  Header: 'Price',
+                  id: 'partPrice',
+                  accessor: d => d.partPrice,
+                },
+                {
+                  Header: 'Category',
+                  id: 'partCategory',
+                  accessor: d => d.partCategory,
+                },
+                {
+                  Header: 'Location',
+                  id: 'partLocation',
+                  accessor: d => d.partLocation,
+                },
+                {
+                  Header: 'Count',
+                  id: 'partCount',
+                  accessor: d => d.partCount,
+                },
+                {
+                  Header: 'Long Lead',
+                  id: 'partLongLead',
+                  accessor: d => d.partLongLead,
+                },
+                {
+                  Header: 'Notes',
+                  id: 'partNotes',
+                  accessor: d => d.partNotes,
+                },
+                {
+                  Header: 'SubAssy',
+                  id: 'subAssembly',
+                  accessor: d => d.subAssembly,
                 },
               ],
             },
@@ -63,4 +123,23 @@ class PartTable extends React.Component {
   }
 }
 
-export default PartTable;
+// export default PartTable;
+
+const mapStateToProps = state => ({
+  token: state.token,
+  subAssy: state.subAssy,
+  parts: state.parts,
+});
+
+const mapDispatchToProps = dispatch => ({
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+  pGetParts: parts => dispatch(dataActions.getParts(parts)),
+});
+
+PartTable.propTypes = {
+  location: PropTypes.object,
+  pGetSubAssy: PropTypes.func,
+  pGetParts: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(PartTable);

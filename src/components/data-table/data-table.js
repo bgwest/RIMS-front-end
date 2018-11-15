@@ -40,58 +40,6 @@ const columns = [
   },
 ];
 
-const columnsParts = [
-  {
-    Header: 'Parts',
-    columns: [
-      {
-        Header: 'Part Number',
-        assessor: 'partIds',
-      },
-      {
-        Header: 'Description',
-        assessor: 'partDescription',
-      },
-      {
-        Header: 'Part Sub',
-        assessor: 'partSub',
-      },
-      {
-        Header: 'Source',
-        assessor: 'partSrc',
-      },
-      {
-        Header: 'Mfg Number',
-        assessor: 'partMfgNum',
-      },
-      {
-        Header: 'Price',
-        assessor: 'partPrice',
-      },
-      {
-        Header: 'Category',
-        assessor: 'partCategory',
-      },
-      {
-        Header: 'Location',
-        assessor: 'partLocation',
-      },
-      {
-        Header: 'Count',
-        assessor: 'partCount',
-      },
-      {
-        Header: 'Long Lead Time',
-        assessor: 'partLongLead',
-      },
-      {
-        Header: 'Notes',
-        assessor: 'partNotes',
-      },
-    ],
-  },
-];
-
 class DataTable extends React.Component {
   constructor(props) {
     super(props);
@@ -117,7 +65,6 @@ class DataTable extends React.Component {
     return this.range(len).map(d => {
       return {
         ...this.newPart(this.props.subAssy[lenCounter += 1]),
-        children: this.range(10).map(this.newPart),
       };
     });
   }
@@ -135,17 +82,15 @@ class DataTable extends React.Component {
           defaultPageSize={10}
           style={{ height: '400px' }}
           className="-striped -highlight"
-          SubComponent={(row) => {
+          SubComponent={row => {
             return (
-              <div style={{ padding: '20px' }}>
+              <div style={{ padding: "20px" }}>
+                <em>
+                  You can put any component you want here, even another React
+                  Table!
+                </em>
                 <br />
                 <br />
-                <ReactTable
-                  data={data}
-                  columns={columnsParts}
-                  defaultPageSize={3}
-                  showPagination={false}
-                />
               </div>
             );
           }}

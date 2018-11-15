@@ -1,41 +1,39 @@
 import React from 'react';
-import { render } from 'react-dom';
-import matchSorter from 'match-sorter';
 
 // Import React Table
 import ReactTable from 'react-table';
-import { makeData } from './data-utils';
 import 'react-table/react-table.css';
+import * as dataActions from "../../action/data";
+import PropTypes from "prop-types";
+import connect from "react-redux/es/connect/connect";
 
 const columns = [
   {
     Header: 'Sub Assemblies',
     columns: [
       {
+        Header: 'Parts',
+        accessor: 'parts',
+      },
+      {
         Header: 'Sub Id',
         accessor: 'subId',
-      },
-      {
-        Header: 'Sub Part',
-        accessor: 'subPart',
-      },
-      {
-        Header: 'Sub Version',
-        accessor: 'subVersion',
-      },
-      {
-        Header: 'Sub Quantity',
-        accessor: 'subQuantity',
       },
       {
         Header: 'Sub Minutes',
         accessor: 'subMinutes',
       },
       {
-        Header: 'Parts',
-        accessor: 'partIds',
-
-
+        Header: 'Sub Part',
+        accessor: 'subPart',
+      },
+      {
+        Header: 'Sub Quantity',
+        accessor: 'subQuantity',
+      },
+      {
+        Header: 'Sub Version',
+        accessor: 'subVersion',
       },
     ],
 
@@ -95,11 +93,33 @@ const columnsParts = [
 ];
 
 class DataTable extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      data: makeData(),
+      data: this.makeData(),
     };
+  }
+
+  range = len => {
+    const arr = [];
+    for (let i = 0; i < len; i++) {
+      arr.push(i);
+    }
+    return arr;
+  };
+
+  newPart(inputData) {
+    return inputData;
+  };
+
+  makeData(len = this.props.subAssy.length) {
+    let lenCounter = -1;
+    return this.range(len).map(d => {
+      return {
+        ...this.newPart(this.props.subAssy[lenCounter += 1]),
+        children: this.range(10).map(this.newPart),
+      };
+    });
   }
 
   render() {
@@ -136,4 +156,20 @@ class DataTable extends React.Component {
   }
 }
 
-export default DataTable;
+// export default DataTable;
+
+const mapStateToProps = state => ({
+  token: state.token,
+  subAssy: state.subAssy,
+});
+
+const mapDispatchToProps = dispatch => ({
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+});
+
+DataTable.propTypes = {
+  location: PropTypes.object,
+  pGetSubAssy: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

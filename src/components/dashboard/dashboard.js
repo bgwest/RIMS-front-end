@@ -121,7 +121,8 @@ class Dashboard extends React.Component {
             </li>
             <button type='submit'>Search</button>
           </form>
-          {testRender(result)}
+          { /*original search still saving for the moment just in case... */ }
+          { /* testRender(result) */ }
           <Link to='/accounts' className='centered'>Accounts</Link>
           <DataTable/>
         </div>

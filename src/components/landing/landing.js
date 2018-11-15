@@ -8,9 +8,13 @@ import './landing.scss';
 import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../routes';
 import * as authActions from '../../action/auth';
+import * as dataActions from '../../action/data';
 
 class Landing extends React.Component {
-
+  constructor(props) {
+    super(props);
+    this.props.pGetUsers();
+  }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
         .then(() => {
@@ -65,17 +69,20 @@ class Landing extends React.Component {
 
 const mapStateToProps = state => ({
   token: state.token,
+  users: state.users,
 });
 
 const mapDispatchToProps = dispatch => ({
   pDoSignUp: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
+  pGetUsers: users => dispatch(dataActions.getUsers(users)),
 });
 
 Landing.propTypes = {
   location: PropTypes.object,
   pDoSignUp: PropTypes.func,
   pDoLogin: PropTypes.func,
+  pGetUsers: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

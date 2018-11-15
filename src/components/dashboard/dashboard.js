@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import Fuse from 'fuse.js';
 import './dashboard.scss';
 import flySorterLogo from '../../../assets/flysorter-logo.png';
+import { Link } from 'react-router-dom';
+import DataTable from '../data-table/data-table';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -26,7 +28,7 @@ class Dashboard extends React.Component {
             console.log('0 level deep');
             buildOutput.push(`${key}: ${value}`);
           }
-        }); 
+        });
       }
       return buildOutput;
     };
@@ -115,6 +117,8 @@ class Dashboard extends React.Component {
             <button type='submit'>Search</button>
           </form>
         {testRender(result)}
+        <Link to='/accounts' className='centered'>Accounts</Link>
+      <DataTable/>
       </div>
     );
   }

@@ -14,7 +14,7 @@ class Accounts extends React.Component {
     //   app.js or landing.js along with our future search query...
     //   that will ensure this data is in store and ready to be used
     //   on these components
-    this.props.pGetUsers();
+    // this.props.pGetUsers();
     this.state = {};
     this.state.showList = false;
   }

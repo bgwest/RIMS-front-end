@@ -22,7 +22,9 @@ class AuthRedirect extends React.Component {
     } else if (!token && pathname === routes.CREATE_FRONTEND) {
       destinationRoute = routes.ROOT;
     } else if (!token && pathname === routes.ACCOUNTS_BACKEND) {
-      destinationRoute = routes.ACCOUNTS_BACKEND;
+      destinationRoute = routes.ROOT;
+    } else if (!token && pathname === routes.SUBCREATE_FRONTEND) {
+      destinationRoute = routes.SUBCREATE_FRONTEND;
     }
 
     return (

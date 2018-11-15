@@ -7,13 +7,17 @@ import './landing.scss';
 
 import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../routes';
+
+// actions
 import * as authActions from '../../action/auth';
 import * as dataActions from '../../action/data';
 
 class Landing extends React.Component {
   constructor(props) {
     super(props);
+    // setup store with needed DB data
     this.props.pGetUsers();
+    this.props.pGetSubAssy();
   }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
@@ -70,12 +74,14 @@ class Landing extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   users: state.users,
+  subAssy: state.subAssy,
 });
 
 const mapDispatchToProps = dispatch => ({
   pDoSignUp: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
 });
 
 Landing.propTypes = {
@@ -83,6 +89,7 @@ Landing.propTypes = {
   pDoSignUp: PropTypes.func,
   pDoLogin: PropTypes.func,
   pGetUsers: PropTypes.func,
+  pGetSubAssy: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import ReactTable from 'react-table';
 import { makeData } from './data-utils';
 
@@ -8,32 +7,34 @@ import 'react-table/react-table.css';
 
 const columns = [
   {
-    Header: 'ID',
+    Header: 'Part ID',
+    columns: [
       {
-        Header: 'Description',
+        Header: 'Part Description',
         accessor: 'partDescription',
       },
       {
-        Header: 'Sub',
+        Header: 'Part Sub',
         id: 'partSub',
         accessor: d => d.lastName,
       },
+    ],
   },
   {
-    Header: 'Source',
+    Header: 'Part Source',
     columns: [
       {
-        Header: 'Mfg Num',
+        Header: 'Part',
         accessor: 'age',
       },
       {
-        Header: 'Price',
+        Header: 'Status',
         accessor: 'status',
       },
     ],
   },
   {
-    Header: 'Category',
+    Header: 'Stats',
     columns: [
       {
         Header: 'Visits',
@@ -54,40 +55,40 @@ class DataTable extends React.Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
-        <ReactTable
-          data={data}
-          columns={columns}
-          defaultPageSize={10}
-          className="-striped -highlight"
-          SubComponent={(row) => {
-            return (
-              <div style={{ padding: '20px' }}>
-                <em>
-                  You can put any component you want here, even another React
-                  Table!
-                </em>
-                <br />
-                <br />
-                <ReactTable
-                  data={data}
-                  columns={columns}
-                  defaultPageSize={3}
-                  showPagination={false}
-                  SubComponent={(row) => {
-                    return (
-                      <div style={{ padding: '20px' }}>
-                        Another Sub Component!
-                      </div>
-                    );
-                  }}
-                />
-              </div>
-            );
-          }}
-        />
-        <br />
-      </div>
+        <div>
+          <ReactTable
+              data={data}
+              columns={columns}
+              defaultPageSize={10}
+              className="-striped -highlight"
+              SubComponent={(row) => {
+                return (
+                    <div style={{ padding: '20px' }}>
+                      <em>
+                        You can put any component you want here, even another React
+                        Table!
+                      </em>
+                      <br />
+                      <br />
+                      <ReactTable
+                          data={data}
+                          columns={columns}
+                          defaultPageSize={3}
+                          showPagination={false}
+                          SubComponent={(row) => {
+                            return (
+                                <div style={{ padding: '20px' }}>
+                                  Another Sub Component!
+                                </div>
+                            );
+                          }}
+                      />
+                    </div>
+                );
+              }}
+          />
+          <br />
+        </div>
     );
   }
 }

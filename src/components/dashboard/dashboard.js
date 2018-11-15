@@ -5,6 +5,11 @@ import './dashboard.scss';
 import flySorterLogo from '../../../assets/flysorter-logo.png';
 import { Link } from 'react-router-dom';
 import DataTable from '../data-table/data-table';
+import PropTypes from "prop-types";
+
+// actions
+import * as dataActions from "../../action/data";
+
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -126,6 +131,16 @@ class Dashboard extends React.Component {
 
 const mapStateToProps = state => ({
   token: state.token,
+  subAssy: state.subAssy,
 });
 
-export default connect(mapStateToProps, null)(Dashboard);
+const mapDispatchToProps = dispatch => ({
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+});
+
+Dashboard.propTypes = {
+  location: PropTypes.object,
+  pGetUsers: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

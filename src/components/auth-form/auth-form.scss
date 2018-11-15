@@ -1,6 +1,6 @@
 @import "../../../style/variables";
 
-.create-form{
+.auth-form{
   max-width:400px;
   margin:50px auto;
   background:#fff;
@@ -11,7 +11,7 @@
     }
 }
 
-.create-form h1{
+.auth-form h1{
   display: block;
   text-align: center;
   padding: 0;
@@ -20,7 +20,7 @@
   font-size:x-large;
 }
 
-.create-form li{
+.auth-form li{
   display: block;
   padding: 9px;
   border:1px solid #DDDDDD;
@@ -28,7 +28,7 @@
   border-radius: 3px;
 }
 
-.create-form li > label{
+.auth-form li > label{
   display: block;
   float: left;
   margin-top: -19px;
@@ -41,12 +41,12 @@
   font-family: $proxima, sans-serif;
 }
 
-.create-form input[type="text"],
-.create-form input[type="email"],
-.create-form input[type="number"],
-.create-form input[type="search"],
-.create-form input[type="password"],
-.create-form select
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="number"],
+.auth-form input[type="search"],
+.auth-form input[type="password"],
+.auth-form select
 {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -62,7 +62,7 @@
   font-family: $proxima, serif;
 }
 
-.create-form li > span{
+.auth-form li > span{
   background: #F3F3F3;
   display: block;
   padding: 3px;
@@ -73,8 +73,8 @@
   font-size: 11px;
 }
 
-.create-form button[type="submit"],
-.create-form button[type="button"]{
+.auth-form button[type="submit"],
+.auth-form button[type="button"]{
   background: $color-secondary;
   border: none;
   padding: 10px 20px 10px 20px;
@@ -83,8 +83,8 @@
   color: #D2E2FF;
 }
 
-.create-form button[type="submit"]:hover,
-.create-form button[type="button"]:hover{
+.auth-form button[type="submit"]:hover,
+.auth-form button[type="button"]:hover{
   background: $buttonHoverBackground;
   color:#fff;
 }

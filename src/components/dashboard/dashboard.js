@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Fuse from 'fuse.js';
 import './dashboard.scss';
 import flySorterLogo from '../../../assets/flysorter-logo.png';
+import { Link } from 'react-router-dom';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -115,6 +116,7 @@ class Dashboard extends React.Component {
             <button type='submit'>Search</button>
           </form>
         {testRender(result)}
+        <Link to='/accounts' className='centered'>Accounts</Link>
       </div>
     );
   }

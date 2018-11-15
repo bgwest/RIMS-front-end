@@ -1,44 +1,94 @@
 import React from 'react';
-import ReactTable from 'react-table';
-import { makeData } from './data-utils';
+import { render } from 'react-dom';
+import matchSorter from 'match-sorter';
 
 // Import React Table
+import ReactTable from 'react-table';
+import { makeData } from './data-utils';
 import 'react-table/react-table.css';
 
 const columns = [
   {
-    Header: 'Part ID',
+    Header: 'Sub Assemblies',
     columns: [
       {
-        Header: 'Part Description',
-        accessor: 'partDescription',
+        Header: 'Sub Id',
+        accessor: 'subId',
+      },
+      {
+        Header: 'Sub Part',
+        accessor: 'subPart',
+      },
+      {
+        Header: 'Sub Version',
+        accessor: 'subVersion',
+      },
+      {
+        Header: 'Sub Quantity',
+        accessor: 'subQuantity',
+      },
+      {
+        Header: 'Sub Minutes',
+        accessor: 'subMinutes',
+      },
+      {
+        Header: 'Parts',
+        accessor: 'partIds',
+
+
+      },
+    ],
+
+  },
+];
+
+const columnsParts = [
+  {
+    Header: 'Parts',
+    columns: [
+      {
+        Header: 'Part Number',
+        assessor: 'partIds',
+      },
+      {
+        Header: 'Description',
+        assessor: 'partDescription',
       },
       {
         Header: 'Part Sub',
-        id: 'partSub',
-        accessor: d => d.lastName,
-      },
-    ],
-  },
-  {
-    Header: 'Part Source',
-    columns: [
-      {
-        Header: 'Part',
-        accessor: 'age',
+        assessor: 'partSub',
       },
       {
-        Header: 'Status',
-        accessor: 'status',
+        Header: 'Source',
+        assessor: 'partSrc',
       },
-    ],
-  },
-  {
-    Header: 'Stats',
-    columns: [
       {
-        Header: 'Visits',
-        accessor: 'visits',
+        Header: 'Mfg Number',
+        assessor: 'partMfgNum',
+      },
+      {
+        Header: 'Price',
+        assessor: 'partPrice',
+      },
+      {
+        Header: 'Category',
+        assessor: 'partCategory',
+      },
+      {
+        Header: 'Location',
+        assessor: 'partLocation',
+      },
+      {
+        Header: 'Count',
+        assessor: 'partCount',
+      },
+      {
+        Header: 'Long Lead Time',
+        assessor: 'partLongLead',
+      },
+      {
+        Header: 'Notes',
+        assessor: 'partNotes',
       },
     ],
   },
@@ -55,40 +105,33 @@ class DataTable extends React.Component {
   render() {
     const { data } = this.state;
     return (
-        <div>
-          <ReactTable
-              data={data}
-              columns={columns}
-              defaultPageSize={10}
-              className="-striped -highlight"
-              SubComponent={(row) => {
-                return (
-                    <div style={{ padding: '20px' }}>
-                      <em>
-                        You can put any component you want here, even another React
-                        Table!
-                      </em>
-                      <br />
-                      <br />
-                      <ReactTable
-                          data={data}
-                          columns={columns}
-                          defaultPageSize={3}
-                          showPagination={false}
-                          SubComponent={(row) => {
-                            return (
-                                <div style={{ padding: '20px' }}>
-                                  Another Sub Component!
-                                </div>
-                            );
-                          }}
-                      />
-                    </div>
-                );
-              }}
-          />
-          <br />
-        </div>
+      <div>
+        <ReactTable
+          data={data}
+          filterable
+          defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value
+          }
+          columns={columns}
+          defaultPageSize={10}
+          style={{ height: '400px' }}
+          className="-striped -highlight"
+          SubComponent={(row) => {
+            return (
+              <div style={{ padding: '20px' }}>
+                <br />
+                <br />
+                <ReactTable
+                  data={data}
+                  columns={columnsParts}
+                  defaultPageSize={3}
+                  showPagination={false}
+                />
+              </div>
+            );
+          }}
+        />
+        <br />
+      </div>
     );
   }
 }

@@ -51,6 +51,7 @@
   "dependencies": {
     "dotenv": "^6.1.0",
     "lodash": "latest",
+    "match-sorter": "^2.3.0",
     "namor": "^1.1.1",
     "react-table": "^6.8.6"
   }

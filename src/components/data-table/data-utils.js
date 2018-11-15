@@ -1,8 +1,9 @@
 import React from 'react';
-import namor from 'namor';
+import faker from 'faker';
+
 import './data-table.scss';
 
-const range = (len) => {
+const range = len => {
   const arr = [];
   for (let i = 0; i < len; i++) {
     arr.push(i);
@@ -10,26 +11,22 @@ const range = (len) => {
   return arr;
 };
 
-const newPerson = () => {
-  const statusChance = Math.random();
+const newPart = () => {
   return {
-    firstName: namor.generate({ words: 1, numbers: 0 }),
-    lastName: namor.generate({ words: 1, numbers: 0 }),
-    age: Math.floor(Math.random() * 30),
-    visits: Math.floor(Math.random() * 100),
-    progress: Math.floor(Math.random() * 100),
-    status:
-      statusChance > 0.66
-        ? 'relationship'
-        : statusChance > 0.33 ? 'complicated' : 'single',
+    subId: faker.random.number(100000),
+    subPart: faker.random.number(4444),
+    subVersion: faker.random.number(4444),
+    subQuantity: faker.random.number(4444),
+    subMinutes: faker.random.number(4444),
+    partIds: faker.random.number(4444),
   };
 };
 
-export function makeData(len = 100) {
-  return range(len).map((d) => {
+export function makeData(len = 5553) {
+  return range(len).map(d => {
     return {
-      ...newPerson(),
-      children: range(10).map(newPerson),
+      ...newPart(),
+      children: range(10).map(newPart),
     };
   });
 }

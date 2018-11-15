@@ -3,6 +3,7 @@ export const SIGNUP_BACKEND = '/signup';
 export const LOGIN_BACKEND = '/login';
 export const ACCOUNTS_BACKEND = '/accounts';
 export const PARTS_BACKEND = '/parts';
+export const SUBASSY_BACKEND = '/subassy';
 
 // front-end routes
 export const LOGIN = '/login';

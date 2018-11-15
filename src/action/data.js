@@ -7,6 +7,11 @@ export const set = users => ({
   payload: users,
 });
 
+export const subAssySet = subAssys => ({
+  type: 'SUB_ASSY_SET',
+  payload: subAssys,
+});
+
 export const getUsers = users => (store) => {
   return superagent.get(`${API_URL}${routes.ACCOUNTS_BACKEND}`)
     .then((userData) => {
@@ -27,4 +32,18 @@ export const getUsers = users => (store) => {
       console.log(finalMap);
       return store.dispatch(set(finalMap));
     }).catch(console.error);
+};
+
+export const getSubAssy = subAssy => (store) => {
+  return superagent.get(`${API_URL}${routes.SUBASSY_BACKEND }`)
+      .then((subAssyData) => {
+        subAssyData = JSON.parse(subAssyData.text);
+        return subAssyData.dbQuery.map((eachSubAssy) => {
+          return eachSubAssy;
+        })
+      }).then((finalMap) => {
+        console.log('finalmap');
+        console.log(finalMap);
+        return store.dispatch(subAssySet(finalMap));
+      }).catch(console.error);
 };

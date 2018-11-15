@@ -9,13 +9,6 @@ import { Link } from 'react-router-dom';
 class Accounts extends React.Component {
   constructor(props) {
     super(props);
-    // NOTE:
-    //   called immediately to update store
-    //   this.props.getUsers() should eventually be moved to our
-    //   app.js or landing.js along with our future search query...
-    //   that will ensure this data is in store and ready to be used
-    //   on these components
-    // this.props.pGetUsers();
     this.state = {};
     this.state.showList = false;
   }

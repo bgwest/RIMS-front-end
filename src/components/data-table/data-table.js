@@ -1,11 +1,16 @@
 import React from 'react';
-
-// Import React Table
 import ReactTable from 'react-table';
-import 'react-table/react-table.css';
-import * as dataActions from "../../action/data";
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
+
+// styles
+import 'react-table/react-table.css';
+
+// actions
+import * as dataActions from "../../action/data";
+
+// import PartsTable
+import PartTable from '../part-table/part-table';
 
 const columns = [
   {
@@ -65,6 +70,7 @@ class DataTable extends React.Component {
     return this.range(len).map(d => {
       return {
         ...this.newPart(this.props.subAssy[lenCounter += 1]),
+        children: this.range(10).map(this.newPart),
       };
     });
   }
@@ -82,15 +88,18 @@ class DataTable extends React.Component {
           defaultPageSize={10}
           style={{ height: '400px' }}
           className="-striped -highlight"
-          SubComponent={row => {
+          SubComponent={(row) => {
+            // used to give Parts Component instance only associated parts to Sub Assy
+            const passToPartComponent = this.props.parts.filter((eachPart) => {
+              if (eachPart.subAssembly === row.original._id) {
+                return eachPart;
+              }
+            });
+            console.log('passToPartComponent');
+            console.log(passToPartComponent);
             return (
               <div style={{ padding: "20px" }}>
-                <em>
-                  You can put any component you want here, even another React
-                  Table!
-                </em>
-                <br />
-                <br />
+                <PartTable subLink={passToPartComponent}/>
               </div>
             );
           }}

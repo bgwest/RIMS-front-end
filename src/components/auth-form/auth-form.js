@@ -1,25 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validator from 'validator';
+import './auth-form.scss';
 
 const emptyState = {
   username: '',
   usernamePristine: true,
   usernameError: 'Username is required',
-  email: '',
-  emailPristine: true,
-  emailError: 'Email is required',
   password: '',
   passwordPristine: true,
   passwordError: 'A password is required',
-  securityQuestion: '',
-  securityQuestionPristine: true,
-  securityQuestionError: 'A question is required',
+  recoveryQuestion: '',
+  recoveryAnswer: '',
+  recoveryAnswerPristine: true,
+  recoveryAnswerError: 'A question is required',
 };
 
 const MIN_NAME_LENGTH = 4;
 const MIN_PASSWORD_LENGTH = 6;
-const MIN_SECURITY_LENGTH = 6;
 
 class AuthForm extends React.Component {
   constructor(props) {
@@ -34,17 +31,9 @@ class AuthForm extends React.Component {
           return `Your username must be a minimum of ${MIN_NAME_LENGTH} characters`;
         }
         return null;
-      case 'email':
-        if (!validator.isEmail(value)) {
-          return 'Please provide a valid email address';
-        }
       case 'password':
         if (value.length < MIN_PASSWORD_LENGTH) {
           return `Your password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
-        }
-      case 'securityQuestion':
-        if (value.length < MIN_SECURITY_LENGTH) {
-          return `Your question must be at least ${MIN_SECURITY_LENGTH} characters long`;
         }
         return null;
       default:
@@ -63,17 +52,16 @@ class AuthForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const {usernameError, emailError, passwordError, securityQuestionError} = this.state;
+    const {usernameError, passwordError, recoveryAnswerError} = this.state;
 
-    if (this.props.type === 'login' || (!usernameError && !passwordError && !emailError && !securityQuestionError)) {
+    if (this.props.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
       this.props.onComplete(this.state);
       this.setState(emptyState);
     }
     this.setState({
       usernamePristine: false,
       passwordPristine: false,
-      emailPristine: false,
-      securityQuestionPristine: false,
+      recoveryAnswerPristine: false,
     })
   };
 
@@ -82,45 +70,62 @@ class AuthForm extends React.Component {
     type = type === 'login' ? 'login' : 'signup';
 
     const signupJSX =
-      <div>
+      <div className='create-form signup'>
+        <li>
+          <label htmlFor='recoveryQuestion'>Choose a Question</label>
+          <select
+            name='recoveryQuestion'
+            placeholder='recovery question'
+            type='select'
+            value={this.state.recoveryQuestion}
+            onChange={this.handleChange}>
+          <option value="pet">Name of your first pet?</option>
+          <option value="street">Street you grew up on</option>
+          <option value="car">Make of your first car</option>
+          <option value="team">Favorite Sports Team</option>
+          </select>
+        </li>
+        <li>
+        <label htmlFor='recoveryAnswer'>Recovery Answer</label>
         <input
-          name='email'
-          placeholder='email'
-          type='email'
-          value={this.state.email}
-          onChange={this.handleChange}
-        />
-        <input
-            name='securityquestion'
-            placeholder='securityquestion'
+            name='recoveryAnswer'
+            placeholder='recovery answer'
             type='text'
-            value={this.state.securityQuestion}
+            value={this.state.recoveryAnswer}
             onChange={this.handleChange}
         />
-    { this.state.emailPristine ? undefined : <p>{this.state.emailError}</p> }
+        </li>
       </div>;
     return(
+      <div className='create-form'>
         <form onSubmit={this.handleSubmit}>
+          <li>
+          <label htmlFor='username'>User Name</label>
           <input
             name='username'
-            placeholder='username'
+            placeholder='enter a username'
             type='text'
             value={this.state.username}
             onChange={this.handleChange}
           />
-          { this.state.usernamePristine ? undefined : <p>{this.state.usernameError}</p> }
+          </li>
+          { this.state.usernamePristine ? undefined : <p className='validation'>{this.state.usernameError}</p> }
           { type !== 'login' ? signupJSX : undefined }
-          { this.state.securityQuestionPristine ? undefined : <p>{this.state.securityQuestionError}</p> }
+          { this.state.recoveryAnswerPristine ? undefined : <p className='validation'>{this.state.recoveryAnswerError}</p> }
+          <li>
+          <label htmlFor='password'>Password</label>
           <input
               name='password'
-              placeholder='password'
+              placeholder='please enter a password'
               type='password'
               value={this.state.password}
               onChange={this.handleChange}
           />
-          { this.state.passwordPristine ? undefined : <p>{this.state.passwordError}</p> }
+          </li>
+          { this.state.passwordPristine ? undefined : <p className='validation'>{this.state.passwordError}</p> }
           <button type='submit'>{ type }</button>
         </form>
+      </div>
     );
   }
 };

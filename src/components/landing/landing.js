@@ -2,13 +2,23 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import flySorterLogo from '../../../assets/flysorter-logo.png';
+import './landing.scss';
 
 import AuthForm from '../auth-form/auth-form';
 import * as routes from '../../routes';
+
+// actions
 import * as authActions from '../../action/auth';
+import * as dataActions from '../../action/data';
 
 class Landing extends React.Component {
-
+  constructor(props) {
+    super(props);
+    // setup store with needed DB data
+    this.props.pGetUsers();
+    this.props.pGetSubAssy();
+  }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
         .then(() => {
@@ -20,6 +30,7 @@ class Landing extends React.Component {
   handleSignup = (user) => {
     return this.props.pDoSignUp(user)
       .then((response) => {
+        console.log(response);
         this.props.history.push(routes.DASHBOARD);
         return response;
       })
@@ -27,23 +38,24 @@ class Landing extends React.Component {
   };
 
   render() {
-    const rootJSX = <div>
-      <h2>Welcome to FlySorter IMP</h2>
-      <Link to='/signup'>Create an account</Link>
-      <Link to='/login'>Login</Link>
+    const rootJSX = <div className='centered'>
+      <img src={flySorterLogo} className='logo'/>
+      <Link to='/signup' className='centered button'>Create an account</Link>
+      <br/>
+      <Link to='/login' className='centered button'>Login</Link>
     </div>;
 
-    const signUpJSX = <div>
-      <h2>FlySorter Signup</h2>
+    const signUpJSX = <div className='centered'>
+      <img src={flySorterLogo} className='logo'/>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
-      <p>Already have an account?</p>
+      <p className='base'>Already have an account?</p>
       <Link to='/login'>Login to FlySorter</Link>
     </div>;
 
-    const loginJSX = <div>
-      <h2>Login to FlySorter</h2>
+    const loginJSX = <div className='centered'>
+      <img src={flySorterLogo} className='logo'/>
       <AuthForm type='login' onComplete={this.handleLogin}/>
-      <p>No account?</p>
+      <p className='base'>No account?</p>
       <Link to='/signup'>Create an account</Link>
     </div>;
 
@@ -61,17 +73,23 @@ class Landing extends React.Component {
 
 const mapStateToProps = state => ({
   token: state.token,
+  users: state.users,
+  subAssy: state.subAssy,
 });
 
 const mapDispatchToProps = dispatch => ({
   pDoSignUp: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
+  pGetUsers: users => dispatch(dataActions.getUsers(users)),
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
 });
 
 Landing.propTypes = {
   location: PropTypes.object,
   pDoSignUp: PropTypes.func,
   pDoLogin: PropTypes.func,
+  pGetUsers: PropTypes.func,
+  pGetSubAssy: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

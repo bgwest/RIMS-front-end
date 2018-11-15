@@ -14,10 +14,15 @@ class AuthRedirect extends React.Component {
     if (pathname === routes.LOGIN || pathname === routes.SIGNUP_FRONTEND
       || pathname === routes.ROOT) {
       if (token) {
+        if (pathname === routes.CREATE_FRONTEND) {
+          destinationRoute = routes.CREATE_FRONTEND;
+        } // else
         destinationRoute = routes.DASHBOARD;
       }
-    } else if (!token) {
+    } else if (!token && pathname === routes.CREATE_FRONTEND) {
       destinationRoute = routes.ROOT;
+    } else if (!token && pathname === routes.ACCOUNTS_BACKEND) {
+      destinationRoute = routes.ACCOUNTS_BACKEND;
     }
 
     return (

@@ -12,6 +12,11 @@ export const subAssySet = subAssys => ({
   payload: subAssys,
 });
 
+export const partSet = parts => ({
+  type: 'PART_SET',
+  payload: parts,
+});
+
 export const getUsers = users => (store) => {
   return superagent.get(`${API_URL}${routes.ACCOUNTS_BACKEND}`)
     .then((userData) => {
@@ -35,15 +40,29 @@ export const getUsers = users => (store) => {
 };
 
 export const getSubAssy = subAssy => (store) => {
-  return superagent.get(`${API_URL}${routes.SUBASSY_BACKEND }`)
-      .then((subAssyData) => {
-        subAssyData = JSON.parse(subAssyData.text);
-        return subAssyData.dbQuery.map((eachSubAssy) => {
-          return eachSubAssy;
-        })
-      }).then((finalMap) => {
-        console.log('finalmap');
-        console.log(finalMap);
-        return store.dispatch(subAssySet(finalMap));
-      }).catch(console.error);
+  return superagent.get(`${API_URL}${routes.SUBASSY_BACKEND}`)
+    .then((subAssyData) => {
+      subAssyData = JSON.parse(subAssyData.text);
+      return subAssyData.dbQuery.map((eachSubAssy) => {
+        return eachSubAssy;
+      });
+    }).then((finalMap) => {
+      console.log('finalmap');
+      console.log(finalMap);
+      return store.dispatch(subAssySet(finalMap));
+    }).catch(console.error);
+};
+
+export const getParts = parts => (store) => {
+  return superagent.get(`${API_URL}${routes.PARTS_BACKEND}`)
+    .then((partData) => {
+      partData = JSON.parse(partData.text);
+      return partData.dbQuery.map((eachPart) => {
+        return eachPart;
+      });
+    }).then((finalPartMap) => {
+      console.log('finalPartMap');
+      console.log(finalPartMap);
+      return store.dispatch(partSet(finalPartMap));
+    }).catch(console.error);
 };

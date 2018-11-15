@@ -32,7 +32,7 @@ class CreateForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
+    console.log('click');
     if (this.props.type === 'create') {
       this.props.onComplete(this.state);
       this.setState(emptyState);
@@ -44,7 +44,7 @@ class CreateForm extends React.Component {
     type = type === 'create' ? 'create' : 'create';
 return (
       <div className='create-form'>
-        <form>
+        <form onSubmit={this.handleSubmit}>
         <li>
           <label htmlFor='partId'>Part ID</label>
           <input
@@ -169,10 +169,8 @@ return (
         </form>
         {type !== 'create' ? createJSX : undefined}
       </div>
-  )
-  }
+  )}
 }
-
 
 CreateForm.propTypes = {
   onComplete: PropTypes.func,

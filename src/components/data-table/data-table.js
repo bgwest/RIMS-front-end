@@ -161,15 +161,18 @@ class DataTable extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   subAssy: state.subAssy,
+  parts: state.parts,
 });
 
 const mapDispatchToProps = dispatch => ({
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+  pGetParts: parts => dispatch(dataActions.getParts(parts)),
 });
 
 DataTable.propTypes = {
   location: PropTypes.object,
   pGetSubAssy: PropTypes.func,
+  pGetParts: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

@@ -18,6 +18,7 @@ class Landing extends React.Component {
     // setup store with needed DB data
     this.props.pGetUsers();
     this.props.pGetSubAssy();
+    this.props.pGetParts();
   }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
@@ -75,6 +76,7 @@ const mapStateToProps = state => ({
   token: state.token,
   users: state.users,
   subAssy: state.subAssy,
+  parts: state.parts,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -82,6 +84,7 @@ const mapDispatchToProps = dispatch => ({
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
+  pGetParts: parts => dispatch(dataActions.getParts(parts)),
 });
 
 Landing.propTypes = {
@@ -90,6 +93,7 @@ Landing.propTypes = {
   pDoLogin: PropTypes.func,
   pGetUsers: PropTypes.func,
   pGetSubAssy: PropTypes.func,
+  pGetParts: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

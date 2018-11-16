@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import * as dataActions from '../../action/data';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import NavUi from '../nav-ui/nav-ui';
 
 class Accounts extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class Accounts extends React.Component {
 
     return (
         <div>
+          <NavUi/>
           <button onClick={this.handleShowList}>Gen User List</button>
           <p>This will be the Accounts page.</p>
           {this.state.showList === true ? this.genUserList() : null}

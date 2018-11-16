@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 
 // actions
 import * as dataActions from "../../action/data";
+import NavUi from '../nav-ui/nav-ui';
 
 
 class Dashboard extends React.Component {
@@ -19,6 +20,7 @@ class Dashboard extends React.Component {
 
     return (
         <div className='create-form centered'>
+          <NavUi/>
           <img src={flySorterLogo} className='logo'/>
           <Link to='/accounts' className='centered'>Accounts</Link>
           <DataTable/>

@@ -2,49 +2,10 @@ import React from 'react';
 import ReactTable from 'react-table';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
-
-
-// styles
+import matchSorter from 'match-sorter';
 import 'react-table/react-table.css';
-
-// actions
 import * as dataActions from "../../action/data";
-
-// import PartsTable
 import PartTable from '../part-table/part-table';
-
-const columns = [
-  {
-    Header: 'Sub Assemblies',
-    columns: [
-      {
-        Header: 'Parts',
-        accessor: 'parts',
-      },
-      {
-        Header: 'Sub Id',
-        accessor: 'subId',
-      },
-      {
-        Header: 'Sub Minutes',
-        accessor: 'subMinutes',
-      },
-      {
-        Header: 'Sub Part',
-        accessor: 'subPart',
-      },
-      {
-        Header: 'Sub Quantity',
-        accessor: 'subQuantity',
-      },
-      {
-        Header: 'Sub Version',
-        accessor: 'subVersion',
-      },
-    ],
-
-  },
-];
 
 class DataTable extends React.Component {
   constructor(props) {
@@ -83,9 +44,60 @@ class DataTable extends React.Component {
         <ReactTable
           data={data}
           filterable
-          defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value
+          defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
+          columns = {[
+          {
+            Header: 'Sub Assemblies',
+            columns: [
+          {
+            Header: 'Parts',
+            id: 'parts',
+            accessor: d => d.parts,
+            filterMethod: (filter, rows) =>
+              matchSorter(rows, filter.value, { keys: ["parts"] }),
+            filterAll: true
+          },
+          {
+            Header: 'Sub Id',
+            id: "subId",
+            accessor: d => d.subId,
+            filterMethod: (filter, rows) =>
+              matchSorter(rows, filter.value, { keys: ["subId"] }),
+            filterAll: true
+          },
+          {
+            Header: 'Sub Minutes',
+            accessor: 'subMinutes',
+            filterMethod: (filter, row) =>
+              row[filter.id].startsWith(filter.value) &&
+              row[filter.id].endsWith(filter.value)
+          },
+          {
+            Header: 'Sub Part',
+            id: 'subPart',
+            accessor: d => d.subPart,
+            filterMethod: (filter, rows) =>
+              matchSorter(rows, filter.value, { keys: ["subPart"] }),
+            filterAll: true
+          },
+          {
+            Header: 'Sub Quantity',
+            id: 'subQuantity',
+            accessor: d => d.subQuantity,
+            filterMethod: (filter, rows) =>
+              matchSorter(rows, filter.value, { keys: ["subQuantity"] }),
+            filterAll: true,
+          },
+          {
+            Header: 'Sub Version',
+            id: 'subVersion',
+            accessor: d => d.subVersion,
+            filterMethod: (filter, rows) =>
+              matchSorter(rows, filter.value, { keys: ["subVersion"] }),
+            filterAll: true          },
+            ]
           }
-          columns={columns}
+        ]}
           defaultPageSize={10}
           style={{ height: '400px' }}
           className="-striped -highlight"
@@ -108,8 +120,6 @@ class DataTable extends React.Component {
     );
   }
 }
-
-// export default DataTable;
 
 const mapStateToProps = state => ({
   token: state.token,

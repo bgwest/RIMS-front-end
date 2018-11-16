@@ -1,13 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import './dashboard.scss';
-import flySorterLogo from '../../../assets/flysorter-logo.png';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import flySorterLogo from '../../../assets/flysorter-logo.png';
 import DataTable from '../data-table/data-table';
-import PropTypes from "prop-types";
-
-// actions
-import * as dataActions from "../../action/data";
+import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 
 
@@ -19,25 +17,23 @@ class Dashboard extends React.Component {
     // this is for user experience and to combat stale data
     this.state.loadDataTable = false;
     this.props.pGetSubAssy()
-        .then((waitForSubToReturn) => {
-          return this.props.pGetParts();
-        }).then((waitForPartsToReturn) => {
-          this.state.loadDataTable = true;
-          this.setState(this.state);
-        })
+      .then((waitForSubToReturn) => {
+        return this.props.pGetParts();
+      }).then((waitForPartsToReturn) => {
+        this.state.loadDataTable = true;
+        this.setState(this.state);
+      });
   }
 
   handleRenderingDataTableMsg() {
-    return <p>Updating data...</p>
+    return <p>Updating data...</p>;
   }
 
   render() {
-
     return (
         <div className='create-form centered'>
           <NavUi/>
           <img src={flySorterLogo} className='logo'/>
-          <Link to='/accounts' className='centered'>Accounts</Link>
           {this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>}
         </div>
     );

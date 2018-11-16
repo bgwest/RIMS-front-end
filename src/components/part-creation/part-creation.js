@@ -1,14 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-
-// custom components
 import CreatePartForm from '../create-part-form/create-part-form';
 import NavUi from '../nav-ui/nav-ui';
-
-// actions
 import * as creationAction from "../../action/create";
 import * as dataActions from "../../action/data";
+import flySorterLogo from '../../../assets/flysorter-logo.png';
 
 class PartCreation extends React.Component {
   constructor(props) {
@@ -38,8 +35,9 @@ class PartCreation extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className='centered'>
         <NavUi/>
+        <img src={flySorterLogo} className='logo'/>
         <CreatePartForm type='create' onComplete={this.handleObjectIdLinkOnPartCreation}/>
         </div>
     );

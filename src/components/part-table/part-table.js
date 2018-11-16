@@ -3,13 +3,8 @@ import ReactTable from 'react-table';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import matchSorter from 'match-sorter'
-
-
-// styles
 import 'react-table/react-table.css';
 import './part-table.scss';
-
-// actions
 import * as dataActions from "../../action/data";
 
 class PartTable extends React.Component {
@@ -167,8 +162,6 @@ class PartTable extends React.Component {
     );
   }
 }
-
-// export default PartTable;
 
 const mapStateToProps = state => ({
   token: state.token,

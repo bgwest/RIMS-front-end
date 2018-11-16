@@ -1,0 +1,12 @@
+@import '../../../style/variables';
+
+.navigation {
+  margin-top: 20px;
+}
+.navLink {
+  padding: 10px;
+  font-size: 1.25em;
+  border: 1px solid $color-secondary;
+  border-radius: 3px;
+  margin: 10px;
+}

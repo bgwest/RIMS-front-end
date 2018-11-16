@@ -8,7 +8,7 @@ export const SUBASSY_POST_BACKEND = '/subassemblies';
 
 // front-end routes
 export const LOGIN = '/login';
-export const ROOT = '/';
+export const ROOT = '/login';
 export const DASHBOARD = '/dashboard';
 export const SIGNUP_FRONTEND = '/signup';
 export const CREATE_FRONTEND = '/parts';

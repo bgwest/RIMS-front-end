@@ -40,7 +40,6 @@ class CreatePartForm extends React.Component {
 
   render() {
     let { type } = this.props;
-    console.log(this.props.type);
     type = type === 'create' ? 'create' : 'create';
 return (
       <div className='create-form'>
@@ -167,7 +166,6 @@ return (
         </li>
         <button type='submit'>{type}</button>
         </form>
-        {type !== 'create' ? createJSX : undefined}
       </div>
   )}
 }

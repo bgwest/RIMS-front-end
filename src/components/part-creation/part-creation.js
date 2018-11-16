@@ -1,13 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import CreatePartForm from '../create-part-form/create-part-form';
-import * as creationAction from "../../action/create";
 import PropTypes from "prop-types";
+
+// custom components
+import CreatePartForm from '../create-part-form/create-part-form';
 import NavUi from '../nav-ui/nav-ui';
+
+// actions
+import * as creationAction from "../../action/create";
+import * as dataActions from "../../action/data";
 
 class PartCreation extends React.Component {
   constructor(props) {
     super(props);
+
+    // in the event a part is being added to a brand new sub assy,
+    // this will refresh the sub assy list with fresh DB query
+    this.props.pGetSubAssy();
   }
 
   handleObjectIdLinkOnPartCreation = (partRequest) => {
@@ -43,11 +52,13 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   pCreatePart: part => dispatch(creationAction.createPart(part)),
+  pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
 });
 
 PartCreation.propTypes = {
   location: PropTypes.object,
   pCreatePart: PropTypes.func,
+  pGetSubAssy: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PartCreation);

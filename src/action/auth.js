@@ -14,6 +14,8 @@ export const signupRequest = user => (store) => {
   return superagent.post(`${API_URL}${routes.SIGNUP_BACKEND}`)
     .send(user)
     .then((response) => {
+      const bareToken = JSON.parse(response.text).token;
+      document.cookie = `flysorter-cookie=${bareToken}`;
       return store.dispatch(set(response.text));
     });
 };
@@ -22,6 +24,8 @@ export const loginRequest = user => (store) => {
   return superagent.get(`${API_URL}${routes.LOGIN_BACKEND}`)
     .auth(user.username, user.password)
     .then((response) => {
+      const bareToken = JSON.parse(response.text).token;
+      document.cookie = `flysorter-cookie=${bareToken}`;
       return store.dispatch(set(response.text));
     });
 };

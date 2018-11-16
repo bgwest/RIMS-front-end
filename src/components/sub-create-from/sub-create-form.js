@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './sub-create.scss';
+import './sub-create-form.scss';
 
 const emptyState = {
   subId: '',
@@ -25,7 +25,6 @@ class SubCreateForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-
     if (this.props.type === 'subcreate') {
       this.props.onComplete(this.state);
       this.setState(emptyState);
@@ -34,7 +33,7 @@ class SubCreateForm extends React.Component {
 
   render() {
     let { type } = this.props;
-    type = type === 'subcreate' ? 'subcreate' : 'subcreate';
+    type === 'subcreate' ? 'subcreate' : 'subcreate';
     return (
       <div className='create-form'>
         <form onSubmit={this.handleSubmit}>
@@ -59,7 +58,7 @@ class SubCreateForm extends React.Component {
             />
           </li>
           <li>
-            <label htmlFor='subVersion'>Version</label>
+            <label htmlFor='subVersion'>Sub Assy Version</label>
             <input
               name='subVersion'
               placeholder='Sub Assy Version'
@@ -69,7 +68,7 @@ class SubCreateForm extends React.Component {
             />
           </li>
           <li>
-            <label htmlFor='subQuantity'>Quantity</label>
+            <label htmlFor='subQuantity'>Sub Assy Quantity</label>
             <input
               name='subQuantity'
               placeholder='Quantity'
@@ -79,7 +78,7 @@ class SubCreateForm extends React.Component {
             />
           </li>
           <li>
-            <label htmlFor='subMinutes'>Minutes to create</label>
+            <label htmlFor='subMinutes'>Sub Assy Minutes To Create</label>
             <input
               name='subMinutes'
               placeholder='Minutes'
@@ -88,9 +87,8 @@ class SubCreateForm extends React.Component {
               onChange={this.handleChange}
             />
           </li>
-          <button type='submit'>{ type }</button>
+          <button type='submit'>{type}</button>
         </form>
-        {type !== 'subcreate' ? subJSX : undefined}
       </div>
     )
   }
@@ -99,6 +97,7 @@ class SubCreateForm extends React.Component {
 
 SubCreateForm.propTypes = {
   onComplete: PropTypes.func,
+  type: PropTypes.string,
 };
 
 export default SubCreateForm;

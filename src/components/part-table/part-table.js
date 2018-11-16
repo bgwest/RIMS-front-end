@@ -17,7 +17,6 @@ class PartTable extends React.Component {
       data: this.makeData(),
       subLink: this.props.subLink,
     };
-    console.log(this.props.subLink);
   }
 
   range = (len) => {
@@ -107,7 +106,12 @@ class PartTable extends React.Component {
                   accessor: d => d.partNotes,
                 },
                 {
-                  Header: 'SubAssy',
+                  Header: 'subIDRef',
+                  id: 'subIDRef',
+                  accessor: d => d.subIDRef,
+                },
+                {
+                  Header: 'subAssembly',
                   id: 'subAssembly',
                   accessor: d => d.subAssembly,
                 },

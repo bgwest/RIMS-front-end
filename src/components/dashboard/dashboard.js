@@ -8,7 +8,6 @@ import DataTable from '../data-table/data-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 
-
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -26,12 +25,12 @@ class Dashboard extends React.Component {
   }
 
   handleRenderingDataTableMsg() {
-    return <p>Updating data...</p>;
+    return <p>Loading table...</p>;
   }
 
   render() {
     return (
-        <div className='create-form centered'>
+        <div className='centered'>
           <NavUi/>
           <img src={flySorterLogo} className='logo'/>
           {this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>}

@@ -33,8 +33,6 @@ export const getUsers = users => (store) => {
         };
       });
     }).then((finalMap) => {
-      console.log('finalmap');
-      console.log(finalMap);
       return store.dispatch(set(finalMap));
     }).catch(console.error);
 };
@@ -47,8 +45,6 @@ export const getSubAssy = subAssy => (store) => {
         return eachSubAssy;
       });
     }).then((finalMap) => {
-      console.log('finalmap');
-      console.log(finalMap);
       return store.dispatch(subAssySet(finalMap));
     }).catch(console.error);
 };
@@ -61,8 +57,6 @@ export const getParts = parts => (store) => {
         return eachPart;
       });
     }).then((finalPartMap) => {
-      console.log('finalPartMap');
-      console.log(finalPartMap);
       return store.dispatch(partSet(finalPartMap));
     }).catch(console.error);
 };

@@ -5,7 +5,6 @@ function findMeTheToken(strToFind) {
   let prop = null;
   let key = null;
   for (let i = 0; i <= cookies.length - 1; i++) {
-    console.log(cookies[i]);
     if (cookies[i].includes(strToFind)) {
       flySorterToken = cookies[i];
     }

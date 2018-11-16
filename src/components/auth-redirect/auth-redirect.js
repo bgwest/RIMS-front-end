@@ -6,23 +6,11 @@ import * as routes from '../../routes';
 
 class AuthRedirect extends React.Component {
   render() {
-    const { location, token } = this.props;
-    const { pathname } = location;
-
-    let destinationRoute = null;
-
-    if (pathname === routes.LOGIN || pathname === routes.SIGNUP_FRONTEND
-      || pathname === routes.ROOT) {
-      if (token) {
-        destinationRoute = routes.DASHBOARD;
-      }
-    } else if (!token) {
-      destinationRoute = routes.ROOT;
-    }
+    const { token } = this.props;
 
     return (
         <div>
-          { destinationRoute ? <Redirect to={destinationRoute}/> : undefined }
+          { !token ? <Redirect to={routes.LOGIN}/> : <Redirect to={routes.DASHBOARD}/> }
         </div>
     );
   }

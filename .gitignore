@@ -1,6 +1,9 @@
 # Database
 db
 
+# excluding build folder for now
+build/
+
 # Environment variables
 .env
 

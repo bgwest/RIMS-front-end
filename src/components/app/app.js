@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import Dashboard from '../dashboard/dashboard';
 import Accounts from '../accounts/accounts';
-import Create from '../create/create';
+import Create from '../part-creation/part-creation';
 import SubCreate from '../sub-create/sub-create';
 import Landing from '../landing/landing';
 import AuthRedirect from '../auth-redirect/auth-redirect';

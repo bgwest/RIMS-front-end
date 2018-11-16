@@ -17,7 +17,7 @@ const emptyState = {
   subAssembly: ''
 };
 
-class CreateForm extends React.Component {
+class CreatePartForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = emptyState;
@@ -68,7 +68,7 @@ return (
           <label htmlFor='partSub'>Part Sub</label>
           <input
             name='partSub'
-            placeholder='Part ID'
+            placeholder='Part Sub true or false'
             type='text'
             value={this.state.partSub}
             onChange={this.handleChange}
@@ -138,7 +138,7 @@ return (
           <label htmlFor='partLongLead'>Part Long Lead</label>
           <input
             name='partLongLead'
-            placeholder='Part Long Lead'
+            placeholder='Part Long Lead true or false'
             type='text'
             value={this.state.partLongLead}
             onChange={this.handleChange}
@@ -171,8 +171,8 @@ return (
   )}
 }
 
-CreateForm.propTypes = {
+CreatePartForm.propTypes = {
   onComplete: PropTypes.func,
 };
 
-export default CreateForm;
+export default CreatePartForm;

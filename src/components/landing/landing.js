@@ -64,7 +64,6 @@ class Landing extends React.Component {
 
     return (
         <nav>
-          { location.pathname === routes.ROOT ? rootJSX : undefined }
           { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : undefined }
           { location.pathname === routes.LOGIN ? loginJSX : undefined }
         </nav>

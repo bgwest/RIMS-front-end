@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "webpack-dev-server --config webpack.dev.js"
+    "test": "jest --coverage",
+    "watch": "webpack-dev-server --config webpack.dev.js",
+    "start": "node ./src/server.js",
+    "heroku-postbuild": "webpack --progress --config webpack.prod.js",
+    "postinstall": "npm run build",
+    "webpack": "webpack-cli --config='config/webpack.config.js'",
+    "build": "webpack --config webpack.prod.js"
   },
   "keywords": [],
   "author": "",

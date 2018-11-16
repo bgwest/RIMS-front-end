@@ -40,7 +40,7 @@ export const getUsers = users => (store) => {
 };
 
 export const getSubAssy = subAssy => (store) => {
-  return superagent.get(`${API_URL}${routes.SUBASSY_BACKEND}`)
+  return superagent.get(`${API_URL}${routes.SUBASSY_GET_BACKEND}`)
     .then((subAssyData) => {
       subAssyData = JSON.parse(subAssyData.text);
       return subAssyData.dbQuery.map((eachSubAssy) => {

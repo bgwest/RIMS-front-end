@@ -9,3 +9,11 @@ export const createPart = part => (store) => {
         console.log(response);
       }).catch(console.error);
 };
+
+export const createSubAssy = subAssy => (store) => {
+  return superagent.post(`${API_URL}${routes.SUBASSY_POST_BACKEND}`)
+      .send(subAssy)
+      .then((response) => {
+        console.log(response);
+      }).catch(console.error);
+};

@@ -53,10 +53,11 @@ class PartTable extends React.Component {
               columns: [
                 {
                   Header: 'ID',
-                  accessor: 'partId',
-                  filterMethod: (filter, row) =>
-                    row[filter.id].startsWith(filter.value) &&
-                    row[filter.id].endsWith(filter.value)
+                  id: 'partId',
+                  accessor: d => d.partId,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partId"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Description',

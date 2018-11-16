@@ -91,12 +91,10 @@ class DataTable extends React.Component {
           SubComponent={(row) => {
             // used to give Parts Component instance only associated parts to Sub Assy
             const passToPartComponent = this.props.parts.filter((eachPart) => {
-              if (eachPart.subAssembly === row.original._id) {
+              if (eachPart.subIDRef === row.original.subId) {
                 return eachPart;
               }
             });
-            console.log('passToPartComponent');
-            console.log(passToPartComponent);
             return (
               <div style={{ padding: "20px" }}>
                 <PartTable subLink={passToPartComponent}/>

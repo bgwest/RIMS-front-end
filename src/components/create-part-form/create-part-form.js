@@ -14,7 +14,7 @@ const emptyState = {
   partCount: '',
   partLongLead: '',
   partNotes: '',
-  subAssembly: ''
+  subIDRef: ''
 };
 
 class CreatePartForm extends React.Component {
@@ -156,12 +156,12 @@ return (
           />
         </li>
         <li>
-          <label htmlFor='subAssembly'>Sub Assy</label>
+          <label htmlFor='subIDRef'>subIDRef</label>
           <input
-            name='subAssembly'
-            placeholder='Sub Assy'
+            name='subIDRef'
+            placeholder='subIDRef'
             type='text'
-            value={this.state.subAssembly}
+            value={this.state.subIDRef}
             onChange={this.handleChange}
           />
         </li>

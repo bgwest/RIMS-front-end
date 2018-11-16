@@ -14,11 +14,18 @@ webpackProdConfig.plugins = [
 
 webpackProdConfig.module.rules = [{
   test: /\.scss$/,
+  exclude: [/node_modules/],
   use: [
     MiniCssPlugin.loader,
     'css-loader',
     'sass-loader',
   ],
-}];
+},
+  {
+    test: /\.css$/,
+    include: /node_modules/,
+    use: ['style-loader', 'css-loader'],
+  },
+];
 
 module.exports = merge(commonConfig, webpackProdConfig);

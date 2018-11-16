@@ -2,6 +2,8 @@ import React from 'react';
 import ReactTable from 'react-table';
 import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
+import matchSorter from 'match-sorter'
+
 
 // styles
 import 'react-table/react-table.css';
@@ -47,6 +49,9 @@ class PartTable extends React.Component {
       <div>
         <ReactTable
           data={data}
+          filterable
+          defaultFilterMethod={(filter, row) =>
+            String(row[filter.id]) === filter.value}
           columns={[
             {
               Header: 'Parts',
@@ -54,51 +59,81 @@ class PartTable extends React.Component {
                 {
                   Header: 'ID',
                   accessor: 'partId',
+                  filterMethod: (filter, row) =>
+                    row[filter.id].startsWith(filter.value) &&
+                    row[filter.id].endsWith(filter.value)
                 },
                 {
                   Header: 'Description',
                   id: 'partDescription',
                   accessor: d => d.partDescription,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partDescription"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Sub',
                   id: 'partSub',
                   accessor: d => d.partSub,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partSub"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Src',
                   id: 'partSrc',
                   accessor: d => d.partSrc,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partSrc"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'MFG#',
                   id: 'partMfgNum',
                   accessor: d => d.partMfgNum,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partMfgNum"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Price',
                   id: 'partPrice',
                   accessor: d => d.partPrice,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partPrice"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Category',
                   id: 'partCategory',
                   accessor: d => d.partCategory,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partCategory"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Location',
                   id: 'partLocation',
                   accessor: d => d.partLocation,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partLocation"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Count',
                   id: 'partCount',
                   accessor: d => d.partCount,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partCount"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Long Lead',
                   id: 'partLongLead',
                   accessor: d => d.partLongLead,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["partLongLead"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'Notes',
@@ -109,11 +144,17 @@ class PartTable extends React.Component {
                   Header: 'subIDRef',
                   id: 'subIDRef',
                   accessor: d => d.subIDRef,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["subIDRef"] }),
+                  filterAll: true
                 },
                 {
                   Header: 'subAssembly',
                   id: 'subAssembly',
                   accessor: d => d.subAssembly,
+                  filterMethod: (filter, rows) =>
+                    matchSorter(rows, filter.value, { keys: ["subAssembly"] }),
+                  filterAll: true
                 },
               ],
             },

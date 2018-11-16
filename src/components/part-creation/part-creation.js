@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import CreatePartForm from '../create-part-form/create-part-form';
 import * as creationAction from "../../action/create";
 import PropTypes from "prop-types";
+import NavUi from '../nav-ui/nav-ui';
 
 class PartCreation extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class PartCreation extends React.Component {
   render() {
     return (
       <div>
+        <NavUi/>
         <CreatePartForm type='create' onComplete={this.props.pCreatePart}/>
         </div>
     );

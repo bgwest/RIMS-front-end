@@ -15,7 +15,7 @@ export const signupRequest = user => (store) => {
     .send(user)
     .then((response) => {
       const bareToken = JSON.parse(response.text).token;
-      document.cookie = `flysorter-cookie=${bareToken}`;
+      document.cookie = `rims-cookie=${bareToken}`;
       return store.dispatch(set(response.text));
     });
 };
@@ -25,7 +25,7 @@ export const loginRequest = user => (store) => {
     .auth(user.username, user.password)
     .then((response) => {
       const bareToken = JSON.parse(response.text).token;
-      document.cookie = `flysorter-cookie=${bareToken}`;
+      document.cookie = `rims-cookie=${bareToken}`;
       return store.dispatch(set(response.text));
     });
 };

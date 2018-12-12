@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import flySorterLogo from '../../../assets/flysorter-logo.png';
+import defaultLogo from '../../../assets/defaultLogo.png';
 import './landing.scss';
 
 import AuthForm from '../auth-form/auth-form';
@@ -40,21 +40,21 @@ class Landing extends React.Component {
 
   render() {
     const rootJSX = <div className='centered'>
-      <img src={flySorterLogo} className='logo'/>
+      <img src={defaultLogo} className='logo'/>
       <Link to='/signup' className='centered button'>Create an account</Link>
       <br/>
       <Link to='/login' className='centered button'>Login</Link>
     </div>;
 
     const signUpJSX = <div className='centered'>
-      <img src={flySorterLogo} className='logo'/>
+      <img src={defaultLogo} className='logo'/>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
       <p className='base'>Already have an account?</p>
-      <Link to='/login'>Login to FlySorter</Link>
+      <Link to='/login'>Login to RIMS</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
-      <img src={flySorterLogo} className='logo'/>
+      <img src={defaultLogo} className='logo'/>
       <AuthForm type='login' onComplete={this.handleLogin}/>
       <p className='base'>No account?</p>
       <Link to='/signup'>Create an account</Link>

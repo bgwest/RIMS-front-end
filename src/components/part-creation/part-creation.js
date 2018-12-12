@@ -5,7 +5,7 @@ import CreatePartForm from '../create-part-form/create-part-form';
 import NavUi from '../nav-ui/nav-ui';
 import * as creationAction from "../../action/create";
 import * as dataActions from "../../action/data";
-import flySorterLogo from '../../../assets/flysorter-logo.png';
+import defaultLogo from '../../../assets/defaultLogo.png';
 
 class PartCreation extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class PartCreation extends React.Component {
     return (
       <div className='centered'>
         <NavUi/>
-        <img src={flySorterLogo} className='logo'/>
+        <img src={defaultLogo} className='logo'/>
         <CreatePartForm type='create' onComplete={this.handleObjectIdLinkOnPartCreation}/>
         </div>
     );

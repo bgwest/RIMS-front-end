@@ -1,29 +1,29 @@
 // handle using token post refresh
 function findMeTheToken(strToFind) {
   const cookies = document.cookie.split('; ');
-  let flySorterToken = null;
-  let prop = null;
+  let rimsToken = null;
+  let prop = null; // eslint-disable-line no-unused-vars
   let key = null;
   for (let i = 0; i <= cookies.length - 1; i++) {
     if (cookies[i].includes(strToFind)) {
-      flySorterToken = cookies[i];
+      rimsToken = cookies[i];
     }
   }
-  if (flySorterToken !== null) {
-    prop = flySorterToken.split('=')[0];
-    key = flySorterToken.split('=')[1];
+  if (rimsToken !== null) {
+    prop = rimsToken.split('=')[0]; // eslint-disable-line prefer-destructuring
+    key = rimsToken.split('=')[1]; // eslint-disable-line prefer-destructuring
   }
   return key;
 }
 
-const initialState = findMeTheToken('flysorter-cookie');
+const initialState = findMeTheToken('rims-cookie');
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
     case 'TOKEN_SET':
-      // Token was being asssigned as the DOM in a string...
+      // Token was being assigned as the DOM in a string...
       // Below if handles if API_URL is missing to prevent auto login.
-      if (payload.includes('<\!DOCTYPE html>')) {
+      if (payload.includes('<\!DOCTYPE html>')) { // eslint-disable-line no-useless-escape
         return null;
       } // else
       return payload;

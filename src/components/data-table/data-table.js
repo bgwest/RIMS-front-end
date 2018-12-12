@@ -40,7 +40,7 @@ class DataTable extends React.Component {
   render() {
     const { data } = this.state;
     return (
-      <div>
+      <div className="dataTable">
         <ReactTable
           data={data}
           filterable

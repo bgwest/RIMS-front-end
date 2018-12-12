@@ -46,6 +46,6 @@ A universal inventory application for for small to mid sized businesses.
 ![create-part](assets/part-creation.png)
 
 ___
-***Current collaborators: [Benjamin West](https://github.com/bgwest) | | [Tom North](https://github.com/tnorth93) | | [Jason Hiskey](https://github.com/peffles)***
+***Current collaborators: [Benjamin West](https://github.com/bgwest) | | [Tom North](https://github.com/tnorth93) | | [Jason Hiskey](https://github.com/jlhiskey)***
 ____
 

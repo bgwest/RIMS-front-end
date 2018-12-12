@@ -3,11 +3,22 @@
 .navigation {
   margin-top: 20px;
 }
-.navLink {
+.centered .navigation .navLink {
   padding: 10px;
   font-size: 1.25em;
-  border: 1px solid $color-secondary;
   border-radius: 3px;
+  border-left: 1px solid $buttonHoverBackground;
+  border-right: 1px solid $buttonHoverBackground;
   margin: 10px;
-  color: $color-secondary;
+  color: $color-tertiary;
+}
+
+.centered .navigation .navLink:hover{
+  border-top: 1px solid $buttonHoverBackground;
+  border-bottom: 1px solid $buttonHoverBackground;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+.navLink:focus {
+  outline: none;
 }

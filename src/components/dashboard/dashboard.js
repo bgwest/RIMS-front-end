@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './dashboard.scss';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import flySorterLogo from '../../../assets/flysorter-logo.png';
+import defaultLogo from '../../../assets/defaultLogo.png';
 import DataTable from '../data-table/data-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
     return (
         <div className='centered'>
           <NavUi/>
-          <img src={flySorterLogo} className='logo'/>
+          <img src={defaultLogo} className='logo'/>
           {this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>}
         </div>
     );

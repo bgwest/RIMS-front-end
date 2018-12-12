@@ -28,6 +28,17 @@ html {
   margin:50px auto;
   width: 250px;
   display: block;
+  border: .5px solid rgba(255,255,255, 0.1);
+  border-radius: 15px;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.logo:hover {
+  outline: none;
+  border: .5px solid rgba(255,171,64, 0.2);
+  // box-shadow: 0 0 20px #9ecaed;
+  box-shadow: 0px 0px 4000px 1px $buttonHoverBackground;
 }
 
 a {

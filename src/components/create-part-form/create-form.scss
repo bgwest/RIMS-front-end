@@ -72,22 +72,3 @@
   font-family: $proxima, sans-serif;
   font-size: 11px;
 }
-
-.create-form button[type="submit"],
-.create-form button[type="button"]{
-  background: $color-tertiary;
-  padding: 10px 20px 10px 20px;
-  border-radius: 3px;
-  color: #D2E2FF;
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.create-form button[type="submit"]:hover,
-.create-form button[type="button"]:hover{
-  background: $buttonHoverBackground;
-  color: $color-tertiary;
-}
-button:focus {
-  outline: none;
-}

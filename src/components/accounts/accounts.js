@@ -27,9 +27,11 @@ class Accounts extends React.Component {
   render() {
 
     return (
-        <div>
+        <div className='centered'>
           <NavUi/>
-          <button onClick={this.handleShowList}>Gen User List</button>
+          <br/>
+          <br/>
+          <button className="genUserList" onClick={this.handleShowList}>Gen User List</button>
           <p>This will be the Accounts page.</p>
           {this.state.showList === true ? this.genUserList() : null}
         </div>

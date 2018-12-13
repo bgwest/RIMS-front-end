@@ -12,6 +12,8 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    // refresh users ... may need to rework timing in future but will be fine for now
+    this.props.pGetUsers();
     // waits to load data-table until props have refreshed
     // this is for user experience and to combat stale data
     this.state.loadDataTable = false;
@@ -48,6 +50,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
+  pGetUsers: users => dispatch(dataActions.getUsers(users)),
 });
 
 Dashboard.propTypes = {

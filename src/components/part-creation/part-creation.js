@@ -25,14 +25,10 @@ class PartCreation extends React.Component {
     // closure var to get the ObjectID
     let objectID = null;
     this.props.subAssy.map((eachSubAssy) => {
-      console.log('eachSubAssy');
-      console.log(eachSubAssy);
       if (eachSubAssy.subId === partRequest.subIDRef) {
         objectID = eachSubAssy._id;
         partRequest.subAssembly = objectID;
       }
-      console.log('partRequest');
-      console.log(partRequest);
     });
     this.props.pCreatePart(partRequest);
   };

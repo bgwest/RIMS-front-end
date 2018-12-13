@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import matchSorter from 'match-sorter';
 import 'react-table/react-table.css';
+import './data-table.scss';
 import * as dataActions from "../../action/data";
 import PartTable from '../part-table/part-table';
 

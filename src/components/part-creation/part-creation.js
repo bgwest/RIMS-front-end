@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import CreatePartForm from '../create-part-form/create-part-form';
+import PartCreationForm from '../part-creation-form/part-creation-form';
 import NavUi from '../nav-ui/nav-ui';
 import * as creationAction from "../../action/create";
 import * as dataActions from "../../action/data";
@@ -36,9 +36,9 @@ class PartCreation extends React.Component {
   render() {
     return (
       <div className='centered'>
-        <NavUi/>
+        <NavUi location={this.props.location}/>
         <img src={defaultLogo} className='logo'/>
-        <CreatePartForm type='create' onComplete={this.handleObjectIdLinkOnPartCreation}/>
+        <PartCreationForm type='create' onComplete={this.handleObjectIdLinkOnPartCreation}/>
         </div>
     );
   }

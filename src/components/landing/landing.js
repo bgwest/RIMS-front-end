@@ -23,7 +23,7 @@ class Landing extends React.Component {
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
         .then(() => {
-          this.props.history.push(routes.DASHBOARD);
+          this.props.history.push(routes.DASHBOARD_FRONTEND);
         })
         .catch(console.error);
   };
@@ -31,8 +31,7 @@ class Landing extends React.Component {
   handleSignup = (user) => {
     return this.props.pDoSignUp(user)
       .then((response) => {
-        console.log(response);
-        this.props.history.push(routes.DASHBOARD);
+        this.props.history.push(routes.DASHBOARD_FRONTEND);
         return response;
       })
       .catch(console.error);
@@ -65,7 +64,7 @@ class Landing extends React.Component {
     return (
         <nav>
           { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : undefined }
-          { location.pathname === routes.LOGIN ? loginJSX : undefined }
+          { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : undefined }
         </nav>
     );
   }

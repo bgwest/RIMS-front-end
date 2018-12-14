@@ -1,5 +1,4 @@
 import superagent from 'superagent';
-import React from 'react';
 import * as routes from '../routes';
 
 export const set = users => ({
@@ -18,7 +17,7 @@ export const partSet = parts => ({
 });
 
 export const getUsers = users => (store) => {
-  return superagent.get(`${API_URL}${routes.ACCOUNTS_BACKEND}`)
+  return superagent.get(`${API_URL}${routes.GET_ACCOUNTS_BACKEND}`)
     .then((userData) => {
       userData = JSON.parse(userData.text);
       return userData.dbQuery.map((eachUser) => {
@@ -29,7 +28,7 @@ export const getUsers = users => (store) => {
           _id: '!prohibited',
           isAdmin: '!prohibited',
           recoveryQuestion: '!prohibited',
-          username: '!prohibited', 
+          username: '!prohibited',
         };
       });
     }).then((finalMap) => {
@@ -38,7 +37,7 @@ export const getUsers = users => (store) => {
 };
 
 export const getSubAssy = subAssy => (store) => {
-  return superagent.get(`${API_URL}${routes.SUBASSY_GET_BACKEND}`)
+  return superagent.get(`${API_URL}${routes.GET_SUBASSYS_BACKEND}`)
     .then((subAssyData) => {
       subAssyData = JSON.parse(subAssyData.text);
       return subAssyData.dbQuery.map((eachSubAssy) => {
@@ -50,7 +49,7 @@ export const getSubAssy = subAssy => (store) => {
 };
 
 export const getParts = parts => (store) => {
-  return superagent.get(`${API_URL}${routes.PARTS_BACKEND}`)
+  return superagent.get(`${API_URL}${routes.GET_PARTS_BACKEND}`)
     .then((partData) => {
       partData = JSON.parse(partData.text);
       return partData.dbQuery.map((eachPart) => {

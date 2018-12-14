@@ -21,12 +21,12 @@ class App extends React.Component {
         <div>
           <BrowserRouter>
             <div>
-              <Route path='*' component={AuthRedirect}/>
+              {<Route path='*' component={AuthRedirect}/>}
               <Route exact path='/' component={Landing}/>
               <Route path='/login' component={Landing}/>
               <Route path='/signup' component={Landing}/>
               <Route path='/dashboard' component={Dashboard}/>
-              <Route path='/company-logo' component={Dashboard}/>
+              <Route path='/company-logo' component={Accounts}/>
               <Route path='/accounts' component={Accounts}/>
               <Route path='/part-create' component={PartCreation}/>
               <Route path='/subassy-create' component={SubCreate}/>

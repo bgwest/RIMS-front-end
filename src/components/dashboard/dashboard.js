@@ -7,7 +7,8 @@ import DataTable from '../data-table/data-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 import UnassociatedPartsTable from '../unassociated-parts-table/unassociated-parts-table';
-import LogoUploadForm from '../logo-upload-form/logo-upload-form';
+import LogoUpload from '../logo-upload/logo-upload';
+import * as routes from '../../routes';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -53,14 +54,15 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const { DASHBOARD_FRONTEND, LOGO_UPLOAD_FRONTEND } = routes;
     return (
         <div className='centered'>
-          <NavUi/>
+          <NavUi location={this.props.location}/>
           <img src={defaultLogo} className='logo'/>
-          {this.props.location.pathname === '/dashboard' ? this.shouldDataTableLoad() : null}
+          {this.props.location.pathname === DASHBOARD_FRONTEND ? this.shouldDataTableLoad() : null}
           {/* wait for dataTable to finish gathering from store to get unassociatedParts */}
-          {this.props.location.pathname === '/dashboard' ? this.shouldUnAsssociatedPartsLoad() : null}
-          {this.props.location.pathname === '/company-logo' ? <LogoUploadForm/> : null }
+          {this.props.location.pathname === DASHBOARD_FRONTEND ? this.shouldUnAsssociatedPartsLoad() : null}
+          {this.props.location.pathname === LOGO_UPLOAD_FRONTEND ? <LogoUpload/> : null }
         </div>
     );
   }
@@ -69,6 +71,7 @@ class Dashboard extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   subAssy: state.subAssy,
+  users: state.users,
   parts: state.parts,
 });
 

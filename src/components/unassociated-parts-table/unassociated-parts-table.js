@@ -4,15 +4,15 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import matchSorter from 'match-sorter'
 import 'react-table/react-table.css';
-import './part-table.scss';
+import './unassociated-parts-table.scss';
 import * as dataActions from "../../action/data";
 
-class PartTable extends React.Component {
+class UnassociatedPartsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       data: this.makeData(),
-      subLink: this.props.subLink,
+      unassociatedParts: this.props.unassociatedParts,
     };
   }
 
@@ -28,11 +28,11 @@ class PartTable extends React.Component {
     return inputData;
   };
 
-  makeData(len = this.props.subLink.length) {
+  makeData(len = this.props.unassociatedParts.length) {
     let lenCounter = -1;
     return this.range(len).map((d) => {
       return {
-        ...this.newPerson(this.props.subLink[lenCounter += 1]),
+        ...this.newPerson(this.props.unassociatedParts[lenCounter += 1]),
         children: this.range(10).map(this.newPerson),
       };
     });
@@ -49,7 +49,7 @@ class PartTable extends React.Component {
             String(row[filter.id]) === filter.value}
           columns={[
             {
-              Header: 'Associated Parts',
+              Header: 'Unassociated Parts',
               columns: [
                 {
                   Header: 'ID',
@@ -175,10 +175,10 @@ const mapDispatchToProps = dispatch => ({
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
 });
 
-PartTable.propTypes = {
+UnassociatedPartsTable.propTypes = {
   location: PropTypes.object,
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PartTable);
+export default connect(mapStateToProps, mapDispatchToProps)(UnassociatedPartsTable);

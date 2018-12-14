@@ -20,7 +20,7 @@ class Accounts extends React.Component {
   genUserList = () => {
     const storedUsers = this.props.users;
     return storedUsers.map((eachUser) => {
-        return <p>{eachUser.username}</p>
+        return <p key={Math.ceil(Math.random() * 1000000)}>{eachUser.username}</p>
       })
   };
 

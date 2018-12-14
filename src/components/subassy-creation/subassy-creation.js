@@ -1,16 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import SubCreateForm from '../sub-create-from/sub-create-form';
 import * as creationAction from "../../action/create";
-import PropTypes from "prop-types";
 import NavUi from '../nav-ui/nav-ui';
 import defaultLogo from '../../../assets/defaultLogo.png';
 
 
 class SubassyCreation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (

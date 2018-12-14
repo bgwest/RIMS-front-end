@@ -7,6 +7,7 @@ import DataTable from '../data-table/data-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 import UnassociatedPartsTable from '../unassociated-parts-table/unassociated-parts-table';
+import LogoUploadForm from '../logo-upload-form/logo-upload-form';
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -41,14 +42,25 @@ class Dashboard extends React.Component {
     return unassociatedParts;
   }
 
+  shouldDataTableLoad() {
+    return this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>;
+  }
+
+  shouldUnAsssociatedPartsLoad() {
+    return this.state.loadDataTable === true
+      ? <UnassociatedPartsTable unassociatedParts={this.getUnassociatedParts()}/>
+      : null;
+  }
+
   render() {
     return (
         <div className='centered'>
           <NavUi/>
           <img src={defaultLogo} className='logo'/>
-          {this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>}
+          {this.props.location.pathname === '/dashboard' ? this.shouldDataTableLoad() : null}
           {/* wait for dataTable to finish gathering from store to get unassociatedParts */}
-          {this.state.loadDataTable === true ? <UnassociatedPartsTable unassociatedParts={this.getUnassociatedParts()}/> : null}
+          {this.props.location.pathname === '/dashboard' ? this.shouldUnAsssociatedPartsLoad() : null}
+          {this.props.location.pathname === '/company-logo' ? <LogoUploadForm/> : null }
         </div>
     );
   }

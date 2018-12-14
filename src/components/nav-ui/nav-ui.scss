@@ -1,9 +1,13 @@
 @import '../../../style/variables';
 
-.navigation {
+.navLink:focus {
+  outline: none;
+}
+// "home navigation" (dashboard)
+.homeSetNavigation {
   margin-top: 20px;
 }
-.centered .navigation .navLink {
+.centered .homeSetNavigation .navLink {
   padding: 10px;
   font-size: 1.25em;
   border-radius: 3px;
@@ -13,12 +17,30 @@
   color: $color-tertiary;
 }
 
-.centered .navigation .navLink:hover{
+.centered .homeSetNavigation .navLink:hover{
   border-top: 1px solid $buttonHoverBackground;
   border-bottom: 1px solid $buttonHoverBackground;
   border-left: 1px solid #ffffff;
   border-right: 1px solid #ffffff;
 }
-.navLink:focus {
-  outline: none;
+
+// accounts page navigation
+.accountSetNavigation {
+  margin-top: 20px;
+}
+.centered .accountSetNavigation .navLink {
+  padding: 10px;
+  font-size: 1.25em;
+  border-radius: 3px;
+  border-left: 1px solid $buttonHoverBackground;
+  border-right: 1px solid $buttonHoverBackground;
+  margin: 10px;
+  color: $color-tertiary;
+}
+
+.centered .accountSetNavigation .navLink:hover{
+  border-top: 1px solid $buttonHoverBackground;
+  border-bottom: 1px solid $buttonHoverBackground;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
 }

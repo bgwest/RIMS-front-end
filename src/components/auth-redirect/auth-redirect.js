@@ -12,12 +12,13 @@ class AuthRedirect extends React.Component {
     // If routes file was eventually better organized, there could
     //   be some type of Object.values / filter to auto-populate this.
     // For now, manually declare allowed navigation here which is NOT:
-    //   '/', 'login', 'dashboard' ... see additional handling below.
+    //   '/', '/login', '/signup', or '/dashboard'.
+    //   See additional handling below.
     this.approvedPaths = {
-      '/company-logo': '/company-logo',
-      '/accounts': '/accounts',
-      '/subassy-create': '/subassy-create',
-      '/part-create': '/part-create',
+      [routes.LOGO_UPLOAD_FRONTEND]: routes.LOGO_UPLOAD_FRONTEND,
+      [routes.ACCOUNTS_PAGE_FRONTEND]: routes.ACCOUNTS_PAGE_FRONTEND,
+      [routes.SUBASSY_CREATION_FRONTEND]: routes.SUBASSY_CREATION_FRONTEND,
+      [routes.PART_CREATION_FRONTEND]: routes.PART_CREATION_FRONTEND,
     };
   }
 
@@ -28,12 +29,17 @@ class AuthRedirect extends React.Component {
 
     // default for "un-authorized users"
     if (!token) {
-      sendTo = routes.LOGIN;
+      sendTo = routes.LOGIN_FRONTEND;
+    }
+
+    // default for new user sign-up
+    if (!token && path === routes.SIGNUP_FRONTEND) {
+      sendTo = routes.SIGNUP_FRONTEND;
     }
 
     // default for "authorized users"
     if (token) {
-      sendTo = routes.DASHBOARD;
+      sendTo = routes.DASHBOARD_FRONTEND;
     }
 
     // additional catch:
@@ -45,7 +51,7 @@ class AuthRedirect extends React.Component {
     // final catch *:
     // if sendTo is still null, send to login and let above logic sort it out
     if (sendTo === null) {
-      sendTo = routes.LOGIN;
+      sendTo = routes.LOGIN_FRONTEND;
     }
 
     // update previousPath to prevent redundant redirects:

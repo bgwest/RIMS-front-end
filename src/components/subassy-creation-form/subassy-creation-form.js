@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './sub-create-form.scss';
+import './subassy-creation-form.scss';
 
 const emptyState = {
   subId: '',
@@ -10,7 +10,7 @@ const emptyState = {
   subMinutes: '',
 };
 
-class SubCreateForm extends React.Component {
+class SubassyCreationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = emptyState;
@@ -33,7 +33,6 @@ class SubCreateForm extends React.Component {
 
   render() {
     let { type } = this.props;
-    type === 'subcreate' ? 'subcreate' : 'subcreate';
     return (
       <div className='create-form'>
         <form onSubmit={this.handleSubmit}>
@@ -95,9 +94,9 @@ class SubCreateForm extends React.Component {
 }
 
 
-SubCreateForm.propTypes = {
+SubassyCreationForm.propTypes = {
   onComplete: PropTypes.func,
   type: PropTypes.string,
 };
 
-export default SubCreateForm;
+export default SubassyCreationForm;

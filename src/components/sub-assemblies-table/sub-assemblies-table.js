@@ -4,11 +4,11 @@ import PropTypes from "prop-types";
 import connect from "react-redux/es/connect/connect";
 import matchSorter from 'match-sorter';
 import 'react-table/react-table.css';
-import './data-table.scss';
+import './sub-assemblies-table.scss';
 import * as dataActions from "../../action/data";
 import PartTable from '../part-table/part-table';
 
-class DataTable extends React.Component {
+class SubAssembliesTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -133,10 +133,10 @@ const mapDispatchToProps = dispatch => ({
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
 });
 
-DataTable.propTypes = {
+SubAssembliesTable.propTypes = {
   location: PropTypes.object,
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DataTable);
+export default connect(mapStateToProps, mapDispatchToProps)(SubAssembliesTable);

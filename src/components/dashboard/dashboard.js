@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import './dashboard.scss';
 import PropTypes from 'prop-types';
 import defaultLogo from '../../../assets/defaultLogo.png';
-import DataTable from '../data-table/data-table';
+import SubAssembliesTable from '../sub-assemblies-table/sub-assemblies-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 import UnassociatedPartsTable from '../unassociated-parts-table/unassociated-parts-table';
 import LogoUpload from '../logo-upload/logo-upload';
+import TableSelectionForm from '../table-selection-form/table-selection-form';
 import * as routes from '../../routes';
 
 class Dashboard extends React.Component {
@@ -44,13 +45,19 @@ class Dashboard extends React.Component {
   }
 
   shouldDataTableLoad() {
-    return this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <DataTable/>;
+    return this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <SubAssembliesTable/>;
   }
 
   shouldUnAsssociatedPartsLoad() {
     return this.state.loadDataTable === true
       ? <UnassociatedPartsTable unassociatedParts={this.getUnassociatedParts()}/>
       : null;
+  }
+
+  tablesToRender(tables) {
+    console.log('from dashboard..');
+    console.log('tables to render:');
+    console.log(tables);
   }
 
   render() {
@@ -63,6 +70,7 @@ class Dashboard extends React.Component {
           {/* wait for dataTable to finish gathering from store to get unassociatedParts */}
           {this.props.location.pathname === DASHBOARD_FRONTEND ? this.shouldUnAsssociatedPartsLoad() : null}
           {this.props.location.pathname === LOGO_UPLOAD_FRONTEND ? <LogoUpload/> : null }
+          <TableSelectionForm onComplete={this.tablesToRender}/>
         </div>
     );
   }

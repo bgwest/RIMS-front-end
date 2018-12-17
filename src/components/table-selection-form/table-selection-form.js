@@ -6,8 +6,6 @@ class TableSelectionForm extends React.Component {
     this.emptyState = {
       subAssemblies: '',
       unassociatedParts: '',
-      // import to leave this as the last piece of state to handle the
-      // handleSelectionProperty with more simple logic
       nothingSelected: true,
     };
     this.state = this.emptyState;

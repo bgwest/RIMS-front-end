@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import * as routes from '../../routes';
 
 class TableSelectionForm extends React.Component {
   constructor(props) {
@@ -8,6 +6,7 @@ class TableSelectionForm extends React.Component {
     this.emptyState = {
       subAssemblies: '',
       unassociatedParts: '',
+      nothingSelected: true,
     };
     this.state = this.emptyState;
   }
@@ -15,30 +14,53 @@ class TableSelectionForm extends React.Component {
   handleChange = (event) => {
     let { name, value } = event.target;
     let mutated = false;
+    let nothingSelected = true;
+
     if (value === '') {
       value = 'render';
+      nothingSelected = false;
       mutated = true;
     }
+
     if (value === 'render' && mutated === false) {
       value = '';
     }
-    this.setState({
-      [name]: value,
-    });
+
+    // must check all state before claiming this is still true
+    // if it's false, do nothing for small optimization
+    if (nothingSelected === true) {
+      const checkFullState = Object.values(this.state);
+      // count the renders
+      let addRenders = 0;
+      for (let stateIndex = 0; stateIndex <= checkFullState.length - 1; stateIndex++) {
+        if (checkFullState[stateIndex] === 'render') {
+          addRenders += 1;
+          nothingSelected = false;
+        }
+      }
+      // check for unique scenario of there only being 1 render left that happens to be
+      // the state that is about to change...
+      if (addRenders === 1 && value === '') {
+        // we can safely assume this should be true after setState...
+        nothingSelected = true;
+      }
+    }
+    // preserve all current state, change 'this' button state, change overall selection state
+    this.setState({ ...this.state, [name]: value, nothingSelected: nothingSelected });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
     this.props.onComplete(this.state);
-    this.setState(this.emptyState);
+    this.setState(this.state);
   };
 
   render() {
-    console.log(this.state);
+    const { nothingSelected } = this.state;
     return (
       <section>
         <h2>Live Inventory</h2>
-        <h3>Select data to render:</h3>
+        <h3>Render selections OR uncheck all and clear:</h3>
         <form>
           <button type="button"
                   name="subAssemblies"
@@ -57,7 +79,7 @@ class TableSelectionForm extends React.Component {
         </form>
         <br/>
         <form onSubmit={this.handleSubmit}>
-          <button type="submit">render selections</button>
+          <button type="submit">{nothingSelected ? 'Clear renders' : 'Render selections'}</button>
         </form>
       </section>
     );

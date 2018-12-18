@@ -15,9 +15,12 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.state.tablesToRender = null;
     this.state.unassociatedParts = null;
+
     // refresh users ... may need to rework timing in future but will be fine for now
     this.props.pGetUsers();
+
     // waits to load data-table until props have refreshed
     // this is for user experience and to combat stale data
     this.state.loadDataTable = false;
@@ -44,7 +47,7 @@ class Dashboard extends React.Component {
     return unassociatedParts;
   }
 
-  shouldDataTableLoad() {
+  shouldSubAssembliesTableLoad() {
     return this.state.loadDataTable === false ? this.handleRenderingDataTableMsg() : <SubAssembliesTable/>;
   }
 
@@ -54,23 +57,46 @@ class Dashboard extends React.Component {
       : null;
   }
 
-  tablesToRender(tables) {
-    console.log('from dashboard..');
-    console.log('tables to render:');
-    console.log(tables);
+  renderTables = (tablesToRender) => {
+    // probably best to eventually create an object structure to easily organize renders,
+    // but for now going to just hard code to prove concept
+    return <section>
+      {
+    tablesToRender.map((table) => {
+      if (table === 'subAssemblies') {
+        return <SubAssembliesTable key={Math.ceil(Math.random() * 1000000)}/>;
+      }
+      if (table === 'unassociatedParts') {
+        // wait for dataTable to finish gathering from store to get unassociatedParts
+        return <UnassociatedPartsTable key={Math.ceil(Math.random() * 1000000)}
+          unassociatedParts={this.getUnassociatedParts()}/>;
+      }
+    })
+      }
+      </section>
+  };
+
+  getTablesToRender(tables) {
+    const getProperties = Object.keys(tables);
+    const toRender = getProperties.filter((table) => {
+      if (tables[table] === 'render') {
+        return table;
+      } // else
+      return undefined;
+    });
+    this.setState({ tablesToRender: toRender});
   }
 
   render() {
     const { DASHBOARD_FRONTEND, LOGO_UPLOAD_FRONTEND } = routes;
+    const { tablesToRender } = this.state;
     return (
         <div className='centered'>
           <NavUi location={this.props.location}/>
           <img src={defaultLogo} className='logo'/>
-          {this.props.location.pathname === DASHBOARD_FRONTEND ? this.shouldDataTableLoad() : null}
-          {/* wait for dataTable to finish gathering from store to get unassociatedParts */}
-          {this.props.location.pathname === DASHBOARD_FRONTEND ? this.shouldUnAsssociatedPartsLoad() : null}
           {this.props.location.pathname === LOGO_UPLOAD_FRONTEND ? <LogoUpload/> : null }
-          <TableSelectionForm onComplete={this.tablesToRender}/>
+          {this.props.location.pathname === DASHBOARD_FRONTEND ? <TableSelectionForm onComplete={this.getTablesToRender.bind(this)}/> : null}
+          {tablesToRender ? this.renderTables(tablesToRender) : null}
         </div>
     );
   }

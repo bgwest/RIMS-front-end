@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './create-form.scss';
+import './part-creation-form.scss';
 
 const emptyState = {
   partId: '',
@@ -17,7 +17,7 @@ const emptyState = {
   subIDRef: ''
 };
 
-class CreatePartForm extends React.Component {
+class PartCreationForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = emptyState;
@@ -170,8 +170,8 @@ return (
   )}
 }
 
-CreatePartForm.propTypes = {
+PartCreationForm.propTypes = {
   onComplete: PropTypes.func,
 };
 
-export default CreatePartForm;
+export default PartCreationForm;

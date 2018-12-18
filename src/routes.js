@@ -1,16 +1,19 @@
 // back-end routes
 export const SIGNUP_BACKEND = '/signup';
 export const LOGIN_BACKEND = '/login';
-export const ACCOUNTS_BACKEND = '/accounts';
-export const PARTS_BACKEND = '/parts';
-export const SUBASSY_GET_BACKEND = '/subassy';
-export const SUBASSY_POST_BACKEND = '/subassemblies';
+export const GET_ACCOUNTS_BACKEND = '/accounts';
+// right now back-end routes are named the same and only unique by request type
+export const POST_PARTS_BACKEND = '/parts';
+export const GET_PARTS_BACKEND = '/parts';
+export const GET_SUBASSYS_BACKEND = '/subassy';
+export const POST_SUBASSY_BACKEND = '/subassemblies';
+export const POST_LOGO_BACKEND = '/company-logo/upload';
 
 // front-end routes
-export const LOGIN = '/login';
-export const ROOT = '/login';
-export const DASHBOARD = '/dashboard';
+export const LOGIN_FRONTEND = '/login';
+export const DASHBOARD_FRONTEND = '/dashboard';
 export const SIGNUP_FRONTEND = '/signup';
-export const CREATE_FRONTEND = '/parts';
-export const CREATE_PART_FRONTEND = '/part-create';
-export const CREATE_SUBASSY_FRONTEND = '/subassy-create';
+export const PART_CREATION_FRONTEND = '/part-create';
+export const SUBASSY_CREATION_FRONTEND = '/subassy-create';
+export const ACCOUNTS_PAGE_FRONTEND = '/accounts';
+export const LOGO_UPLOAD_FRONTEND = '/company-logo';

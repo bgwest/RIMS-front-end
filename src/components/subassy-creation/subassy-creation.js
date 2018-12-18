@@ -1,23 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SubCreateForm from '../sub-create-from/sub-create-form';
-import * as creationAction from "../../action/create";
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types';
+import SubassyCreationForm from '../subassy-creation-form/subassy-creation-form';
+import * as creationAction from '../../action/create';
 import NavUi from '../nav-ui/nav-ui';
 import defaultLogo from '../../../assets/defaultLogo.png';
 
 
 class SubassyCreation extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   render() {
     return (
       <div className='centered'>
-        <NavUi/>
+        <NavUi location={this.props.location}/>
         <img src={defaultLogo} className='logo'/>
-        <SubCreateForm type='subcreate' onComplete={this.props.pCreateSubAssy}/>
+        <SubassyCreationForm type='subcreate' onComplete={this.props.pCreateSubAssy}/>
       </div>
     );
   }

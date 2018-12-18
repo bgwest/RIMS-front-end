@@ -1,11 +1,13 @@
 @import '../../../style/variables';
 
-body .dataTable {
-  color: #B29888;
-}
-
 .ReactTable .rt-thead {
   overflow-y: scroll;
+}
+
+.ReactTable .rt-thead.-headerGroups {
+  color: $color-tertiary;
+  font-size: 15px;
+  font-weight: bold;
 }
 
 .rt-th:focus {

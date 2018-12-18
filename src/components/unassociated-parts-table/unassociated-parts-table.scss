@@ -1,0 +1,9 @@
+@import '../../../style/variables';
+
+.ReactTable .rt-thead {
+  overflow-y: scroll;
+}
+
+.rt-th:focus {
+  outline: none;
+}

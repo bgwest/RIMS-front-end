@@ -3,17 +3,17 @@ import * as routes from '../routes';
 
 
 export const createPart = part => (store) => {
-  return superagent.post(`${API_URL}${routes.PARTS_BACKEND}`)
-      .send(part)
-      .then((response) => {
-        console.log(response);
-      }).catch(console.error);
+  return superagent.post(`${API_URL}${routes.POST_PARTS_BACKEND}`)
+    .send(part)
+    .then((response) => {
+      console.log(response);
+    }).catch(console.error);
 };
 
 export const createSubAssy = subAssy => (store) => {
-  return superagent.post(`${API_URL}${routes.SUBASSY_POST_BACKEND}`)
-      .send(subAssy)
-      .then((response) => {
-        console.log(response);
-      }).catch(console.error);
+  return superagent.post(`${API_URL}${routes.POST_SUBASSY_BACKEND}`)
+    .send(subAssy)
+    .then((response) => {
+      console.log(response);
+    }).catch(console.error);
 };

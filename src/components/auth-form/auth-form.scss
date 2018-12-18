@@ -72,22 +72,3 @@
   font-family: $proxima, sans-serif;
   font-size: 11px;
 }
-
-.auth-form button[type="submit"],
-.auth-form button[type="button"]{
-  background: $color-secondary;
-  border: none;
-  padding: 10px 20px 10px 20px;
-  border-bottom: 3px solid $buttonHoverBackground;
-  border-radius: 3px;
-  color: #D2E2FF;
-}
-
-.auth-form button[type="submit"]:hover,
-.auth-form button[type="button"]:hover{
-  background: $buttonHoverBackground;
-  color:#fff;
-}
-button:focus {
-  outline: none;
-}

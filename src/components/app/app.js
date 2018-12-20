@@ -14,6 +14,9 @@ import AuthRedirect from '../auth-redirect/auth-redirect';
 // styles
 import '../../../style/base.scss';
 
+// vars
+import * as routes from '../../routes';
+
 
 class App extends React.Component {
   render() {
@@ -22,14 +25,14 @@ class App extends React.Component {
           <BrowserRouter>
             <div>
               <Route path='*' component={AuthRedirect}/>
-              <Route exact path='/' component={Landing}/>
-              <Route path='/login' component={Landing}/>
-              <Route path='/signup' component={Landing}/>
-              <Route path='/dashboard' component={Dashboard}/>
-              <Route path='/company-logo' component={Accounts}/>
-              <Route path='/accounts' component={Accounts}/>
-              <Route path='/part-create' component={PartCreation}/>
-              <Route path='/subassy-create' component={SubCreate}/>
+              <Route exact path={routes.SITE_ROOT_FRONTEND} component={Landing}/>
+              <Route path={routes.LOGIN_FRONTEND} component={Landing}/>
+              <Route path={routes.SIGNUP_FRONTEND} component={Landing}/>
+              <Route path={routes.DASHBOARD_FRONTEND} component={Dashboard}/>
+              <Route path={routes.PART_CREATION_FRONTEND} component={PartCreation}/>
+              <Route path={routes.SUBASSY_CREATION_FRONTEND} component={SubCreate}/>
+              <Route path={routes.ACCOUNTS_PAGE_FRONTEND} component={Accounts}/>
+              <Route path={routes.BRANDING_FRONTEND} component={Accounts}/>
             </div>
           </BrowserRouter>
         </div>

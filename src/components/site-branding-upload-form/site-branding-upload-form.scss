@@ -1,0 +1,22 @@
+@import '../../../style/variables';
+
+.dragHere {
+  outline: thick dotted $color-tertiary;
+  padding-top: 12%;
+  padding-bottom: 12%;
+  padding-left: 9%;
+  padding-right: 9%;
+  width: 20%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-right: 25%;
+  float: right;
+}
+
+.uploadPlaceHolder {
+  outline: 2px dashed #92b0b3;
+  padding: 10px 20px 10px 20px;
+  width: 9%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}

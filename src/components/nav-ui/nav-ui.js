@@ -22,7 +22,7 @@ class NavUi extends React.Component {
 
     const accountSet = <nav className ='accountSetNavigation'>
       <Link to={routes.DASHBOARD_FRONTEND} className='navLink'>⬅ Dashboard</Link>
-      <Link to={routes.LOGO_UPLOAD_FRONTEND} className='navLink'>Upload Logo</Link>
+      <Link to={routes.BRANDING_FRONTEND} className='navLink'>Site Branding</Link>
     </nav>;
 
     const logoUploadSet = <nav className ='accountSetNavigation'>
@@ -38,7 +38,7 @@ class NavUi extends React.Component {
       return creationSet;
     }
 
-    if (location.pathname === routes.LOGO_UPLOAD_FRONTEND) {
+    if (location.pathname === routes.BRANDING_FRONTEND) {
       return logoUploadSet;
     } // else ...
 

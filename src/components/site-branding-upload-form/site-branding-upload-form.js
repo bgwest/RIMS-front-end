@@ -1,7 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// styles
+import './site-branding-upload-form.scss';
 
-class LogoUploadForm extends React.Component {
+class SiteBrandingUploadForm extends React.Component {
   constructor(props) {
     super(props);
     this.emptyState = {
@@ -24,11 +26,20 @@ class LogoUploadForm extends React.Component {
     this.setState(this.emptyState);
   }
 
+  renderUploadButton() {
+    return <button className="box__button" type="submit">Upload Logo</button>;
+  }
+
+  renderUploadPlaceHolder() {
+    return <p className="uploadPlaceHolder">Upload Logo</p>;
+  }
+
   render() {
     console.log('this.state:');
     console.log(this.state);
     return (
       <div>
+        <h1>Update Site Branding</h1>
         <form className="box"
               onSubmit={this.handleSubmit.bind(this)}
               method="post"
@@ -41,22 +52,24 @@ class LogoUploadForm extends React.Component {
                    name="files[]"
                    id="file"
                    data-multiple-caption="{count} files selected" multiple/>
-            <label htmlFor="file"><strong>Choose a file</strong><span className="box__dragndrop"> or drag it here</span></label>
-            <br/>
-            <br/>
-            <button className="box__button" type="submit">Upload</button>
+            <section className="dragHere">
+            <label htmlFor="file">
+              <span className="box__dragndrop">&hellip; or drag it here :)</span>
+            </label>
+            </section>
+            <p><i>notes:</i></p>
+            <p><i>- the image must be named: company-logo</i></p>
+            <p><i>- accepted extensions: .jpg, .jpeg, .png</i></p>
+            {this.state.selectedFile.name ? this.renderUploadButton() : this.renderUploadPlaceHolder()}
           </div>
-          {/* <div className="box__uploading">Uploading</div> */}
-          {/* <div className="box__success">Done!</div> */}
-          {/* <div className="box__error">Error!</div> */}
         </form>
       </div>
     );
   }
 }
 
-LogoUploadForm.propTypes = {
+SiteBrandingUploadForm.propTypes = {
   onComplete: PropTypes.func,
 };
 
-export default LogoUploadForm;
+export default SiteBrandingUploadForm;

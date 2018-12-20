@@ -8,12 +8,14 @@ export const GET_PARTS_BACKEND = '/parts';
 export const GET_SUBASSYS_BACKEND = '/subassy';
 export const POST_SUBASSY_BACKEND = '/subassemblies';
 export const POST_LOGO_BACKEND = '/company-logo/upload';
+export const GET_LOGO_BACKEND = '/company-logo';
 
 // front-end routes
+export const SITE_ROOT_FRONTEND = '/';
 export const LOGIN_FRONTEND = '/login';
-export const DASHBOARD_FRONTEND = '/dashboard';
 export const SIGNUP_FRONTEND = '/signup';
+export const DASHBOARD_FRONTEND = '/dashboard';
 export const PART_CREATION_FRONTEND = '/part-create';
 export const SUBASSY_CREATION_FRONTEND = '/subassy-create';
 export const ACCOUNTS_PAGE_FRONTEND = '/accounts';
-export const LOGO_UPLOAD_FRONTEND = '/company-logo';
+export const BRANDING_FRONTEND = '/site-branding';

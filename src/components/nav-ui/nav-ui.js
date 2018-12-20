@@ -47,9 +47,6 @@ class NavUi extends React.Component {
 
   render() {
     const { location } = this.props;
-    // un-comment for debugging
-    // console.log('this.props.location in nav-ui');
-    // console.log(location);
     return (
       <div>
         {this.whichMenuSet(location)}

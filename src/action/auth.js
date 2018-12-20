@@ -15,7 +15,12 @@ export const signupRequest = user => (store) => {
     .send(user)
     .then((response) => {
       const bareToken = JSON.parse(response.text).token;
+      // TOM - expire is a variable that holds the date at the time the token is created
+      const expire = new Date();
+      expire.setHours(expire.getHours() + 4);
       document.cookie = `rims-cookie=${bareToken}`;
+      document.cookie = `expires=${expire.toUTCString()};`;
+      console.log(document.cookie);
       return store.dispatch(set(response.text));
     });
 };
@@ -25,7 +30,11 @@ export const loginRequest = user => (store) => {
     .auth(user.username, user.password)
     .then((response) => {
       const bareToken = JSON.parse(response.text).token;
+      const expire = new Date();
+      expire.setHours(expire.getHours() + 4);
       document.cookie = `rims-cookie=${bareToken}`;
+      document.cookie = `expires=${expire.toUTCString()};`;
+      console.log(document.cookie);
       return store.dispatch(set(response.text));
     });
 };

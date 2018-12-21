@@ -7,7 +7,7 @@ import SubAssembliesTable from '../sub-assemblies-table/sub-assemblies-table';
 import * as dataActions from '../../action/data';
 import NavUi from '../nav-ui/nav-ui';
 import UnassociatedPartsTable from '../unassociated-parts-table/unassociated-parts-table';
-import LogoUpload from '../logo-upload/logo-upload';
+import SiteBranding from '../site-branding/site-branding';
 import TableSelectionForm from '../table-selection-form/table-selection-form';
 import * as routes from '../../routes';
 
@@ -88,13 +88,13 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    const { DASHBOARD_FRONTEND, LOGO_UPLOAD_FRONTEND } = routes;
+    const { DASHBOARD_FRONTEND, BRANDING_FRONTEND } = routes;
     const { tablesToRender } = this.state;
     return (
         <div className='centered'>
           <NavUi location={this.props.location}/>
           <img src={defaultLogo} className='logo'/>
-          {this.props.location.pathname === LOGO_UPLOAD_FRONTEND ? <LogoUpload/> : null }
+          {this.props.location.pathname === BRANDING_FRONTEND ? <SiteBranding/> : null }
           {this.props.location.pathname === DASHBOARD_FRONTEND ? <TableSelectionForm onComplete={this.getTablesToRender.bind(this)}/> : null}
           {tablesToRender ? this.renderTables(tablesToRender) : null}
         </div>

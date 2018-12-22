@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import * as dataActions from '../../action/data';
 import PropTypes from "prop-types";
 import NavUi from '../nav-ui/nav-ui';
-import LogoUpload from '../logo-upload/logo-upload';
+import SiteBranding from '../site-branding/site-branding';
 import './accounts.scss';
 import * as routes from '../../routes';
 
@@ -27,8 +27,8 @@ class Accounts extends React.Component {
   };
 
   renderWhichPortion(path) {
-    if (path.pathname === routes.LOGO_UPLOAD_FRONTEND) {
-      return <LogoUpload location={path}/>;
+    if (path.pathname === routes.BRANDING_FRONTEND) {
+      return <SiteBranding location={path}/>;
     } // else
     return <section>
       <NavUi location={location}/>

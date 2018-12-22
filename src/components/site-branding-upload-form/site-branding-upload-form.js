@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// styles
 import './site-branding-upload-form.scss';
 
 class SiteBrandingUploadForm extends React.Component {
@@ -39,20 +38,13 @@ class SiteBrandingUploadForm extends React.Component {
 
   dragDrop(event) {
     event.preventDefault();
-    console.log('dragDrop ran');
-    let data;
-    // data = event.dataTransfer.getData('image/png');
-    data = event.dataTransfer.files;
-
-    // Do something with the data
-    console.log(data);
+    const data = event.dataTransfer.files;
     this.setState({ classNames: 'dragHere' });
     this.handleFile(data);
   }
 
   dragStart(event) {
     event.preventDefault();
-    console.log('dragStart ran');
   }
 
   dragOver(event) {
@@ -79,11 +71,8 @@ class SiteBrandingUploadForm extends React.Component {
   }
 
   render() {
-    console.log('this.state:');
-    console.log(this.state);
     return (
       <div>
-        <h1>Update Site Branding</h1>
         <form className="box"
               onSubmit={this.handleSubmit.bind(this)}
               method="post"
@@ -103,14 +92,16 @@ class SiteBrandingUploadForm extends React.Component {
                          onDragOver={this.dragOver.bind(this)} onDragStart={this.dragStart}
                          onDrop={this.dragDrop.bind(this)} onDragExit={this.dragExit.bind(this)}>
             <label htmlFor="file">
-              <span className="box__dragndrop">{this.state.classNames === 'dragHere imageDrop' ? this.dropText('after') : this.dropText('before')}</span>
+              <span className="box__dragndrop">
+                {this.state.classNames === 'dragHere imageDrop' ? this.dropText('after') : this.dropText('before')}
+              </span>
             </label>
             </section>
               : null}
             <p><i>notes:</i></p>
             <p><i>- the image must be named: company-logo</i></p>
             <p><i>- accepted extensions: .jpg, .jpeg, .png</i></p>
-            {this.state.selectedFile.name ? this.renderUploadButton() : this.renderUploadPlaceHolder()}
+            {this.state.selectedFile.name ? this.renderUploadButton() : this.renderUploadPlaceHolder() /* eslint-disable-line max-len */}
             {this.state.uploadComplete ? <h1 className='uploadComplete'>Upload complete.</h1> : null}
           </div>
         </form>

@@ -16,7 +16,7 @@ class AuthRedirect extends React.Component {
     //   See additional handling below.
     this.approvedPaths = {
       [routes.BRANDING_FRONTEND]: routes.BRANDING_FRONTEND,
-      [routes.ACCOUNTS_PAGE_FRONTEND]: routes.ACCOUNTS_PAGE_FRONTEND,
+      [routes.MY_ACCOUNT_FRONTEND]: routes.MY_ACCOUNT_FRONTEND,
       [routes.SUBASSY_CREATION_FRONTEND]: routes.SUBASSY_CREATION_FRONTEND,
       [routes.PART_CREATION_FRONTEND]: routes.PART_CREATION_FRONTEND,
     };

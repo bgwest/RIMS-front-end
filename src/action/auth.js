@@ -1,7 +1,7 @@
 import superagent from 'superagent';
 import * as routes from '../routes';
 
-export const set = token => ({
+export const tokenSet = token => ({
   type: 'TOKEN_SET',
   payload: token,
 });
@@ -21,7 +21,7 @@ export const signupRequest = user => (store) => {
       document.cookie = `rims-cookie=${bareToken}`;
       document.cookie = `expires=${expire.toUTCString()};`;
       console.log(document.cookie);
-      return store.dispatch(set(response.text));
+      return store.dispatch(tokenSet(response.text));
     });
 };
 
@@ -29,12 +29,17 @@ export const loginRequest = user => (store) => {
   return superagent.get(`${API_URL}${routes.LOGIN_BACKEND}`)
     .auth(user.username, user.password)
     .then((response) => {
-      const bareToken = JSON.parse(response.text).token;
+      console.log('response:');
+      console.log(response);
+      const bareToken = response.body.token;
+      console.log('bareToken');
+      console.log(bareToken);
       const expire = new Date();
       expire.setHours(expire.getHours() + 4);
       document.cookie = `rims-cookie=${bareToken}`;
       document.cookie = `expires=${expire.toUTCString()};`;
       console.log(document.cookie);
-      return store.dispatch(set(response.text));
+      // set isAdmin to determine menu availability and dbQueries etc
+      return store.dispatch(tokenSet([{ token: response.body.token, isAdmin: response.body.isAdmin }]));
     });
 };

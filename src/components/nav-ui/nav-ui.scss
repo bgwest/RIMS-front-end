@@ -3,9 +3,14 @@
 .navLink:focus {
   outline: none;
 }
+
+.navLink {
+  float: left;
+}
+
 // "home navigation" (dashboard)
 .homeSetNavigation {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .centered .homeSetNavigation .navLink {
   padding: 10px;
@@ -13,6 +18,8 @@
   border-radius: 3px;
   border-left: 1px solid $buttonHoverBackground;
   border-right: 1px solid $buttonHoverBackground;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
   margin: 10px;
   color: $color-tertiary;
 }
@@ -26,19 +33,70 @@
 
 // accounts page navigation
 .accountSetNavigation {
-  margin-top: 20px;
+  margin-top: 10px;
 }
+
 .centered .accountSetNavigation .navLink {
   padding: 10px;
   font-size: 1.25em;
   border-radius: 3px;
   border-left: 1px solid $buttonHoverBackground;
   border-right: 1px solid $buttonHoverBackground;
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
   margin: 10px;
   color: $color-tertiary;
 }
 
-.centered .accountSetNavigation .navLink:hover{
+.centered .accountSetNavigation .navLink:hover {
+  border-top: 1px solid $buttonHoverBackground;
+  border-bottom: 1px solid $buttonHoverBackground;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+.centered .homeSetNavigation .myAccount {
+  border-top: 1px solid $buttonHoverBackground;
+  border-bottom: 1px solid $buttonHoverBackground;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+.centered .homeSetNavigation .myAccount:hover {
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid $buttonHoverBackground;
+  border-right: 1px solid $buttonHoverBackground;
+}
+
+.centered .accountSetNavigation .myAccount {
+  border-top: 1px solid $buttonHoverBackground;
+  border-bottom: 1px solid $buttonHoverBackground;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+}
+
+.centered .accountSetNavigation .myAccount:hover {
+  border-top: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  border-left: 1px solid $buttonHoverBackground;
+  border-right: 1px solid $buttonHoverBackground;
+}
+
+#navControl .myAccountMenu {
+  float: right;
+}
+
+.myAccountMenu .dropdown .navLink {
+  margin: 0;
+  text-align: left;
+  display: none;
+}
+
+.myAccountMenu:hover .dropdown .navLink {
+  margin: 0;
+  text-align: left;
+  display: block;
   border-top: 1px solid $buttonHoverBackground;
   border-bottom: 1px solid $buttonHoverBackground;
   border-left: 1px solid #ffffff;

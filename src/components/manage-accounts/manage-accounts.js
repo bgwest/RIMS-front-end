@@ -4,10 +4,10 @@ import * as dataActions from '../../action/data';
 import PropTypes from "prop-types";
 import NavUi from '../nav-ui/nav-ui';
 import SiteBranding from '../site-branding/site-branding';
-import './accounts.scss';
+import './manage-accounts.scss';
 import * as routes from '../../routes';
 
-class Accounts extends React.Component {
+class ManageAccounts extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -26,26 +26,18 @@ class Accounts extends React.Component {
       })
   };
 
-  renderWhichPortion(path) {
-    if (path.pathname === routes.BRANDING_FRONTEND) {
-      return <SiteBranding location={path}/>;
-    } // else
-    return <section>
-      <NavUi location={location}/>
-      <br/>
-      <br/>
-      <button className="genUserList" onClick={this.handleShowList}>Gen User List</button>
-      <p>This will be the Accounts page.</p>
-      {this.state.showList === true ? this.genUserList() : null}
-    </section>
-  }
-
   render() {
     const { location } = this.props;
     return (
-        <div className='centered'>
-          {this.renderWhichPortion(location)}
-        </div>
+      <section className="centered">
+        <NavUi location={location}/>
+        <br/>
+        <br/>
+        <section className="genUserList">
+          <button className="genUserListButton" onClick={this.handleShowList}>Gen User List</button>
+        </section>
+        {this.state.showList === true ? this.genUserList() : null}
+      </section>
     );
   }
 }
@@ -59,9 +51,9 @@ const mapDispatchToProps = dispatch => ({
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
 });
 
-Accounts.propTypes = {
+ManageAccounts.propTypes = {
   location: PropTypes.object,
   pGetUsers: PropTypes.func,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Accounts);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageAccounts);

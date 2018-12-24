@@ -1,6 +1,7 @@
 // back-end routes
 export const SIGNUP_BACKEND = '/signup';
 export const LOGIN_BACKEND = '/login';
+export const TOKEN_AUTH_BACKEND = '/token-auth';
 export const GET_ACCOUNTS_BACKEND = '/accounts';
 // right now back-end routes are named the same and only unique by request type
 export const POST_PARTS_BACKEND = '/parts';

@@ -19,6 +19,8 @@ function findMeTheToken(strToFind) {
 const initialState = findMeTheToken('rims-cookie');
 
 export default (state = initialState, { type, payload }) => {
+  console.log('token payload');
+  console.log(payload);
   switch (type) {
     case 'TOKEN_SET':
       // Token was being assigned as the DOM in a string...

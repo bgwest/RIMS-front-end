@@ -16,9 +16,9 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     // setup store with needed DB data
-    this.props.pGetUsers();
-    this.props.pGetSubAssy();
-    this.props.pGetParts();
+    // this.props.pGetUsers();
+    // this.props.pGetSubAssy();
+    // this.props.pGetParts();
   }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)

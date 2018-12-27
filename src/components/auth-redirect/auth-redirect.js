@@ -3,11 +3,17 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as routes from '../../routes';
+import * as authActions from '../../action/auth';
 
 class AuthRedirect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.state.tokenCheckComplete = false;
+    this.props.ptokenRefreshOrReject()
+      .then(() => {
+        this.setState({ tokenCheckComplete: true });
+      });
 
     // If routes file was eventually better organized, there could
     //   be some type of Object.values / filter to auto-populate this.
@@ -62,26 +68,40 @@ class AuthRedirect extends React.Component {
     return <Redirect to={sendTo}/>;
   }
 
+  handleTokenFlow(path, token) {
+    // condition helps prevent redundant redirects:
+    if (path !== this.state.previousPath) {
+      return this.handleRoutingCases(path, token);
+    } // else
+    return null;
+  }
+
   render() {
     const { token, location } = this.props;
     const path = location.pathname;
 
     return (
         <div>
-          { /* prevents redundant redirects: */ }
-          {path !== this.state.previousPath ? this.handleRoutingCases(path, token) : null}
+          { /* does not run anything until token state is current */ }
+          {this.state.tokenCheckComplete ? this.handleTokenFlow(path, token) : null}
         </div>
     );
   }
 }
 
 AuthRedirect.propTypes = {
-  token: PropTypes.string,
+  token: PropTypes.array,
   location: PropTypes.object,
+  history: PropTypes.object,
+  ptokenRefreshOrReject: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
   token: state.token,
 });
 
-export default connect(mapStateToProps)(AuthRedirect);
+const mapDispatchToProps = dispatch => ({
+  ptokenRefreshOrReject: user => dispatch(authActions.tokenRefreshOrReject(user)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthRedirect);

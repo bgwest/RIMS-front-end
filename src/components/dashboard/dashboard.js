@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import defaultLogo from '../../../assets/defaultLogo.png';
 import SubAssembliesTable from '../sub-assemblies-table/sub-assemblies-table';
 import * as dataActions from '../../action/data';
+import * as authActions from "../../action/auth";
 import NavUi from '../nav-ui/nav-ui';
 import UnassociatedPartsTable from '../unassociated-parts-table/unassociated-parts-table';
 import SiteBranding from '../site-branding/site-branding';
@@ -15,6 +16,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
     this.state.tablesToRender = null;
     this.state.unassociatedParts = null;
 

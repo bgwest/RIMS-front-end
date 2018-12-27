@@ -37,3 +37,46 @@ export const loginRequest = user => (store) => {
       return store.dispatch(tokenSet([{ token: response.body.token, isAdmin: response.body.isAdmin }]));
     });
 };
+
+// handle using token post refresh
+function findMeTheToken(strToFind) {
+  const cookies = document.cookie.split('; ');
+  let rimsToken = null;
+  let prop = null; // eslint-disable-line no-unused-vars
+  let key = null;
+  for (let i = 0; i <= cookies.length - 1; i++) {
+    if (cookies[i].includes(strToFind)) {
+      rimsToken = cookies[i];
+    }
+  }
+  if (rimsToken !== null) {
+    prop = rimsToken.split('=')[0]; // eslint-disable-line prefer-destructuring
+    key = rimsToken.split('=')[1]; // eslint-disable-line prefer-destructuring
+  }
+  return key || null;
+}
+
+export const tokenRefreshOrReject = user => (store) => {
+  const token = findMeTheToken('rims-cookie');
+  return superagent.get(`${API_URL}${routes.TOKEN_AUTH_BACKEND}`)
+    .set('Authorization', `Bearer ${token}`)
+    .send()
+    .then((response) => {
+      const returnObject = {};
+      returnObject.token = response.body.token;
+      returnObject.isAdmin = response.body.isAdmin;
+      const expire = new Date();
+      expire.setHours(expire.getHours() + 4);
+      document.cookie = `rims-cookie=${returnObject.token}`;
+      document.cookie = `expires=${expire.toUTCString()};`;
+      return store.dispatch(tokenSet([{
+        token: returnObject.token,
+        isAdmin: returnObject.isAdmin,
+      }]));
+    })
+    .catch((error) => {
+      console.log('tokenRefreshOrReject action error:');
+      console.log(error.response);
+      return error.response;
+    });
+};

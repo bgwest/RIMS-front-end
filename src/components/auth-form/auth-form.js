@@ -1,10 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './auth-form.scss';
 
 class AuthForm extends React.Component {
   constructor(props) {
     super(props);
+
+    let { type } = this.props || null;
+    this.type = type === 'login' ? 'login' : 'signup';
 
     this.MIN_NAME_LENGTH = 4;
     this.MIN_PASSWORD_LENGTH = 6;
@@ -20,6 +24,7 @@ class AuthForm extends React.Component {
       recoveryAnswer: '',
       recoveryAnswerPristine: true,
       recoveryAnswerError: 'A question is required',
+      isAdmin: false,
     };
 
     this.recoveryQuestionOptions = {
@@ -65,12 +70,19 @@ class AuthForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    let isAdmin = this.state.isAdmin;
     const {usernameError, passwordError, recoveryAnswerError} = this.state;
 
-    if (this.props.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
-      this.props.onComplete(this.state);
+    // on a fresh DB, this allows the first user to be an Admin
+    if (this.props.users.length === 0) {
+      isAdmin = true;
+    }
+
+    if (this.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
+      this.props.onComplete( { ...this.state, isAdmin: isAdmin });
       this.setState(this.emptyState);
     }
+
     this.setState({
       usernamePristine: false,
       passwordPristine: false,
@@ -81,14 +93,11 @@ class AuthForm extends React.Component {
   generateRecoveryQuestionOptions() {
     const recoveryQuestionOptions = Object.values(this.recoveryQuestionOptions);
     return recoveryQuestionOptions.map((option) => {
-      return <option value={option}>{option}</option>
+      return <option key={Math.ceil(Math.random() * 1000000)} value={option}>{option}</option>
     });
   }
 
   render() {
-    let { type } = this.props;
-    type = type === 'login' ? 'login' : 'signup';
-
     const signupJSX =
       <div className='create-form signup'>
         <li>
@@ -129,7 +138,7 @@ class AuthForm extends React.Component {
           />
           </li>
           { this.state.usernamePristine ? undefined : <p className='validation'>{this.state.usernameError}</p> }
-          { type !== 'login' ? signupJSX : undefined }
+          { this.type !== 'login' ? signupJSX : undefined }
           { this.state.recoveryAnswerPristine ? undefined : <p className='validation'>{this.state.recoveryAnswerError}</p> }
           <li>
           <label htmlFor='password'>Password</label>
@@ -142,7 +151,7 @@ class AuthForm extends React.Component {
           />
           </li>
           { this.state.passwordPristine ? undefined : <p className='validation'>{this.state.passwordError}</p> }
-          <button type='submit'>{ type }</button>
+          <button type='submit'>{ this.type }</button>
         </form>
       </div>
     );
@@ -153,4 +162,8 @@ AuthForm.propTypes = {
   onComplete: PropTypes.func,
 };
 
-export default AuthForm;
+const mapStateToProps = state => ({
+  users: state.users,
+});
+
+export default connect(mapStateToProps)(AuthForm);

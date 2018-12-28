@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class MyAccountForm extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class MyAccountForm extends React.Component {
   }
 
   render() {
+    const { token } = this.props;
     return (
       <section className="create-form">
         <form onSubmit={this.handleSubmit.bind(this)}>
@@ -37,7 +39,7 @@ class MyAccountForm extends React.Component {
             <label htmlFor="username">Username</label>
             <input
               name="username"
-              placeholder="username"
+              placeholder={token ? token[0].username : null}
               type="text"
               value={this.state.username}
               onChange={this.handleChange.bind(this)}
@@ -47,8 +49,8 @@ class MyAccountForm extends React.Component {
             <label htmlFor="oldPassword">Old Password</label>
             <input
               name="oldPassword"
-              placeholder="old password"
-              type="text"
+              placeholder="&bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull;"
+              type="password"
               value={this.state.oldPassword}
               onChange={this.handleChange.bind(this)}
             />
@@ -58,7 +60,7 @@ class MyAccountForm extends React.Component {
             <input
               name="newPassword"
               placeholder="new password"
-              type="text"
+              type="password"
               value={this.state.newPassword}
               onChange={this.handleChange.bind(this)}
             />
@@ -67,7 +69,7 @@ class MyAccountForm extends React.Component {
             <label htmlFor="oldRecoveryQuestion">Old Recovery Question</label>
             <input
               name="oldRecoveryQuestion"
-              placeholder="old recovery question"
+              placeholder={token ? token[0].recoveryQuestion : null}
               type="text"
               value={this.state.oldRecoveryQuestion}
               onChange={this.handleChange.bind(this)}
@@ -77,7 +79,7 @@ class MyAccountForm extends React.Component {
             <label htmlFor="oldRecoveryAnswer">Old Recovery Answer</label>
             <input
               name="oldRecoveryAnswer"
-              placeholder="old recovery answer"
+              placeholder="&bull; &bull; &bull; &bull; &bull; &bull; &bull; &bull;"
               type="text"
               value={this.state.oldRecoveryAnswer}
               onChange={this.handleChange.bind(this)}
@@ -98,16 +100,20 @@ class MyAccountForm extends React.Component {
             <input
               name="newRecoveryAnswer"
               placeholder="new recovery answer"
-              type="text"
+              type="password"
               value={this.state.newRecoveryAnswer}
               onChange={this.handleChange.bind(this)}
             />
           </li>
-          <button type="submit">Submit</button>
+          <button type="submit">Update Account Info</button>
         </form>
       </section>
     );
   }
 }
+
+MyAccountForm.propTypes = {
+  token: PropTypes.array,
+};
 
 export default MyAccountForm;

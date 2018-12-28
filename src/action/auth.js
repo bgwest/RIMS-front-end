@@ -14,13 +14,26 @@ export const signupRequest = user => (store) => {
   return superagent.post(`${API_URL}${routes.SIGNUP_BACKEND}`)
     .send(user)
     .then((response) => {
-      const bareToken = JSON.parse(response.text).token;
-      // TOM - expire is a variable that holds the date at the time the token is created
+      const returnObject = {};
+      returnObject.token = response.body.token;
+      returnObject.username = response.body.username;
+      returnObject.recoveryQuestion = response.body.recoveryQuestion;
+      returnObject.isAdmin = response.body.isAdmin;
       const expire = new Date();
       expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${bareToken}`;
+      document.cookie = `rims-cookie=${returnObject.token}`;
       document.cookie = `expires=${expire.toUTCString()};`;
-      return store.dispatch(tokenSet(response.text));
+      return store.dispatch(tokenSet([{
+        token: returnObject.token,
+        username: returnObject.username,
+        recoveryQuestion: returnObject.recoveryQuestion,
+        isAdmin: returnObject.isAdmin,
+      }]));
+    })
+    .catch((error) => {
+      console.log('signupRequest action error:');
+      console.log(error.response);
+      return error.response;
     });
 };
 
@@ -28,13 +41,26 @@ export const loginRequest = user => (store) => {
   return superagent.get(`${API_URL}${routes.LOGIN_BACKEND}`)
     .auth(user.username, user.password)
     .then((response) => {
-      const bareToken = response.body.token;
+      const returnObject = {};
+      returnObject.token = response.body.token;
+      returnObject.username = response.body.username;
+      returnObject.recoveryQuestion = response.body.recoveryQuestion;
+      returnObject.isAdmin = response.body.isAdmin;
       const expire = new Date();
       expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${bareToken}`;
+      document.cookie = `rims-cookie=${returnObject.token}`;
       document.cookie = `expires=${expire.toUTCString()};`;
-      // set isAdmin to determine menu availability and dbQueries etc
-      return store.dispatch(tokenSet([{ token: response.body.token, isAdmin: response.body.isAdmin }]));
+      return store.dispatch(tokenSet([{
+        token: returnObject.token,
+        username: returnObject.username,
+        recoveryQuestion: returnObject.recoveryQuestion,
+        isAdmin: returnObject.isAdmin,
+      }]));
+    })
+    .catch((error) => {
+      console.log('loginRequest action error:');
+      console.log(error.response);
+      return error.response;
     });
 };
 
@@ -64,6 +90,8 @@ export const tokenRefreshOrReject = user => (store) => {
     .then((response) => {
       const returnObject = {};
       returnObject.token = response.body.token;
+      returnObject.username = response.body.username;
+      returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
       const expire = new Date();
       expire.setHours(expire.getHours() + 4);
@@ -71,6 +99,8 @@ export const tokenRefreshOrReject = user => (store) => {
       document.cookie = `expires=${expire.toUTCString()};`;
       return store.dispatch(tokenSet([{
         token: returnObject.token,
+        username: returnObject.username,
+        recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
       }]));
     })

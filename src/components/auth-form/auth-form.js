@@ -2,38 +2,51 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './auth-form.scss';
 
-const emptyState = {
-  username: '',
-  usernamePristine: true,
-  usernameError: 'Username is required',
-  password: '',
-  passwordPristine: true,
-  passwordError: 'A password is required',
-  recoveryQuestion: '',
-  recoveryAnswer: '',
-  recoveryAnswerPristine: true,
-  recoveryAnswerError: 'A question is required',
-};
-
-const MIN_NAME_LENGTH = 4;
-const MIN_PASSWORD_LENGTH = 6;
-
 class AuthForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = emptyState;
+
+    this.MIN_NAME_LENGTH = 4;
+    this.MIN_PASSWORD_LENGTH = 6;
+
+    this.emptyState = {
+      username: '',
+      usernamePristine: true,
+      usernameError: 'Username is required',
+      password: '',
+      passwordPristine: true,
+      passwordError: 'A password is required',
+      recoveryQuestion: '',
+      recoveryAnswer: '',
+      recoveryAnswerPristine: true,
+      recoveryAnswerError: 'A question is required',
+    };
+
+    this.recoveryQuestionOptions = {
+      pet: 'What is the name of your first pet?',
+      car: 'What was the make of your first car?',
+      street: 'What street did you grew up on?',
+      sports: 'What is your favorite sports team?',
+      college: 'What class in college did you graduate with high honors?',
+    };
+
+    this.state = this.emptyState;
   }
 
   handleValidation = (name, value) => {
     switch (name) {
       case 'username':
-        if (value.length < MIN_NAME_LENGTH) {
-          return `Your username must be a minimum of ${MIN_NAME_LENGTH} characters`;
+        if (value.length < this.MIN_NAME_LENGTH) {
+          return <span className="error">
+            Your username must be a minimum of {this.MIN_NAME_LENGTH} characters
+          </span>;
         }
         return null;
       case 'password':
-        if (value.length < MIN_PASSWORD_LENGTH) {
-          return `Your password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
+        if (value.length < this.MIN_PASSWORD_LENGTH) {
+          return <span className="error">
+            Your password must be at least {this.MIN_PASSWORD_LENGTH} characters long
+          </span>;
         }
         return null;
       default:
@@ -56,7 +69,7 @@ class AuthForm extends React.Component {
 
     if (this.props.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
       this.props.onComplete(this.state);
-      this.setState(emptyState);
+      this.setState(this.emptyState);
     }
     this.setState({
       usernamePristine: false,
@@ -64,6 +77,13 @@ class AuthForm extends React.Component {
       recoveryAnswerPristine: false,
     })
   };
+
+  generateRecoveryQuestionOptions() {
+    const recoveryQuestionOptions = Object.values(this.recoveryQuestionOptions);
+    return recoveryQuestionOptions.map((option) => {
+      return <option value={option}>{option}</option>
+    });
+  }
 
   render() {
     let { type } = this.props;
@@ -79,11 +99,9 @@ class AuthForm extends React.Component {
             type='select'
             value={this.state.recoveryQuestion}
             onChange={this.handleChange}>
+            { /* blank option needed to support state change... */ }
             <option value='blank'></option>
-          <option value="pet">Name of your first pet?</option>
-          <option value="street">Street you grew up on</option>
-          <option value="car">Make of your first car</option>
-          <option value="team">Favorite Sports Team</option>
+            { this.generateRecoveryQuestionOptions() }
           </select>
         </li>
         <li>
@@ -129,7 +147,7 @@ class AuthForm extends React.Component {
       </div>
     );
   }
-};
+}
 
 AuthForm.propTypes = {
   onComplete: PropTypes.func,

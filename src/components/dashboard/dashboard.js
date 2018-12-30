@@ -15,6 +15,7 @@ class Dashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+
     this.state.tablesToRender = null;
     this.state.unassociatedParts = null;
 

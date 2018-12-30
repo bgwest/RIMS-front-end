@@ -1,39 +1,57 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import './auth-form.scss';
-
-const emptyState = {
-  username: '',
-  usernamePristine: true,
-  usernameError: 'Username is required',
-  password: '',
-  passwordPristine: true,
-  passwordError: 'A password is required',
-  recoveryQuestion: '',
-  recoveryAnswer: '',
-  recoveryAnswerPristine: true,
-  recoveryAnswerError: 'A question is required',
-};
-
-const MIN_NAME_LENGTH = 4;
-const MIN_PASSWORD_LENGTH = 6;
 
 class AuthForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = emptyState;
+
+    let { type } = this.props || null;
+    this.type = type === 'login' ? 'login' : 'signup';
+
+    this.MIN_NAME_LENGTH = 4;
+    this.MIN_PASSWORD_LENGTH = 6;
+
+    this.emptyState = {
+      username: '',
+      usernamePristine: true,
+      usernameError: 'Username is required',
+      password: '',
+      passwordPristine: true,
+      passwordError: 'A password is required',
+      recoveryQuestion: '',
+      recoveryAnswer: '',
+      recoveryAnswerPristine: true,
+      recoveryAnswerError: 'A question is required',
+      isAdmin: false,
+    };
+
+    this.recoveryQuestionOptions = {
+      pet: 'What is the name of your first pet?',
+      car: 'What was the make of your first car?',
+      street: 'What street did you grew up on?',
+      sports: 'What is your favorite sports team?',
+      college: 'What class in college did you graduate with high honors?',
+    };
+
+    this.state = this.emptyState;
   }
 
   handleValidation = (name, value) => {
     switch (name) {
       case 'username':
-        if (value.length < MIN_NAME_LENGTH) {
-          return `Your username must be a minimum of ${MIN_NAME_LENGTH} characters`;
+        if (value.length < this.MIN_NAME_LENGTH) {
+          return <span className="error">
+            Your username must be a minimum of {this.MIN_NAME_LENGTH} characters
+          </span>;
         }
         return null;
       case 'password':
-        if (value.length < MIN_PASSWORD_LENGTH) {
-          return `Your password must be at least ${MIN_PASSWORD_LENGTH} characters long`;
+        if (value.length < this.MIN_PASSWORD_LENGTH) {
+          return <span className="error">
+            Your password must be at least {this.MIN_PASSWORD_LENGTH} characters long
+          </span>;
         }
         return null;
       default:
@@ -52,12 +70,19 @@ class AuthForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    let isAdmin = this.state.isAdmin;
     const {usernameError, passwordError, recoveryAnswerError} = this.state;
 
-    if (this.props.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
-      this.props.onComplete(this.state);
-      this.setState(emptyState);
+    // on a fresh DB, this allows the first user to be an Admin
+    if (this.props.users.length === 0) {
+      isAdmin = true;
     }
+
+    if (this.type === 'login' || (!usernameError && !passwordError && !recoveryAnswerError)) {
+      this.props.onComplete( { ...this.state, isAdmin: isAdmin });
+      this.setState(this.emptyState);
+    }
+
     this.setState({
       usernamePristine: false,
       passwordPristine: false,
@@ -65,10 +90,14 @@ class AuthForm extends React.Component {
     })
   };
 
-  render() {
-    let { type } = this.props;
-    type = type === 'login' ? 'login' : 'signup';
+  generateRecoveryQuestionOptions() {
+    const recoveryQuestionOptions = Object.values(this.recoveryQuestionOptions);
+    return recoveryQuestionOptions.map((option) => {
+      return <option key={Math.ceil(Math.random() * 1000000)} value={option}>{option}</option>
+    });
+  }
 
+  render() {
     const signupJSX =
       <div className='create-form signup'>
         <li>
@@ -79,11 +108,9 @@ class AuthForm extends React.Component {
             type='select'
             value={this.state.recoveryQuestion}
             onChange={this.handleChange}>
+            { /* blank option needed to support state change... */ }
             <option value='blank'></option>
-          <option value="pet">Name of your first pet?</option>
-          <option value="street">Street you grew up on</option>
-          <option value="car">Make of your first car</option>
-          <option value="team">Favorite Sports Team</option>
+            { this.generateRecoveryQuestionOptions() }
           </select>
         </li>
         <li>
@@ -111,7 +138,7 @@ class AuthForm extends React.Component {
           />
           </li>
           { this.state.usernamePristine ? undefined : <p className='validation'>{this.state.usernameError}</p> }
-          { type !== 'login' ? signupJSX : undefined }
+          { this.type !== 'login' ? signupJSX : undefined }
           { this.state.recoveryAnswerPristine ? undefined : <p className='validation'>{this.state.recoveryAnswerError}</p> }
           <li>
           <label htmlFor='password'>Password</label>
@@ -124,15 +151,19 @@ class AuthForm extends React.Component {
           />
           </li>
           { this.state.passwordPristine ? undefined : <p className='validation'>{this.state.passwordError}</p> }
-          <button type='submit'>{ type }</button>
+          <button type='submit'>{ this.type }</button>
         </form>
       </div>
     );
   }
-};
+}
 
 AuthForm.propTypes = {
   onComplete: PropTypes.func,
 };
 
-export default AuthForm;
+const mapStateToProps = state => ({
+  users: state.users,
+});
+
+export default connect(mapStateToProps)(AuthForm);

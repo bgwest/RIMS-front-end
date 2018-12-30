@@ -4,6 +4,7 @@ import superagent from 'superagent';
 import SiteBrandingUploadForm from '../site-branding-upload-form/site-branding-upload-form';
 import NavUi from '../nav-ui/nav-ui';
 import * as routes from '../../routes';
+import './site-branding.scss';
 
 
 class SiteBranding extends React.Component {
@@ -40,8 +41,9 @@ class SiteBranding extends React.Component {
 
   render() {
     return (
-      <section>
+      <section id="siteBranding">
         <NavUi location={this.props.location}/>
+        <h1 className="siteBrandingHeader">Update Branding</h1>
         <br/>
         <br/>
         <SiteBrandingUploadForm onComplete={this.handleUpload.bind(this)} type="upload"/>

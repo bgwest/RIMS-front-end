@@ -1,6 +1,7 @@
 // back-end routes
 export const SIGNUP_BACKEND = '/signup';
 export const LOGIN_BACKEND = '/login';
+export const TOKEN_AUTH_BACKEND = '/token-auth';
 export const GET_ACCOUNTS_BACKEND = '/accounts';
 // right now back-end routes are named the same and only unique by request type
 export const POST_PARTS_BACKEND = '/parts';
@@ -17,5 +18,7 @@ export const SIGNUP_FRONTEND = '/signup';
 export const DASHBOARD_FRONTEND = '/dashboard';
 export const PART_CREATION_FRONTEND = '/part-create';
 export const SUBASSY_CREATION_FRONTEND = '/subassy-create';
-export const ACCOUNTS_PAGE_FRONTEND = '/accounts';
+export const MY_ACCOUNT_FRONTEND = '/my-account';
+export const MANAGE_ACCOUNTS_FRONTEND = '/manage-accounts';
 export const BRANDING_FRONTEND = '/site-branding';
+export const SETTINGS_FRONTEND = '/settings';

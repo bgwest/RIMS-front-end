@@ -8,29 +8,51 @@ class NavUi extends React.Component {
   // CSS classNames for each nav instance can be unique for custom looks
   whichMenuSet(location) {
     const homeSet = <nav className ='homeSetNavigation'>
-      <Link to={routes.ACCOUNTS_PAGE_FRONTEND} className='navLink'>Accounts</Link>
       <Link to={routes.PART_CREATION_FRONTEND} className='navLink'>Create: Part</Link>
       <Link to={routes.SUBASSY_CREATION_FRONTEND} className='navLink'>Create: Sub Assembly</Link>
+      <nav className="myAccountMenu">
+        <Link to={routes.MY_ACCOUNT_FRONTEND} className='navLink myAccount'>My Account</Link>
+        <ul className="dropdown">
+          <Link to={routes.SETTINGS_FRONTEND} className='navLink'>Settings</Link>
+        </ul>
+      </nav>
     </nav>;
 
     const creationSet = <nav className ='homeSetNavigation'>
       <Link to={routes.DASHBOARD_FRONTEND} className='navLink'>⬅ Dashboard</Link>
-      <Link to={routes.ACCOUNTS_PAGE_FRONTEND} className='navLink'>Accounts</Link>
       <Link to={routes.PART_CREATION_FRONTEND} className='navLink'>Create: Part</Link>
       <Link to={routes.SUBASSY_CREATION_FRONTEND} className='navLink'>Create: Sub Assembly</Link>
+      <nav className="myAccountMenu">
+        <Link to={routes.MY_ACCOUNT_FRONTEND} className='navLink myAccount'>My Account</Link>
+        <ul className="dropdown">
+          <Link to={routes.SETTINGS_FRONTEND} className='navLink'>Settings</Link>
+        </ul>
+      </nav>
     </nav>;
 
     const accountSet = <nav className ='accountSetNavigation'>
-      <Link to={routes.DASHBOARD_FRONTEND} className='navLink'>⬅ Dashboard</Link>
+      <Link to={routes.DASHBOARD_FRONTEND} className='navLink'>Dashboard</Link>
       <Link to={routes.BRANDING_FRONTEND} className='navLink'>Site Branding</Link>
+      <nav className="myAccountMenu">
+        <Link to={routes.MY_ACCOUNT_FRONTEND} className='navLink myAccount'>My Account</Link>
+        <ul className="dropdown">
+          <Link to={routes.SETTINGS_FRONTEND} className='navLink'>Settings</Link>
+        </ul>
+      </nav>
     </nav>;
 
     const logoUploadSet = <nav className ='accountSetNavigation'>
-      <Link to={routes.ACCOUNTS_PAGE_FRONTEND} className='navLink'>⬅ Accounts</Link>
       <Link to={routes.DASHBOARD_FRONTEND} className='navLink'>Dashboard</Link>
+      <nav className="myAccountMenu">
+        <Link to={routes.MY_ACCOUNT_FRONTEND} className='navLink myAccount'>My Account</Link>
+        <ul className="dropdown">
+          <Link to={routes.SETTINGS_FRONTEND} className='navLink'>Settings</Link>
+        </ul>
+      </nav>
     </nav>;
 
-    if (location.pathname === routes.ACCOUNTS_PAGE_FRONTEND) {
+    if (location.pathname === routes.MY_ACCOUNT_FRONTEND) {
+      console.log('loading accountSet');
       return accountSet;
     }
 
@@ -48,7 +70,7 @@ class NavUi extends React.Component {
   render() {
     const { location } = this.props;
     return (
-      <div>
+      <div id="navControl">
         {this.whichMenuSet(location)}
       </div>
     );

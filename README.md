@@ -17,15 +17,18 @@ A universal inventory application for for small to mid sized businesses.
 7. SCSS
 8. Match-Sorter
 
-# Running the application
+# Running the application 
+***NOTE:***
+###### Some of this information is outdated and need to be updated.
 
-- To run the application locally, follow all of the steps in the backend repository and then additionally follow the steps below:
-1. Start the frontend environment by executing the ```npm run watch``` command in your terminal.
-  - If done correctly, a new browser window will open with the application, and the following message should appear in your terminal: 
+- To run the application locally, follow these steps:
+1. Turn on the database by executing the ```npm run dbOn``` command in your terminal.
+2. In a new terminal window, start the server by entering the ```npm run start``` command in your terminal.
+     - If done correctly, the following message should appear in your terminal: 
      
         ```info: Server is on at PORT: <portNumber>```
         
--  Next, you will create an account on the front end but clicking the link in the lower left hand corner of the site.
+- Next, you will create an account on the front-end by clicking the link in the lower left hand corner of the site.
 - Choose a username, recovery question, and password.
 
 ![Account Creation](assets/account-creation.png)

@@ -21,15 +21,11 @@ A universal inventory application for for small to mid sized businesses.
 ***NOTE:***
 ###### Some of this information is outdated and need to be updated.
 
-- To run the application locally, follow these steps:
-1. Turn on the database by executing the ```npm run dbOn``` command in your terminal.
-2. In a new terminal window, start the server by entering the ```npm run start``` command in your terminal.
-     - If done correctly, the following message should appear in your terminal: 
-     
-        ```info: Server is on at PORT: <portNumber>```
+
+- To run the application locally, follow all of the steps in the back-end repository first. Next, follow the steps below:
+1. Start the front-end environment by executing the `npm run watch` command in your terminal.
         
-- Next, you will create an account on the front-end by clicking the link in the lower left hand corner of the site.
-- Choose a username, recovery question, and password.
+2. Next, you will create an account on the front-end by clicking the link in the lower left hand corner of the site. Choose a username, recovery question, and password.
 
 ![Account Creation](assets/account-creation.png)
 

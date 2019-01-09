@@ -21,11 +21,11 @@ webpackProdConfig.module.rules = [{
     'sass-loader',
   ],
 },
-  {
-    test: /\.css$/,
-    include: /node_modules/,
-    use: ['style-loader', 'css-loader'],
-  },
+{
+  test: /\.css$/,
+  include: /node_modules/,
+  use: ['style-loader', 'css-loader'],
+},
 ];
 
 module.exports = merge(commonConfig, webpackProdConfig);

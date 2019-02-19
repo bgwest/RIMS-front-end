@@ -11,6 +11,7 @@ import * as routes from '../../routes';
 // actions
 import * as authActions from '../../action/auth';
 import * as dataActions from '../../action/data';
+import ResetPwForm from '../reset-pw-form/reset-pw-form';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -58,12 +59,18 @@ class Landing extends React.Component {
       <Link to='/signup'>Create an account</Link>
     </div>;
 
+    const resetPwJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <ResetPwForm/>
+    </div>;
+
     const { location } = this.props;
 
     return (
         <nav>
-          { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : undefined }
-          { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : undefined }
+          { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : null }
+          { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : null }
+          { location.pathname === routes.RESET_PW_FRONTEND ? resetPwJSX : null}
         </nav>
     );
   }

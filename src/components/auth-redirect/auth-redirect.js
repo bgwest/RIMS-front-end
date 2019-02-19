@@ -43,6 +43,11 @@ class AuthRedirect extends React.Component {
       sendTo = routes.SIGNUP_FRONTEND;
     }
 
+    // default for pw-reset
+    if (!token && path === routes.RESET_PW_FRONTEND) {
+      sendTo = routes.RESET_PW_FRONTEND;
+    }
+
     // default for "authorized users"
     if (token) {
       sendTo = routes.DASHBOARD_FRONTEND;

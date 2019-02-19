@@ -5,11 +5,23 @@ import './reset-pw-form.scss';
 class ResetPwForm extends React.Component {
   constructor(props) {
     super(props);
+    
     this.defaultState = {
       currentPassword: '',
       newPassword: '',
       verifyNewPassword: '',
     };
+
+    // these should really come from the database
+    // refactor asap to be received in redux store from DB
+    this.recoveryQuestionOptions = {
+      pet: 'What is the name of your first pet?',
+      car: 'What was the make of your first car?',
+      street: 'What street did you grew up on?',
+      sports: 'What is your favorite sports team?',
+      college: 'What class in college did you graduate with high honors?',
+    };
+
     this.state = this.defaultState;
   }
 

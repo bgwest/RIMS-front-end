@@ -55,13 +55,25 @@ class Landing extends React.Component {
     const loginJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
       <AuthForm type='login' onComplete={this.handleLogin}/>
-      <p className='base'>No account?</p>
-      <Link to='/signup'>Create an account</Link>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/signup'>Create an account</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const resetPwJSX = <div div className='centered'>
       <img src={defaultLogo} className='logo'/>
-      <ResetPwForm/>
+      <ResetPwForm type="reset"/>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
+    </div>;
+
+    const forgotPwJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <ResetPwForm type="forgot"/>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/signup'>Signup for RIMS</Link>
     </div>;
 
     const { location } = this.props;
@@ -71,6 +83,7 @@ class Landing extends React.Component {
           { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : null }
           { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : null }
           { location.pathname === routes.RESET_PW_FRONTEND ? resetPwJSX : null}
+          { location.pathname === routes.FORGOT_PW_FRONTEND ? forgotPwJSX : null}
         </nav>
     );
   }

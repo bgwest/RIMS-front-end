@@ -23,3 +23,4 @@ export const MANAGE_ACCOUNTS_FRONTEND = '/manage-accounts';
 export const BRANDING_FRONTEND = '/site-branding';
 export const SETTINGS_FRONTEND = '/settings';
 export const RESET_PW_FRONTEND = '/reset-pw';
+export const FORGOT_PW_FRONTEND = '/forgot-pw';

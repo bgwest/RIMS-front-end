@@ -30,6 +30,7 @@ class App extends React.Component {
               <Route path={routes.LOGIN_FRONTEND} component={Landing}/>
               <Route path={routes.SIGNUP_FRONTEND} component={Landing}/>
               <Route path={routes.RESET_PW_FRONTEND} component={Landing}/>
+              <Route path={routes.FORGOT_PW_FRONTEND} component={Landing}/>
               <Route path={routes.DASHBOARD_FRONTEND} component={Dashboard}/>
               <Route path={routes.PART_CREATION_FRONTEND} component={PartCreation}/>
               <Route path={routes.SUBASSY_CREATION_FRONTEND} component={SubCreate}/>

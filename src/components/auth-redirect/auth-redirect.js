@@ -18,7 +18,7 @@ class AuthRedirect extends React.Component {
     // If routes file was eventually better organized, there could
     //   be some type of Object.values / filter to auto-populate this.
     // For now, manually declare allowed navigation here which is NOT:
-    //   '/', '/login', '/signup', or '/dashboard'.
+    //   '/', '/login', '/signup', 'reset-pw', 'forot-pw', OR '/dashboard'.
     //   See additional handling below.
     this.approvedPaths = {
       [routes.BRANDING_FRONTEND]: routes.BRANDING_FRONTEND,
@@ -46,6 +46,11 @@ class AuthRedirect extends React.Component {
     // default for pw-reset
     if (!token && path === routes.RESET_PW_FRONTEND) {
       sendTo = routes.RESET_PW_FRONTEND;
+    }
+
+    // default for forgot-reset
+    if (!token && path === routes.FORGOT_PW_FRONTEND) {
+      sendTo = routes.FORGOT_PW_FRONTEND;
     }
 
     // default for "authorized users"

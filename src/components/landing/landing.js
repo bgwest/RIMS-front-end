@@ -74,6 +74,7 @@ class Landing extends React.Component {
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>
       <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const forgotUnJSX = <div div className='centered'>
@@ -83,7 +84,9 @@ class Landing extends React.Component {
       </p>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/signup'>Signup for RIMS</Link>
       <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const { location } = this.props;

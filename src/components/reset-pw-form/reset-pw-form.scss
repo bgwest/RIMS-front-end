@@ -68,3 +68,10 @@
   font-family: $proxima, sans-serif;
   font-size: 11px;
 }
+
+.reset-form-header {
+  text-align: center;
+  margin: 0;
+  /* width: -moz-max-content;    /* Firefox/Gecko */
+  /* width: -webkit-max-content;  /* Chrome */
+}

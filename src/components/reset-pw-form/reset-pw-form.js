@@ -10,6 +10,7 @@ class ResetPwForm extends React.Component {
       currentPassword: '',
       newPassword: '',
       verifyNewPassword: '',
+      username: '',
     };
 
     // these should really come from the database
@@ -81,6 +82,16 @@ class ResetPwForm extends React.Component {
   forgotPwForm = () => {
    return <form className="auth-form" onSubmit={this.handleSubmit}>
      <li>
+       <label htmlFor='username'>User Name</label>
+       <input
+         name='username'
+         placeholder='enter a username'
+         type='text'
+         value={this.state.username}
+         onChange={this.handleChange}
+       />
+     </li>
+     <li>
        <label htmlFor='recoveryQuestion'>Recovery Question</label>
        <select
          name='recoveryQuestion'
@@ -93,13 +104,40 @@ class ResetPwForm extends React.Component {
          { this.generateRecoveryQuestionOptions() }
        </select>
      </li>
+     <li>
+       <label htmlFor='recoveryAnswer'>Recovery Answer</label>
+       <input
+         name='recoveryAnswer'
+         placeholder='recovery answer'
+         type='text'
+         value={this.state.recoveryAnswer}
+         onChange={this.handleChange}
+       />
+     </li>
+     <button type='submit'>submit</button>
    </form>
   };
 
+  getHeader(type) {
+    if (type === 'reset') {
+      return <h2 className="reset-form-header">
+        Reset Password
+      </h2>;
+    }
+    if (type === 'forgot'){
+      return <h2 className="reset-form-header">
+        Forgot My Password
+      </h2>;
+    } // else
+    return null;
+  }
+
   render() {
     const { type } = this.props;
+    let h2 = this.getHeader(type);
     return (
       <div className="createForm">
+        {h2}
         { type === 'reset' ? this.resetPwForm() : null }
         { type === 'forgot' ? this.forgotPwForm() : null }
       </div>

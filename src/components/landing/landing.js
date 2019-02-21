@@ -48,8 +48,8 @@ class Landing extends React.Component {
     const signUpJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
-      <p className='base'>Already have an account?</p>
-      <Link to='/login'>Login to RIMS</Link>
+      <span className='base'>Already have an account?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
@@ -72,8 +72,18 @@ class Landing extends React.Component {
       <img src={defaultLogo} className='logo'/>
       <ResetPwForm type="forgot"/>
       <span className='base'>Help me with something else?</span>
-      <Link className="spacing" to='/login'>Login to RIMS</Link>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>
+      <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
+    </div>;
+
+    const forgotUnJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <p style={ {'text-align': 'center'} }>
+        Send username to email is currently not support. Come back soon.
+      </p>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
     </div>;
 
     const { location } = this.props;
@@ -84,6 +94,7 @@ class Landing extends React.Component {
           { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : null }
           { location.pathname === routes.RESET_PW_FRONTEND ? resetPwJSX : null}
           { location.pathname === routes.FORGOT_PW_FRONTEND ? forgotPwJSX : null}
+          { location.pathname === routes.FORGOT_UN_FRONTEND ? forgotUnJSX : null}
         </nav>
     );
   }

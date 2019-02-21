@@ -13,6 +13,8 @@
 
 .centered .spacing {
   display: block;
+  width: -moz-max-content;    /* Firefox/Gecko */
+  /* width: -webkit-max-content;  /* Chrome */
 }
 
 Link a {

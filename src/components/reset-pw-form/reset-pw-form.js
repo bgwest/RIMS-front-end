@@ -5,7 +5,7 @@ import './reset-pw-form.scss';
 class ResetPwForm extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.defaultState = {
       currentPassword: '',
       newPassword: '',
@@ -71,8 +71,29 @@ class ResetPwForm extends React.Component {
       </form>;
   };
 
+  generateRecoveryQuestionOptions() {
+    const recoveryQuestionOptions = Object.values(this.recoveryQuestionOptions);
+    return recoveryQuestionOptions.map((option) => {
+      return <option key={Math.ceil(Math.random() * 1000000)} value={option}>{option}</option>
+    });
+  }
+
   forgotPwForm = () => {
-   return <p>forgot my pw</p>;
+   return <form className="auth-form" onSubmit={this.handleSubmit}>
+     <li>
+       <label htmlFor='recoveryQuestion'>Recovery Question</label>
+       <select
+         name='recoveryQuestion'
+         placeholder='recovery question'
+         type='select'
+         value={this.state.recoveryQuestion}
+         onChange={this.handleChange}>
+         { /* blank option needed to support state change... */ }
+         <option value='blank'></option>
+         { this.generateRecoveryQuestionOptions() }
+       </select>
+     </li>
+   </form>
   };
 
   render() {

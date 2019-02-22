@@ -27,6 +27,9 @@ class AuthForm extends React.Component {
       isAdmin: false,
     };
 
+    // making a note that these should really come from the database
+    // will be copying / pasting them into new form now -- but noting to come back
+    // and refactor
     this.recoveryQuestionOptions = {
       pet: 'What is the name of your first pet?',
       car: 'What was the make of your first car?',

@@ -11,6 +11,7 @@ import * as routes from '../../routes';
 // actions
 import * as authActions from '../../action/auth';
 import * as dataActions from '../../action/data';
+import ResetPwForm from '../reset-pw-form/reset-pw-form';
 
 class Landing extends React.Component {
   constructor(props) {
@@ -36,6 +37,16 @@ class Landing extends React.Component {
       .catch(console.error);
   };
 
+  handlePwResetAndLogin = (user) => {
+    return this.props.handlePwResetAndLogin(user)
+      .then(() => {
+        this.props.history.push(routes.DASHBOARD_FRONTEND);
+      })
+      .catch((error) => {
+        return new Error(error);
+      });
+  };
+
   render() {
     const rootJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
@@ -47,23 +58,56 @@ class Landing extends React.Component {
     const signUpJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
       <AuthForm type='signup' onComplete={this.handleSignup}/>
-      <p className='base'>Already have an account?</p>
-      <Link to='/login'>Login to RIMS</Link>
+      <span className='base'>Already have an account?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
       <AuthForm type='login' onComplete={this.handleLogin}/>
-      <p className='base'>No account?</p>
-      <Link to='/signup'>Create an account</Link>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/signup'>Create an account</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
+    </div>;
+
+    const resetPwJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <ResetPwForm type="reset" onComplete={this.handlePwResetAndLogin}/>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
+    </div>;
+
+    const forgotPwJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <ResetPwForm type="forgot"/>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/signup'>Signup for RIMS</Link>
+      <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
+    </div>;
+
+    const forgotUnJSX = <div div className='centered'>
+      <img src={defaultLogo} className='logo'/>
+      <p style={ {'text-align': 'center'} }>
+        Send username to email is currently not supported. Come back soon.
+      </p>
+      <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
+      <Link className="spacing" to='/signup'>Signup for RIMS</Link>
+      <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
+      <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const { location } = this.props;
 
     return (
         <nav>
-          { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : undefined }
-          { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : undefined }
+          { location.pathname === routes.SIGNUP_FRONTEND ? signUpJSX : null }
+          { location.pathname === routes.LOGIN_FRONTEND ? loginJSX : null }
+          { location.pathname === routes.RESET_PW_FRONTEND ? resetPwJSX : null}
+          { location.pathname === routes.FORGOT_PW_FRONTEND ? forgotPwJSX : null}
+          { location.pathname === routes.FORGOT_UN_FRONTEND ? forgotUnJSX : null}
         </nav>
     );
   }
@@ -79,6 +123,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pDoSignUp: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
+  handlePwResetAndLogin: user => dispatch(authActions.handlePwResetAndLogin(user)),
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
@@ -91,6 +136,7 @@ Landing.propTypes = {
   pGetUsers: PropTypes.func,
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
+  handlePwResetAndLogin: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

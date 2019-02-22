@@ -7,8 +7,14 @@
 
 .centered .logo {
   display: block;
-  padding-top: 5%;
-  margin: 0 auto;
+  padding-top: 1%;
+  margin: 4% auto;
+}
+
+.centered .spacing {
+  display: block;
+  width: -moz-max-content;    /* Firefox/Gecko */
+  /* width: -webkit-max-content;  /* Chrome */
 }
 
 Link a {

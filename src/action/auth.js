@@ -65,10 +65,17 @@ export const loginRequest = user => (store) => {
 };
 
 export const handlePwResetAndLogin = user => (store) => {
+  let { currentPassword, newPassword } = user;
+  // super agent auth will automatically base64 encode
+  // run base64 encoding for additional second field for pw reset
+  newPassword = Buffer.from(newPassword).toString('base64');
   return superagent.get(`${API_URL}${routes.GET_PW_RESET_BACKEND}`)
-    .field('newPassword', user.newPassword)
-    .auth(user.username, user.password)
+    .set('Basic2', newPassword)
+    .auth(user.username, currentPassword)
     .then((response) => {
+      // erase pw variables
+      currentPassword = null;
+      newPassword = null;
       const returnObject = {};
       returnObject.token = response.body.token;
       returnObject.username = response.body.username;

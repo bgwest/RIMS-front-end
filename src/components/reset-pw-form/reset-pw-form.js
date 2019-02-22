@@ -33,7 +33,6 @@ class ResetPwForm extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
     this.props.onComplete(this.state);
   };
 
@@ -53,7 +52,7 @@ class ResetPwForm extends React.Component {
           <label>Current Password</label>
           <input
             name="currentPassword"
-            placeholder="Current Passsword"
+            placeholder="current passsword"
             type="password"
             value={this.state.currentPassword}
             onChange={this.handleChange}
@@ -63,7 +62,7 @@ class ResetPwForm extends React.Component {
           <label>New Password</label>
           <input
             name="newPassword"
-            placeholder="New Passsword"
+            placeholder="new passsword"
             type="password"
             value={this.state.newPassword}
             onChange={this.handleChange}
@@ -73,7 +72,7 @@ class ResetPwForm extends React.Component {
           <label>Verify New Password</label>
           <input
             name="verifyNewPassword"
-            placeholder="Verify New Password"
+            placeholder="verify new password"
             type="password"
             value={this.state.verifyNewPassword}
             onChange={this.handleChange}

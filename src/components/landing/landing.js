@@ -90,7 +90,7 @@ class Landing extends React.Component {
     const forgotUnJSX = <div div className='centered'>
       <img src={defaultLogo} className='logo'/>
       <p style={ {'text-align': 'center'} }>
-        Send username to email is currently not support. Come back soon.
+        Send username to email is currently not supported. Come back soon.
       </p>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>

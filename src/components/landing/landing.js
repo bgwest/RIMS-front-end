@@ -37,6 +37,16 @@ class Landing extends React.Component {
       .catch(console.error);
   };
 
+  handlePwResetAndLogin = (user) => {
+    return this.props.handlePwResetAndLogin(user)
+      .then(() => {
+        this.props.history.push(routes.DASHBOARD_FRONTEND);
+      })
+      .catch((error) => {
+        return new Error(error);
+      });
+  };
+
   render() {
     const rootJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
@@ -62,7 +72,7 @@ class Landing extends React.Component {
 
     const resetPwJSX = <div div className='centered'>
       <img src={defaultLogo} className='logo'/>
-      <ResetPwForm type="reset"/>
+      <ResetPwForm type="reset" onComplete={this.handlePwResetAndLogin}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
       <Link className="spacing" to='/forgot-pw'>Forgot Password</Link>
@@ -113,6 +123,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pDoSignUp: user => dispatch(authActions.signupRequest(user)),
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
+  handlePwResetAndLogin: user => dispatch(authActions.handlePwResetAndLogin(user)),
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
@@ -125,6 +136,7 @@ Landing.propTypes = {
   pGetUsers: PropTypes.func,
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
+  handlePwResetAndLogin: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

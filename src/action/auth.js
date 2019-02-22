@@ -64,6 +64,28 @@ export const loginRequest = user => (store) => {
     });
 };
 
+export const handlePwResetAndLogin = user => (store) => {
+  return superagent.get(`${API_URL}${routes.GET_PW_RESET_BACKEND}`)
+    .field('newPassword', user.newPassword)
+    .auth(user.username, user.password)
+    .then((response) => {
+      const returnObject = {};
+      returnObject.token = response.body.token;
+      returnObject.username = response.body.username;
+      returnObject.recoveryQuestion = response.body.recoveryQuestion;
+      returnObject.isAdmin = response.body.isAdmin;
+      const expire = new Date();
+      expire.setHours(expire.getHours() + 4);
+      document.cookie = `rims-cookie=${returnObject.token}`;
+      document.cookie = `expires=${expire.toUTCString()};`;
+    })
+    .catch((error) => {
+      console.log('handlePwResetAndLogin action error:');
+      console.log(error.response);
+      return error.response;
+    });
+};
+
 // handle using token post refresh
 function findMeTheToken(strToFind) {
   const cookies = document.cookie.split('; ');

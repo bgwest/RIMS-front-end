@@ -7,10 +7,10 @@ class ResetPwForm extends React.Component {
     super(props);
 
     this.defaultState = {
+      username: '',
       currentPassword: '',
       newPassword: '',
       verifyNewPassword: '',
-      username: '',
     };
 
     // these should really come from the database
@@ -34,10 +34,21 @@ class ResetPwForm extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.target);
+    this.props.onComplete(this.state);
   };
 
   resetPwForm = () => {
     return <form className="auth-form" onSubmit={this.handleSubmit}>
+      <li>
+        <label>Username</label>
+        <input
+          name="username"
+          placeholder="username"
+          type="text"
+          value={this.state.username}
+          onChange={this.handleChange}
+        />
+      </li>
         <li>
           <label>Current Password</label>
           <input

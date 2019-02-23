@@ -13,7 +13,6 @@ export const remove = () => ({
 function updateCookie(token) {
   const expire = new Date();
   expire.setHours(expire.getHours() + 4);
-  console.log(`signup: rims-cookie=${token}; expires=${expire.toUTCString()};`);
   document.cookie = `rims-cookie=${token}; expires=${expire.toUTCString()};`;
   return document.cookie;
 }

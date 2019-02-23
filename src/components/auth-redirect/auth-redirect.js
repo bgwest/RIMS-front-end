@@ -65,11 +65,8 @@ class AuthRedirect extends React.Component {
 
     // handle logout
     if (token && path === routes.LOGOUT_FRONTEND) {
-      // set expire to current time
-      console.log('handle logout called');
+      // set cookie to past to ensure expiry
       const expire = new Date();
-      // need to figure out a way to get timezone and do this for current time zone
-      // set in browser
       expire.setHours(expire.getHours() - 8);
       document.cookie = `rims-cookie=dead;expires=${expire.toUTCString()};`;
       window.location.reload();

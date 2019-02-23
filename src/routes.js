@@ -26,3 +26,4 @@ export const SETTINGS_FRONTEND = '/settings';
 export const RESET_PW_FRONTEND = '/reset-pw';
 export const FORGOT_PW_FRONTEND = '/forgot-pw';
 export const FORGOT_UN_FRONTEND = '/forgot-un';
+export const LOGOUT_FRONTEND = '/logout';

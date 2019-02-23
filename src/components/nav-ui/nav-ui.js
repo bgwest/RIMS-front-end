@@ -14,6 +14,7 @@ class NavUi extends React.Component {
         <Link to={routes.MY_ACCOUNT_FRONTEND} className='navLink myAccount'>My Account</Link>
         <ul className="dropdown">
           <Link to={routes.SETTINGS_FRONTEND} className='navLink'>Settings</Link>
+          <Link to={routes.LOGOUT_FRONTEND} className='navLink'>Logout</Link>
         </ul>
       </nav>
     </nav>;

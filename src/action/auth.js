@@ -10,6 +10,14 @@ export const remove = () => ({
   type: 'TOKEN_REMOVE',
 });
 
+function updateCookie(token) {
+  const expire = new Date();
+  expire.setHours(expire.getHours() + 4);
+  console.log(`signup: rims-cookie=${token}; expires=${expire.toUTCString()};`);
+  document.cookie = `rims-cookie=${token}; expires=${expire.toUTCString()};`;
+  return document.cookie;
+}
+
 export const signupRequest = user => (store) => {
   return superagent.post(`${API_URL}${routes.SIGNUP_BACKEND}`)
     .send(user)
@@ -19,10 +27,7 @@ export const signupRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
@@ -46,10 +51,7 @@ export const loginRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
@@ -81,10 +83,7 @@ export const handlePwResetAndLogin = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      updateCookie(returnObject.token);
     })
     .catch((error) => {
       console.log('handlePwResetAndLogin action error:');
@@ -95,7 +94,7 @@ export const handlePwResetAndLogin = user => (store) => {
 
 // handle using token post refresh
 function findMeTheToken(strToFind) {
-  const cookies = document.cookie.split('; ');
+  const cookies = document.cookie.split(';');
   let rimsToken = null;
   let prop = null; // eslint-disable-line no-unused-vars
   let key = null;
@@ -122,10 +121,7 @@ export const tokenRefreshOrReject = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,

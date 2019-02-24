@@ -47,6 +47,11 @@ class Landing extends React.Component {
       });
   };
 
+  handleForgotMyPassword = (user) => {
+    console.log('action: handleForgotMyPassword()');
+    return this.props.handleForgotMyPassword(user);
+  };
+
   render() {
     const rootJSX = <div className='centered'>
       <img src={defaultLogo} className='logo'/>
@@ -80,7 +85,7 @@ class Landing extends React.Component {
 
     const forgotPwJSX = <div div className='centered'>
       <img src={defaultLogo} className='logo'/>
-      <ResetPwForm type="forgot"/>
+      <ResetPwForm type="forgot" onComplete={this.handleForgotMyPassword}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>
       <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
@@ -127,6 +132,7 @@ const mapDispatchToProps = dispatch => ({
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
+  handleForgotMyPassword: user => dispatch(authActions.handleForgotMyPassword(user)),
 });
 
 Landing.propTypes = {
@@ -137,6 +143,7 @@ Landing.propTypes = {
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
   handlePwResetAndLogin: PropTypes.func,
+  handleForgotMyPassword: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

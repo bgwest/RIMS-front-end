@@ -92,6 +92,10 @@ export const handlePwResetAndLogin = user => (store) => {
     });
 };
 
+export const handleForgotMyPassword = user => (store) => {
+  console.log(user);
+};
+
 // handle using token post refresh
 function findMeTheToken(strToFind) {
   const cookies = document.cookie.split(';');

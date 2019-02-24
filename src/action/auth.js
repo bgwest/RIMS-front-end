@@ -94,12 +94,16 @@ export const handlePwResetAndLogin = user => (store) => {
 
 export const handleForgotMyPassword = user => (store) => {
   console.log(user);
-  const encodedAnswer = Buffer.from(user.recoveryAnswer).toString('base64');
-  user.recoveryAnswer = encodedAnswer;
+  // encode recoveryAnswer for sending as request obj
+  user.recoveryAnswer = Buffer.from(user.recoveryAnswer).toString('base64');
   return superagent.post(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
     .send(user)
     .then((recieved) => {
       const dataRecieved = JSON.parse(recieved.text);
+      // receive new temp pw from back-end and decode
+      dataRecieved.temporaryPassword = Buffer.from(dataRecieved.temporaryPassword, 'base64').toString();
+      // Data now being properly received, and needs to be returned to landing method
+      // handleForgotMyPassword() for rendering on screen for user
       console.log('handleForgotMyPassword super-agent GET return:');
       console.log(dataRecieved);
     })

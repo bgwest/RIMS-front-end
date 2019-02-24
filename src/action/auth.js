@@ -94,7 +94,7 @@ export const handlePwResetAndLogin = user => (store) => {
 
 export const handleForgotMyPassword = user => (store) => {
   console.log(user);
-  return superagent.get(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
+  return superagent.post(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
     .send(user)
     .then((recieved) => {
       const dataRecieved = JSON.parse(recieved.text);

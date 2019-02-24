@@ -94,6 +94,15 @@ export const handlePwResetAndLogin = user => (store) => {
 
 export const handleForgotMyPassword = user => (store) => {
   console.log(user);
+  return superagent.get(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
+    .send(user)
+    .then((recieved) => {
+      console.log('handleForgotMyPassword super-agent GET return:');
+      console.log(recieved);
+    })
+    .catch((error) => {
+      return new Error(error);
+    });
 };
 
 // handle using token post refresh

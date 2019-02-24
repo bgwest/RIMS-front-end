@@ -11,6 +11,7 @@ export const POST_SUBASSY_BACKEND = '/subassemblies';
 export const POST_LOGO_BACKEND = '/company-logo/upload';
 export const GET_LOGO_BACKEND = '/company-logo';
 export const GET_PW_RESET_BACKEND = '/reset-pw';
+export const FORGOT_PW_BACKEND = '/forgot-pw';
 
 // front-end routes
 export const SITE_ROOT_FRONTEND = '/';

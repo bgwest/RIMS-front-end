@@ -97,8 +97,9 @@ export const handleForgotMyPassword = user => (store) => {
   return superagent.get(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
     .send(user)
     .then((recieved) => {
+      const dataRecieved = JSON.parse(recieved.text);
       console.log('handleForgotMyPassword super-agent GET return:');
-      console.log(recieved);
+      console.log(dataRecieved);
     })
     .catch((error) => {
       return new Error(error);

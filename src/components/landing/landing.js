@@ -17,6 +17,7 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.state.tempPw = false;
     // setup store with needed DB data
     this.props.pGetUsers();
   }
@@ -49,7 +50,21 @@ class Landing extends React.Component {
 
   handleForgotMyPassword = (user) => {
     console.log('action: handleForgotMyPassword()');
-    return this.props.handleForgotMyPassword(user);
+    return this.props.handleForgotMyPassword(user)
+    // if successful, action should return with temporary password to display for user
+      .then((tempPw) => {
+        const testComponent = <section className="tempPwDiv">
+          <p><span className="tempPwText">NOTE:</span></p>
+          <p>Save the below <span className="tempPw">pw</span> immediately.</p>
+          <p>You will be locked from your account if you do not retain it before the page refreshes.</p>
+          <p>We recommend heading to the reset-pw page and using this temporary pw immediately reset your account pw.</p>
+          <p className="tempPw">{tempPw}</p>
+        </section>;
+        this.setState({tempPw: testComponent});
+      })
+      .catch((error) => {
+        return error;
+      });
   };
 
   returnDefaultLogo = () => {
@@ -91,7 +106,11 @@ class Landing extends React.Component {
 
     const forgotPwJSX = <div div className='centered'>
       {this.returnDefaultLogo()}
-      <ResetPwForm type="forgot" onComplete={this.handleForgotMyPassword}/>
+      {this.state.tempPw ? this.state.tempPw : null}
+      {
+        !this.state.tempPw ?  <ResetPwForm type="forgot" onComplete={this.handleForgotMyPassword}/>
+        : null
+      }
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>

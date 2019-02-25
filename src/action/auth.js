@@ -106,6 +106,7 @@ export const handleForgotMyPassword = user => (store) => {
       // handleForgotMyPassword() for rendering on screen for user
       console.log('handleForgotMyPassword super-agent GET return:');
       console.log(dataRecieved);
+      return dataRecieved.temporaryPassword;
     })
     .catch((error) => {
       return new Error(error);

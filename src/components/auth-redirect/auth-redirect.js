@@ -63,6 +63,15 @@ class AuthRedirect extends React.Component {
       sendTo = routes.DASHBOARD_FRONTEND;
     }
 
+    // handle logout
+    if (token && path === routes.LOGOUT_FRONTEND) {
+      // set cookie to past to ensure expiry
+      const expire = new Date();
+      expire.setHours(expire.getHours() - 8);
+      document.cookie = `rims-cookie=dead;expires=${expire.toUTCString()};`;
+      window.location.reload();
+    }
+
     // additional catch:
     // only allow additional 'site traveling' if path is on approvedPaths list
     if (token && this.approvedPaths[path]) {

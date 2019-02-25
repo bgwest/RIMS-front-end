@@ -104,12 +104,10 @@ export const handleForgotMyPassword = user => (store) => {
       dataRecieved.temporaryPassword = Buffer.from(dataRecieved.temporaryPassword, 'base64').toString();
       // Data now being properly received, and needs to be returned to landing method
       // handleForgotMyPassword() for rendering on screen for user
-      console.log('handleForgotMyPassword super-agent GET return:');
-      console.log(dataRecieved);
       return dataRecieved.temporaryPassword;
     })
     .catch((error) => {
-      return new Error(error);
+      return error.response;
     });
 };
 

@@ -17,6 +17,7 @@ class Landing extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.state.tempPw = false;
     // setup store with needed DB data
     this.props.pGetUsers();
   }
@@ -47,23 +48,48 @@ class Landing extends React.Component {
       });
   };
 
+  handleForgotMyPassword = (user) => {
+    console.log('action: handleForgotMyPassword()');
+    return this.props.handleForgotMyPassword(user)
+    // if successful, action should return with temporary password to display for user
+      .then((tempPw) => {
+        const testComponent = <section className="tempPwDiv">
+          <p><span className="tempPwText">NOTE:</span></p>
+          <p>Save the below <span className="tempPw">pw</span> immediately.</p>
+          <p>You will be locked from your account if you do not retain it before the page refreshes.</p>
+          <p>We recommend heading to the reset-pw page and using this temporary pw immediately reset your account pw.</p>
+          <p className="tempPw">{tempPw}</p>
+        </section>;
+        this.setState({tempPw: testComponent});
+      })
+      .catch((error) => {
+        return error;
+      });
+  };
+
+  returnDefaultLogo = () => {
+    return <Link to='/'>
+      <img src={defaultLogo} className='logo'/>
+    </Link>;
+  };
+
   render() {
     const rootJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <Link to='/signup' className='centered button'>Create an account</Link>
       <br/>
       <Link to='/login' className='centered button'>Login</Link>
     </div>;
 
     const signUpJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <AuthForm type='signup' onComplete={this.handleSignup}/>
       <span className='base'>Already have an account?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <AuthForm type='login' onComplete={this.handleLogin}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/signup'>Create an account</Link>
@@ -71,7 +97,7 @@ class Landing extends React.Component {
     </div>;
 
     const resetPwJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <ResetPwForm type="reset" onComplete={this.handlePwResetAndLogin}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
@@ -79,16 +105,21 @@ class Landing extends React.Component {
     </div>;
 
     const forgotPwJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
-      <ResetPwForm type="forgot"/>
+      {this.returnDefaultLogo()}
+      {this.state.tempPw ? this.state.tempPw : null}
+      {
+        !this.state.tempPw ?  <ResetPwForm type="forgot" onComplete={this.handleForgotMyPassword}/>
+        : null
+      }
       <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>
       <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
       <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const forgotUnJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <p style={ {'text-align': 'center'} }>
         Send username to email is currently not supported. Come back soon.
       </p>
@@ -127,6 +158,7 @@ const mapDispatchToProps = dispatch => ({
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
+  handleForgotMyPassword: user => dispatch(authActions.handleForgotMyPassword(user)),
 });
 
 Landing.propTypes = {
@@ -137,6 +169,7 @@ Landing.propTypes = {
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
   handlePwResetAndLogin: PropTypes.func,
+  handleForgotMyPassword: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);

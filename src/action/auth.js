@@ -91,6 +91,25 @@ export const handlePwResetAndLogin = user => (store) => {
     });
 };
 
+export const handleForgotMyPassword = user => (store) => {
+  console.log(user);
+  // encode recoveryAnswer for sending as request obj
+  user.recoveryAnswer = Buffer.from(user.recoveryAnswer).toString('base64');
+  return superagent.post(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
+    .send(user)
+    .then((recieved) => {
+      const dataRecieved = JSON.parse(recieved.text);
+      // receive new temp pw from back-end and decode
+      dataRecieved.temporaryPassword = Buffer.from(dataRecieved.temporaryPassword, 'base64').toString();
+      // Data now being properly received, and needs to be returned to landing method
+      // handleForgotMyPassword() for rendering on screen for user
+      return dataRecieved.temporaryPassword;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
 // handle using token post refresh
 function findMeTheToken(strToFind) {
   const cookies = document.cookie.split(';');

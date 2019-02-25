@@ -19,7 +19,7 @@ class Landing extends React.Component {
     this.state = {};
     this.state.tempPw = false;
     // setup store with needed DB data
-    this.props.pGetUsers();
+    this.props.pGetUsers(this.props.token);
   }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)

@@ -1,6 +1,19 @@
 import superagent from 'superagent';
 import * as routes from '../routes';
 
+// how many rounds to base64 encode a value before sending
+const base64Rounds = 6;
+
+function encodeData(value, rounds) {
+  let ran = 0;
+  let encodedValue = value;
+  while (ran !== rounds) {
+    encodedValue = Buffer.from(encodedValue).toString('base64');
+    ran += 1;
+  }
+  return encodedValue;
+}
+
 export const set = users => ({
   type: 'USER_LIST_SET',
   payload: users,
@@ -16,14 +29,26 @@ export const partSet = parts => ({
   payload: parts,
 });
 
-export const getUsers = users => (store) => {
+export const getUsers = user => (store) => {
+  // testing token in store for username
+  // if username, then send with request to DB
+  console.log('testing for token in store w/ username:');
+  let { username } = user[0];
+  console.log(username);
+  username = encodeData(username, base64Rounds);
   return superagent.get(`${API_URL}${routes.GET_ACCOUNTS_BACKEND}`)
+    .set('arbitrary', username)
     .then((userData) => {
       userData = JSON.parse(userData.text);
+      // refactor so mapping only happens if user is admin
+      // otherwise, we want to immediately return !prohibited object
+      // this ensures only admin can generate a user list for account settings management
+      // this may not be the best way to accommodate this...
+      // look into handling rejection on back-end
       return userData.dbQuery.map((eachUser) => {
-        if (eachUser.username !== 'admin') {
+        if (eachUser.username === 'admin') {
           return eachUser;
-        } // else if admin...
+        } // else if NOT admin...
         return {
           _id: '!prohibited',
           isAdmin: '!prohibited',
@@ -33,7 +58,10 @@ export const getUsers = users => (store) => {
       });
     }).then((finalMap) => {
       return store.dispatch(set(finalMap));
-    }).catch(console.error);
+    }).catch((error) => {
+      console.log('action: getUsers() error:');
+      return error;
+    });
 };
 
 export const getSubAssy = subAssy => (store) => {
@@ -59,3 +87,5 @@ export const getParts = parts => (store) => {
       return store.dispatch(partSet(finalPartMap));
     }).catch(console.error);
 };
+
+

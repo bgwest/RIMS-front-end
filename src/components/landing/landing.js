@@ -52,23 +52,29 @@ class Landing extends React.Component {
     return this.props.handleForgotMyPassword(user);
   };
 
+  returnDefaultLogo = () => {
+    return <Link to='/'>
+      <img src={defaultLogo} className='logo'/>
+    </Link>;
+  };
+
   render() {
     const rootJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <Link to='/signup' className='centered button'>Create an account</Link>
       <br/>
       <Link to='/login' className='centered button'>Login</Link>
     </div>;
 
     const signUpJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <AuthForm type='signup' onComplete={this.handleSignup}/>
       <span className='base'>Already have an account?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
     </div>;
 
     const loginJSX = <div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <AuthForm type='login' onComplete={this.handleLogin}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/signup'>Create an account</Link>
@@ -76,7 +82,7 @@ class Landing extends React.Component {
     </div>;
 
     const resetPwJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <ResetPwForm type="reset" onComplete={this.handlePwResetAndLogin}/>
       <span className='base'>Help me with something else?</span>
       <Link className="spacing" to='/login'>Login to RIMS</Link>
@@ -84,16 +90,17 @@ class Landing extends React.Component {
     </div>;
 
     const forgotPwJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <ResetPwForm type="forgot" onComplete={this.handleForgotMyPassword}/>
       <span className='base'>Help me with something else?</span>
+      <Link className="spacing" to='/login'>Login to RIMS</Link>
       <Link className="spacing" to='/signup'>Signup for RIMS</Link>
       <Link className="spacing" to='/forgot-un'>Forgot Username</Link>
       <Link className="spacing" to='/reset-pw'>Reset password</Link>
     </div>;
 
     const forgotUnJSX = <div div className='centered'>
-      <img src={defaultLogo} className='logo'/>
+      {this.returnDefaultLogo()}
       <p style={ {'text-align': 'center'} }>
         Send username to email is currently not supported. Come back soon.
       </p>

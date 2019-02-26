@@ -4,6 +4,8 @@ import * as routes from '../routes';
 // how many rounds to base64 encode a value before sending
 const base64Rounds = 6;
 
+// once we move to HTTPS this will not be needed
+// more extra precaution for now in case we want to deploy product for demo as HTTP
 function encodeData(value, rounds) {
   let ran = 0;
   let encodedValue = value;
@@ -35,7 +37,10 @@ export const getUsers = user => (store) => {
   console.log('testing for token in store w/ username:');
   let { username } = user[0];
   console.log(username);
-  username = encodeData(username, base64Rounds);
+  let saltedUserName = START_SALT;
+  saltedUserName += username;
+  saltedUserName += END_SALT;
+  username = encodeData(saltedUserName, base64Rounds);
   return superagent.get(`${API_URL}${routes.GET_ACCOUNTS_BACKEND}`)
     .set('arbitrary', username)
     .then((userData) => {

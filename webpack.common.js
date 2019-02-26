@@ -19,6 +19,8 @@ webpackConfig.plugins = [
   }),
   new DefinePlugin({
     API_URL: JSON.stringify(process.env.API_URL),
+    START_SALT: JSON.stringify(process.env.START_SALT),
+    END_SALT: JSON.stringify(process.env.END_SALT),
   }),
 ];
 

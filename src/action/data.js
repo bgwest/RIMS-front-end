@@ -59,11 +59,13 @@ export const getUsers = user => (store) => {
           isAdmin: '!prohibited',
           recoveryQuestion: '!prohibited',
           username: '!prohibited',
+          accountType: '!prohibited',
         };
       });
     }).then((finalMap) => {
       return store.dispatch(set(finalMap));
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.log('action: getUsers() error:');
       return error;
     });
@@ -92,5 +94,3 @@ export const getParts = parts => (store) => {
       return store.dispatch(partSet(finalPartMap));
     }).catch(console.error);
 };
-
-

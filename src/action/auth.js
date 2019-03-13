@@ -27,12 +27,14 @@ export const signupRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
+      returnObject.accountType = response.body.accountType;
       updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
         recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
+        accountType: returnObject.accountType,
       }]));
     })
     .catch((error) => {
@@ -51,12 +53,14 @@ export const loginRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
+      returnObject.accountType = response.body.accountType;
       updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
         recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
+        accountType: returnObject.accountType,
       }]));
     })
     .catch((error) => {

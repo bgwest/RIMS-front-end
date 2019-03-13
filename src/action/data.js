@@ -32,11 +32,16 @@ export const partSet = parts => ({
 });
 
 export const getUsers = user => (store) => {
-  // testing token in store for username
-  // if username, then send with request to DB
-  console.log('testing for token in store w/ username:');
-  let { username } = user[0];
-  console.log(username);
+  let username;
+  if (!user) {
+    // this just ensure that the username isn't blank so the getUser request fires
+    // additional role security will need to be added to back-end moving forward
+    username = 'landing';
+  } else {
+    // if username token in store, then send with request to DB
+    username = user[0].username; // eslint-disable-line
+  }
+
   let saltedUserName = START_SALT;
   saltedUserName += username;
   saltedUserName += END_SALT;

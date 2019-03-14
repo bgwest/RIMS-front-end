@@ -21,7 +21,7 @@ class Landing extends React.Component {
     // setup store with needed DB data
     //   this just ensure that the username isn't blank so the getUser request fires
     //   additional role security will need to be added to back-end moving forward
-    this.props.pGetUsers(this.props.token || [ { username: 'landing' }]);
+    this.props.pGetUsers(this.props.token || [ { username: 'landing' } ]);
     this.props.pGetRoles();
   }
   handleLogin = (user) => {

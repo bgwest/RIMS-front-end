@@ -21,6 +21,11 @@ export const set = users => ({
   payload: users,
 });
 
+export const rolesSet = roles => ({
+  type: 'ROLES_SET',
+  payload: roles,
+});
+
 export const subAssySet = subAssys => ({
   type: 'SUB_ASSY_SET',
   payload: subAssys,
@@ -72,6 +77,16 @@ export const getUsers = user => (store) => {
     })
     .catch((error) => {
       console.log('action: getUsers() error:');
+      return error;
+    });
+};
+
+export const getPerms = perms => (store) => {
+  return superagent.get(`${API_URL}${routes.GET_ROLES_BACKEND}`)
+    .then((roles) => {
+      return store.dispatch(rolesSet(roles));
+    })
+    .catch((error) => {
       return error;
     });
 };

@@ -81,7 +81,7 @@ export const getUsers = user => (store) => {
     });
 };
 
-export const getPerms = perms => (store) => {
+export const getRoles = perms => (store) => {
   return superagent.get(`${API_URL}${routes.GET_ROLES_BACKEND}`)
     .then((roles) => {
       return store.dispatch(rolesSet(roles));

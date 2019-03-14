@@ -37,22 +37,14 @@ export const partSet = parts => ({
 });
 
 export const getUsers = user => (store) => {
-  let username;
-  if (!user) {
-    // this just ensure that the username isn't blank so the getUser request fires
-    // additional role security will need to be added to back-end moving forward
-    username = 'landing';
-  } else {
-    // if username token in store, then send with request to DB
-    username = user[0].username; // eslint-disable-line
-  }
-
+  const { username } = user[0];
+  // if username token in store, then send with request to DB
   let saltedUserName = START_SALT;
   saltedUserName += username;
   saltedUserName += END_SALT;
-  username = encodeData(saltedUserName, base64Rounds);
+  saltedUserName = encodeData(saltedUserName, base64Rounds);
   return superagent.get(`${API_URL}${routes.GET_ACCOUNTS_BACKEND}`)
-    .set('arbitrary', username)
+    .set('arbitrary', saltedUserName)
     .then((userData) => {
       userData = JSON.parse(userData.text);
       // refactor so mapping only happens if user is admin
@@ -60,18 +52,12 @@ export const getUsers = user => (store) => {
       // this ensures only admin can generate a user list for account settings management
       // this may not be the best way to accommodate this...
       // look into handling rejection on back-end
-      return userData.dbQuery.map((eachUser) => {
-        if (eachUser.username === 'admin') {
+      if (username === 'admin' || username === 'landing') {
+        return userData.dbQuery.map((eachUser) => {
           return eachUser;
-        } // else if NOT admin...
-        return {
-          _id: '!prohibited',
-          isAdmin: '!prohibited',
-          recoveryQuestion: '!prohibited',
-          username: '!prohibited',
-          accountType: '!prohibited',
-        };
-      });
+        });
+      } // else, if user is !admin
+      return { '!prohibited': '!prohibited' };
     }).then((finalMap) => {
       return store.dispatch(set(finalMap));
     })

@@ -37,7 +37,7 @@ export const partSet = parts => ({
 });
 
 export const getUsers = user => (store) => {
-  const { username } = user[0];
+  const { username, accountType } = user[0];
   // if username token in store, then send with request to DB
   let saltedUserName = START_SALT;
   saltedUserName += username;
@@ -47,12 +47,8 @@ export const getUsers = user => (store) => {
     .set('arbitrary', saltedUserName)
     .then((userData) => {
       userData = JSON.parse(userData.text);
-      // refactor so mapping only happens if user is admin
-      // otherwise, we want to immediately return !prohibited object
-      // this ensures only admin can generate a user list for account settings management
-      // this may not be the best way to accommodate this...
-      // look into handling rejection on back-end
-      if (username === 'admin' || username === 'landing') {
+      // this condition can be improved...
+      if (username === 'landing' || accountType.sudo) {
         return userData.dbQuery.map((eachUser) => {
           return eachUser;
         });

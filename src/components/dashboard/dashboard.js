@@ -18,9 +18,7 @@ class Dashboard extends React.Component {
 
     this.state.tablesToRender = null;
     this.state.unassociatedParts = null;
-
-    // refresh users ... may need to rework timing in future but will be fine for now
-    this.props.pGetUsers();
+    this.state.getUsersRan = false;
 
     // waits to load data-table until props have refreshed
     // this is for user experience and to combat stale data
@@ -88,9 +86,33 @@ class Dashboard extends React.Component {
     this.setState({ tablesToRender: toRender});
   }
 
+  waitForTokenToGetUsers = (token) => {
+    // refresh user list ... based on a users privilege
+    // declaring this.state.getUsersRan here prevents from this method being called more than once
+    // while we wait for the promise to return :)
+    this.state.getUsersRan = true;
+    return this.props.pGetUsers(token)
+      .then((finished) => {
+        console.log('waitForTokenToGetUsers: FINISHED');
+        return this.setState({...this.state});
+      }).catch((error) => {
+        console.log('waitForTokenToGetUsers(): ERROR');
+        return error;
+      });
+  };
+
   render() {
     const { DASHBOARD_FRONTEND, BRANDING_FRONTEND } = routes;
     const { tablesToRender } = this.state;
+    const { token } = this.props;
+    // this can be handled better in the future
+    // What is happening?
+    // Here, we wait for token to be available which has the current username of
+    // logged in user. Once available, call pGetUsers and DB will determine if that user
+    // is privileged to that information. This format can be followed for all data retrials
+    if (token && !this.state.getUsersRan) {
+      this.waitForTokenToGetUsers(token);
+    }
     return (
         <div className='centered'>
           <NavUi location={this.props.location}/>
@@ -113,7 +135,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
-  pGetUsers: users => dispatch(dataActions.getUsers(users)),
+  pGetUsers: user => dispatch(dataActions.getUsers(user)),
 });
 
 Dashboard.propTypes = {

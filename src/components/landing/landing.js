@@ -19,7 +19,10 @@ class Landing extends React.Component {
     this.state = {};
     this.state.tempPw = false;
     // setup store with needed DB data
-    this.props.pGetUsers();
+    //   this just ensure that the username isn't blank so the getUser request fires
+    //   additional role security will need to be added to back-end moving forward
+    this.props.pGetUsers(this.props.token || [ { username: 'landing' } ]);
+    this.props.pGetRoles();
   }
   handleLogin = (user) => {
     return this.props.pDoLogin(user)
@@ -156,6 +159,7 @@ const mapDispatchToProps = dispatch => ({
   pDoLogin: user => dispatch(authActions.loginRequest(user)),
   handlePwResetAndLogin: user => dispatch(authActions.handlePwResetAndLogin(user)),
   pGetUsers: users => dispatch(dataActions.getUsers(users)),
+  pGetRoles: roles => dispatch(dataActions.getRoles(roles)),
   pGetSubAssy: subAssy => dispatch(dataActions.getSubAssy(subAssy)),
   pGetParts: parts => dispatch(dataActions.getParts(parts)),
   handleForgotMyPassword: user => dispatch(authActions.handleForgotMyPassword(user)),
@@ -166,6 +170,7 @@ Landing.propTypes = {
   pDoSignUp: PropTypes.func,
   pDoLogin: PropTypes.func,
   pGetUsers: PropTypes.func,
+  pGetRoles: PropTypes.func,
   pGetSubAssy: PropTypes.func,
   pGetParts: PropTypes.func,
   handlePwResetAndLogin: PropTypes.func,

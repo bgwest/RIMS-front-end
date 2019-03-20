@@ -25,6 +25,7 @@ class AuthForm extends React.Component {
       recoveryAnswerPristine: true,
       recoveryAnswerError: 'A question is required',
       isAdmin: false,
+      accountType: {blank: 'need to integrate redux store with back-end roles schema'},
     };
 
     // making a note that these should really come from the database

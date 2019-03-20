@@ -10,6 +10,13 @@ export const remove = () => ({
   type: 'TOKEN_REMOVE',
 });
 
+function updateCookie(token) {
+  const expire = new Date();
+  expire.setHours(expire.getHours() + 4);
+  document.cookie = `rims-cookie=${token}; expires=${expire.toUTCString()};`;
+  return document.cookie;
+}
+
 export const signupRequest = user => (store) => {
   return superagent.post(`${API_URL}${routes.SIGNUP_BACKEND}`)
     .send(user)
@@ -19,15 +26,14 @@ export const signupRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      returnObject.accountType = response.body.accountType;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
         recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
+        accountType: returnObject.accountType,
       }]));
     })
     .catch((error) => {
@@ -46,15 +52,14 @@ export const loginRequest = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      returnObject.accountType = response.body.accountType;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
         recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
+        accountType: returnObject.accountType,
       }]));
     })
     .catch((error) => {
@@ -81,10 +86,8 @@ export const handlePwResetAndLogin = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      returnObject.accountType = response.body.accountType;
+      updateCookie(returnObject.token);
     })
     .catch((error) => {
       console.log('handlePwResetAndLogin action error:');
@@ -93,9 +96,28 @@ export const handlePwResetAndLogin = user => (store) => {
     });
 };
 
+export const handleForgotMyPassword = user => (store) => {
+  console.log(user);
+  // encode recoveryAnswer for sending as request obj
+  user.recoveryAnswer = Buffer.from(user.recoveryAnswer).toString('base64');
+  return superagent.post(`${API_URL}${routes.FORGOT_PW_BACKEND}`)
+    .send(user)
+    .then((recieved) => {
+      const dataRecieved = JSON.parse(recieved.text);
+      // receive new temp pw from back-end and decode
+      dataRecieved.temporaryPassword = Buffer.from(dataRecieved.temporaryPassword, 'base64').toString();
+      // Data now being properly received, and needs to be returned to landing method
+      // handleForgotMyPassword() for rendering on screen for user
+      return dataRecieved.temporaryPassword;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+};
+
 // handle using token post refresh
 function findMeTheToken(strToFind) {
-  const cookies = document.cookie.split('; ');
+  const cookies = document.cookie.split(';');
   let rimsToken = null;
   let prop = null; // eslint-disable-line no-unused-vars
   let key = null;
@@ -122,15 +144,14 @@ export const tokenRefreshOrReject = user => (store) => {
       returnObject.username = response.body.username;
       returnObject.recoveryQuestion = response.body.recoveryQuestion;
       returnObject.isAdmin = response.body.isAdmin;
-      const expire = new Date();
-      expire.setHours(expire.getHours() + 4);
-      document.cookie = `rims-cookie=${returnObject.token}`;
-      document.cookie = `expires=${expire.toUTCString()};`;
+      returnObject.accountType = response.body.accountType;
+      updateCookie(returnObject.token);
       return store.dispatch(tokenSet([{
         token: returnObject.token,
         username: returnObject.username,
         recoveryQuestion: returnObject.recoveryQuestion,
         isAdmin: returnObject.isAdmin,
+        accountType: returnObject.accountType,
       }]));
     })
     .catch((error) => {
